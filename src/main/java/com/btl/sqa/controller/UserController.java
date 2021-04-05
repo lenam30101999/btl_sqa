@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,6 +62,51 @@ public class UserController {
     return "home";
   }
 
+  @PostMapping(value = "/updateStudent")
+  public String updateStudent(@Valid @ModelAttribute("student") Student student, Model model) {
+    model.addAttribute("student", student);
+    studentService.updateStudent(student);
+    List<Student> students = studentService.getAllStudent();
+    model.addAttribute("students", students);
+    return "listSV";
+  }
+
+  @PostMapping(value = "/inputPoint")
+  public String inputPoint(@Valid @ModelAttribute("student") Student student, Model model) {
+    model.addAttribute("student", student);
+    studentService.updateStudent(student);
+    List<Student> students = studentService.getAllStudent();
+    model.addAttribute("students", students);
+    return "listSV";
+  }
+
+  @PostMapping(value = "/updateLecturer")
+  public String updateLecturer(@Valid @ModelAttribute("lecturer") Lecturer lecturer, Model model) {
+    model.addAttribute("lecturer", lecturer);
+    lecturerService.updateLecturerInfo(lecturer);
+    List<Lecturer> lecturers = lecturerService.getAllLecturer();
+    model.addAttribute("lecturers", lecturers);
+    return "listGV";
+  }
+
+  @GetMapping(value = "/deleteStudent")
+  public String deleteStudent(@ModelAttribute("student") Student student, Model model) {
+    model.addAttribute("student", student);
+    studentService.deleteStudent(student.getId());
+    List<Student> students = studentService.getAllStudent();
+    model.addAttribute("students", students);
+    return "listSV";
+  }
+
+  @GetMapping(value = "/deleteLecturer")
+  public String deleteLecturer(@ModelAttribute("lecturer") Lecturer lecturer, Model model) {
+    model.addAttribute("lecturer", lecturer);
+    lecturerService.deleteLecturer(lecturer.getId());
+    List<Lecturer> lecturers = lecturerService.getAllLecturer();
+    model.addAttribute("lecturers", lecturers);
+    return "listGV";
+  }
+
   @GetMapping("/getAllStudent")
   public String getAllStudent(Model model) {
     List<Student> students = studentService.getAllStudent();
@@ -75,7 +121,7 @@ public class UserController {
     return "listGV";
   }
 
-  //----------INIT VIEW----------//
+  //================== INIT VIEW ==================//
 
   @GetMapping("/")
   public String login(Model model) {

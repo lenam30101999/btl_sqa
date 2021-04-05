@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Log4j2
 @Service
@@ -25,6 +26,39 @@ public class LecturerService extends BaseService{
       log.debug(e);
     }
     return null;
+  }
+
+  public Lecturer updateLecturerInfo(Lecturer lecturer){
+    try {
+      Lecturer updated = getLecturer(lecturer.getId());
+      if (Objects.nonNull(updated)){
+        updated = Lecturer.builder()
+                .user(lecturer.getUser())
+                .faculty(lecturer.getFaculty())
+                .subjects(lecturer.getSubjects())
+                .build();
+        updated = lecturerRepository.saveAndFlush(updated);
+        return updated;
+      }
+    }catch (Exception e){
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  public void deleteLecturer(int lecturerId) {
+    try {
+      Lecturer lecturer = getLecturer(lecturerId);
+      if (Objects.nonNull(lecturer)){
+        lecturerRepository.deleteById(lecturerId);
+      }
+    }catch (Exception e) {
+      log.debug(e);
+    }
+  }
+
+  public Lecturer getLecturer(int lecturerId){
+    return lecturerRepository.findById(lecturerId).orElse(null);
   }
 
   public List<Lecturer> getAllLecturer(){

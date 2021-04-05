@@ -17,14 +17,21 @@ public class Point implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
+
+  @Column(name = "diem_cc")
   private float diemCC;
-  private float percentCC;
+
+  @Column(name = "diem_th")
+  private float diemTH;
+
+  @Column(name = "diem_btl")
   private float diemBTL;
-  private float percentBTL;
+
+  @Column(name = "diem_kt")
   private float diemKT;
-  private float percentKT;
+
+  @Column(name = "diem_cuoi_ky")
   private float diemCuoiKy;
-  private float percentCuoiKy;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "subjectId", nullable = false)
