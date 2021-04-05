@@ -1,11 +1,14 @@
 package com.btl.sqa.controller;
 
 import com.btl.sqa.dto.MessageResponse;
+import com.btl.sqa.dto.PointDTO;
 import com.btl.sqa.dto.UserDTO;
 import com.btl.sqa.model.Lecturer;
+import com.btl.sqa.model.Semester;
 import com.btl.sqa.model.Student;
 import com.btl.sqa.model.User;
 import com.btl.sqa.service.LecturerService;
+import com.btl.sqa.service.SemesterService;
 import com.btl.sqa.service.StudentService;
 import com.btl.sqa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,7 @@ public class UserController {
   @Autowired private UserService userService;
   @Autowired private StudentService studentService;
   @Autowired private LecturerService lecturerService;
+  @Autowired private SemesterService semesterService;
 
   @PostMapping(value = "/")
   public ModelAndView login(@ModelAttribute("user") User user, Model model) {
@@ -72,11 +76,13 @@ public class UserController {
   }
 
   @PostMapping(value = "/inputPoint")
-  public String inputPoint(@Valid @ModelAttribute("student") Student student, Model model) {
-    model.addAttribute("student", student);
-    studentService.updateStudent(student);
+  public String inputPoint(@Valid @ModelAttribute("pointDTO") PointDTO pointDTO, Model model) {
+    model.addAttribute("pointDTO", pointDTO);
+    studentService.inputPoint(pointDTO);
+    List<Semester> semesters = semesterService.getAllSemester();
     List<Student> students = studentService.getAllStudent();
     model.addAttribute("students", students);
+    model.addAttribute("semesters", semesters);
     return "listSV";
   }
 
