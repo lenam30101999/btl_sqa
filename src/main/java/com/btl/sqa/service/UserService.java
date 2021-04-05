@@ -13,10 +13,10 @@ public class UserService extends BaseService{
 
   public User userLogin(String username, String password) {
     try {
-      return userRepository.findUserByUsernameIgnoreCaseAndPassword(username, password).orElse(null);
+      return userRepository.findUserByUsernameIgnoreCaseAndPassword(username, password);
     }catch (Exception e){
       log.error(e);
-      return null;
+      return new User();
     }
   }
 }

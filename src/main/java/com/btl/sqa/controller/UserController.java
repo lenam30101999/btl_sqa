@@ -19,33 +19,35 @@ public class UserController {
   @Autowired
   private UserService userService;
 
-  @PostMapping(value = "/")
+  @PostMapping(value = "/login")
   public ModelAndView login(@ModelAttribute("user") User user, Model model) {
     ModelMap modelMap = new ModelMap();
     model.addAttribute("user", user);
     User result = userService.userLogin(user.getUsername(), user.getPassword());
-    if (Objects.nonNull(result)){
-      modelMap.addAttribute("user", result);
-      return modelAndView(result, modelMap);
-    }else return new ModelAndView("index");
+    modelMap.addAttribute("user", result);
+    return modelAndView(result, modelMap);
   }
 
-    @GetMapping("/")
+    @GetMapping("/login")
     public String login(Model model) {
       model.addAttribute("user", new User());
     return "index";
   }
 
   private ModelAndView modelAndView(User result, ModelMap modelMap){
-    switch (result.getRole()) {
-      case "ADMIN":
-        return new ModelAndView("admin", modelMap);
-      case "LECTURER":
-        return new ModelAndView("lecturer", modelMap);
-      case "STUDENT":
-        return new ModelAndView("student", modelMap);
-      default:
-        return new ModelAndView("index");
+    if (Objects.isNull(result)){
+      return new ModelAndView("index");
+    }else {
+      switch (result.getRole()) {
+        case "ADMIN":
+          return new ModelAndView("admin", modelMap);
+        case "LECTURER":
+          return new ModelAndView("lecturer", modelMap);
+        case "STUDENT":
+          return new ModelAndView("student", modelMap);
+        default:
+          return new ModelAndView("index");
+      }
     }
   }
 }
