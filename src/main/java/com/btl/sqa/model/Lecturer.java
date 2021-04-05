@@ -1,9 +1,6 @@
 package com.btl.sqa.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -15,14 +12,15 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Lecturer {
 
   @Id
   private int id;
 
-  @OneToOne(fetch = FetchType.LAZY, optional = false)
-  @PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id")
-  @NotFound(action = NotFoundAction.IGNORE)
+  @MapsId
+  @OneToOne
+  @JoinColumn(name = "id")
   private User user;
 
   private String faculty;

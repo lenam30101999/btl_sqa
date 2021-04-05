@@ -18,26 +18,25 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <!--/*@thymesVar id="user" type="com.btl.sqa.model.User"*/-->
-                        <form class="form-signin needs-validation" action="#" th:action="@{/login}" th:object="${user}" method="post"
+                        <form class="form-signin needs-validation" action="#" th:action="@{/}" th:object="${user}" method="post"
                               novalidate>
                             <fieldset>
                                 <div class="input-group has-validation">
                                     <label for="inputStudentId" class="sr-only">Mã sinh viên</label>
                                     <input type="text" name="studentId" id="inputStudentId" class="form-control" placeholder="Mã sinh viên" required
                                            autofocus th:field="*{username}">
-                                    <div class="invalid-feedback text-left">
-                                        Vui lòng nhập mã sinh viên
-                                    </div>
                                 </div>
                                 <div class="input-group has-validation">
                                     <label for="inputPassword" class="sr-only">Mật khẩu</label>
                                     <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Mật khẩu"
                                            style="margin-bottom: 0" th:field="*{password}" required>
-                                    <div class="invalid-feedback text-left">
-                                        Vui lòng nhập mật khẩu
-                                    </div>
                                 </div>
                                 <input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
+                                <div class="mt-3 alert alert-danger" role="alert" th:if="${errorMessage != null}">
+                                        <!--/*@thymesVar id="errorMessage" type="com.btl.sqa.dto.MessageResponse"*/-->
+                                        <div th:text="${errorMessage.getErrorMessage()}"></div>
+                                </div>
+                                <div class="mt-3 alert alert-danger" role="alert" th:if="${notLoggedIn != null && notLoggedIn == true}">Vui lòng đăng nhập để sử dụng hệ thống</div>
                             </fieldset>
                         </form>
                     </div>
