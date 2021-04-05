@@ -14,7 +14,6 @@ import java.sql.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "user")
-@ToString
 public class User implements Serializable {
 
   @Id

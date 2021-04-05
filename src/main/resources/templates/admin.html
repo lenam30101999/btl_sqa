@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Success</title>
+</head>
+<body>
+${message}
+<br/>
+<form class="form-signin needs-validation" action="#" th:action="@{/}" th:object="${user}" method="post" novalidate>
+    <output type="text" name="userName" value="James Carrot" th:value="${user.getName()}">Welcome ADMIN</output>
+</form>
+</body>
+</html>
