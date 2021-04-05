@@ -1,19 +1,18 @@
 package com.btl.sqa.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "user")
+@Builder
+@ToString
 public class User implements Serializable {
 
   @Id
@@ -21,25 +20,32 @@ public class User implements Serializable {
   private int id;
 
   @Column(name = "name", nullable = false)
-  protected String name;
+  private String name;
 
-  @Column(name = "Username", nullable = false)
-  protected String username;
+  @Column(name = "Username", nullable = false, unique = true)
+  private String username;
 
   @Column(name = "Password", nullable = false)
-  protected String password;
+  private String password;
 
   @Column(name = "Dob")
-  protected Date dob;
+  private Date dob;
 
-  protected String phoneNo;
+  @Column(name = "phoneNo", unique = true)
+  private String phoneNo;
 
   @Column(name = "role", nullable = false)
-  protected String role;
+  private String role;
 
-  protected String gender;
+  private String gender;
 
-  protected String address;
+  private String address;
 
-  protected String email;
+  private String email;
+
+  @OneToOne(mappedBy = "user")
+  private Student student;
+
+  @OneToOne(mappedBy = "user")
+  private Lecturer lecturer;
 }
