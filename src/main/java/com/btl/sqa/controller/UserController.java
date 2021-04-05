@@ -60,8 +60,14 @@ public class UserController {
 
     if (userDTO.getRole().equalsIgnoreCase("STUDENT")){
       studentService.addStudent(userDTO);
+      List<Student> students = studentService.getAllStudent();
+      model.addAttribute("students", students);
+      return "listSV";
     }else if (userDTO.getRole().equalsIgnoreCase("LECTURER")){
       lecturerService.addLecturer(userDTO);
+      List<Lecturer> lecturers = lecturerService.getAllLecturer();
+      model.addAttribute("lecturers", lecturers);
+      return "listGV";
     }
     return "home";
   }
