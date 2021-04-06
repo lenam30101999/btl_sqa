@@ -13,22 +13,20 @@ import java.util.Objects;
 @Service
 public class LecturerService extends BaseService{
 
-  public Lecturer addLecturer(UserDTO userDTO) {
+  public void addLecturer(UserDTO userDTO) {
     try {
       User user = saveUser(userDTO);
       Lecturer lecturer = Lecturer.builder()
           .user(user)
           .faculty(userDTO.getFacultyName())
           .build();
-      lecturer = lecturerRepository.save(lecturer);
-      return lecturer;
+      lecturerRepository.save(lecturer);
     }catch (Throwable e){
       log.debug(e);
     }
-    return null;
   }
 
-  public Lecturer updateLecturerInfo(Lecturer lecturer){
+  public void updateLecturerInfo(Lecturer lecturer){
     try {
       Lecturer updated = getLecturer(lecturer.getId());
       if (Objects.nonNull(updated)){
@@ -37,13 +35,11 @@ public class LecturerService extends BaseService{
                 .faculty(lecturer.getFaculty())
                 .subjects(lecturer.getSubjects())
                 .build();
-        updated = lecturerRepository.saveAndFlush(updated);
-        return updated;
+        lecturerRepository.saveAndFlush(updated);
       }
     }catch (Exception e){
       e.printStackTrace();
     }
-    return null;
   }
 
   public void deleteLecturer(int lecturerId) {

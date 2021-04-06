@@ -3,14 +3,9 @@ package com.btl.sqa.controller;
 import com.btl.sqa.dto.MessageResponse;
 import com.btl.sqa.dto.PointDTO;
 import com.btl.sqa.dto.UserDTO;
-import com.btl.sqa.model.Lecturer;
-import com.btl.sqa.model.Semester;
-import com.btl.sqa.model.Student;
-import com.btl.sqa.model.User;
-import com.btl.sqa.service.LecturerService;
-import com.btl.sqa.service.SemesterService;
-import com.btl.sqa.service.StudentService;
-import com.btl.sqa.service.UserService;
+import com.btl.sqa.model.*;
+import com.btl.sqa.model.Class;
+import com.btl.sqa.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
@@ -36,9 +32,10 @@ public class UserController {
   @Autowired private StudentService studentService;
   @Autowired private LecturerService lecturerService;
   @Autowired private SemesterService semesterService;
+  @Autowired private SubjectService subjectService;
 
   @PostMapping(value = "/")
-  public ModelAndView login(@ModelAttribute("user") User user, Model model) {
+  public ModelAndView login(@ModelAttribute("user") User user, Model model, HttpSession session) {
     ModelMap modelMap = new ModelMap();
     model.addAttribute("user", user);
     User data = userService.userLogin(user.getUsername(), user.getPassword());
@@ -51,7 +48,7 @@ public class UserController {
       modelMap.addAttribute("errorMessage", errorMessage);
       return new ModelAndView("index", modelMap);
     }
-    return modelAndView(data, modelMap);
+    return modelAndView(data, modelMap, session);
   }
 
   @PostMapping(value = "/create")
@@ -85,10 +82,9 @@ public class UserController {
   public String inputPoint(@Valid @ModelAttribute("pointDTO") PointDTO pointDTO, Model model) {
     model.addAttribute("pointDTO", pointDTO);
     studentService.inputPoint(pointDTO);
-    List<Semester> semesters = semesterService.getAllSemester();
     List<Student> students = studentService.getAllStudent();
+
     model.addAttribute("students", students);
-    model.addAttribute("semesters", semesters);
     return "listSV";
   }
 
@@ -146,8 +142,22 @@ public class UserController {
     return "student";
   }
 
+  @GetMapping("/inputPoint")
+  public String initViewInputPoint(Model model, HttpSession session) {
+    Integer userId = (Integer) session.getAttribute("userId");
+    String name = userService.getNameOfUser(userId);
+    List<Semester> semesters = semesterService.getAllSemester();
+    List<Subject> subjects = subjectService.getClassByStudentId(userId);
 
-  private ModelAndView modelAndView(User result, ModelMap modelMap){
+    model.addAttribute("name", name);
+    model.addAttribute("semesters", semesters);
+    model.addAttribute("subjects", subjects);
+    return "point";
+  }
+
+
+  private ModelAndView modelAndView(User result, ModelMap modelMap, HttpSession session){
+    session.setAttribute("userId", result.getId());
     modelMap.addAttribute("user", result);
     switch (result.getRole()) {
       case "ADMIN":

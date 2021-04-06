@@ -29,4 +29,9 @@ public class UserService extends BaseService{
       return null;
     }
   }
+
+  public String getNameOfUser(int userId){
+    User user = userRepository.findUserById(userId);
+    return user.getName();
+  }
 }

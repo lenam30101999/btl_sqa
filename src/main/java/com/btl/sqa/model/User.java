@@ -12,7 +12,6 @@ import java.util.Date;
 @Entity
 @Table(name = "user")
 @Builder
-@ToString
 public class User implements Serializable {
 
   @Id
@@ -43,9 +42,9 @@ public class User implements Serializable {
 
   private String email;
 
-  @OneToOne(mappedBy = "user")
+  @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
   private Student student;
 
-  @OneToOne(mappedBy = "user")
+  @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
   private Lecturer lecturer;
 }

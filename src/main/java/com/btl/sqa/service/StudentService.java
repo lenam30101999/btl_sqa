@@ -17,7 +17,7 @@ import java.util.Objects;
 @Service
 public class StudentService extends BaseService{
 
-  public Student addStudent(UserDTO studentDTO) {
+  public void addStudent(UserDTO studentDTO) {
     User user = saveUser(studentDTO);
     try {
       Student student = Student.builder()
@@ -29,15 +29,13 @@ public class StudentService extends BaseService{
           .points(null)
           .build();
 
-      student = studentRepository.save(student);
-      return student;
+      studentRepository.save(student);
     }catch (Exception e) {
       log.debug(e);
     }
-    return null;
   }
 
-  public Student updateStudent(Student student){
+  public void updateStudent(Student student){
     try {
       Student updated = getStudent(student.getId());
          if (Objects.nonNull(updated)){
@@ -50,13 +48,11 @@ public class StudentService extends BaseService{
                      .points(student.getPoints())
                      .build();
 
-           updated = studentRepository.saveAndFlush(updated);
-           return updated;
+           studentRepository.saveAndFlush(updated);
          }
     }catch (Exception e) {
       log.debug(e);
     }
-    return null;
   }
 
   public Student inputPoint(PointDTO pointDTO){
