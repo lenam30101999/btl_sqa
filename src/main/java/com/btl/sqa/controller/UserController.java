@@ -55,7 +55,7 @@ public class UserController {
       studentService.addStudent(userDTO);
       List<Student> students = studentService.getAllStudent();
       model.addAttribute("students", students);
-      return "listSV";
+      return "DanhSachSinhVien";
     }else if (userDTO.getRole().equalsIgnoreCase("LECTURER")){
       lecturerService.addLecturer(userDTO);
       List<Lecturer> lecturers = lecturerService.getAllLecturer();
@@ -71,7 +71,7 @@ public class UserController {
     studentService.updateStudent(student);
     List<Student> students = studentService.getAllStudent();
     model.addAttribute("students", students);
-    return "listSV";
+    return "DanhSachSinhVien";
   }
 
   @PostMapping(value = "/inputPoint")
@@ -80,7 +80,7 @@ public class UserController {
     studentService.inputPoint(pointDTO);
     List<Student> students = studentService.getAllStudent();
     model.addAttribute("students", students);
-    return "listSV";
+    return "DanhSachSinhVien";
   }
 
   @PostMapping(value = "/updateLecturer")
@@ -98,7 +98,7 @@ public class UserController {
     studentService.deleteStudent(student.getId());
     List<Student> students = studentService.getAllStudent();
     model.addAttribute("students", students);
-    return "listSV";
+    return "DanhSachSinhVien";
   }
 
   @GetMapping(value = "/deleteLecturer")
@@ -114,7 +114,7 @@ public class UserController {
   public String getAllStudent(Model model) {
     List<Student> students = studentService.getAllStudent();
     model.addAttribute("students", students);
-    return "listSV";
+    return "DanhSachSinhVien";
   }
 
   @GetMapping("/getAllLecturer")
@@ -125,9 +125,9 @@ public class UserController {
   }
 
   @PostMapping("/configPoint")
-  public String configPoint(Model model) {
-//    List<Subject> subjects = (List<Subject>) model.getAttribute("subjects");
-
+  public String configPoint(@ModelAttribute("subjects") List<Subject> subjects, Model model) {
+    model.addAttribute("subjects", subjects);
+    subjectService.updatePercent(subjects);
     return "point";
   }
 
@@ -179,11 +179,11 @@ public class UserController {
     modelMap.addAttribute("user", result);
     switch (result.getRole()) {
       case "ADMIN":
-        return new ModelAndView("admin", modelMap);
+        return new ModelAndView("TrangChuQuanLy", modelMap);
       case "LECTURER":
-        return new ModelAndView("lecturer", modelMap);
+        return new ModelAndView("trangChuSqa", modelMap);
       case "STUDENT":
-        return new ModelAndView("student", modelMap);
+        return new ModelAndView("BangDiemCaNhanToanKhoa", modelMap);
       default:
         return new ModelAndView("index");
     }

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Title</title>
+    <style>
+        .bottom-toolbar{
+            position: relative;
+            left: 0px;
+            width: 100%;
+            bottom: 0px;
+            padding: 10px;
+            background-color: silver;
+            text-align: right;
+        }
+        html, body
+        {
+            height: 100%;
+        }
+        .sticky {
+            position: fixed;
+            top: 0;
+        }
+        .header {
+            height: 250px;
+            background-color: #fff;
+            box-shadow: 0px 9px 12px 0px rgb(0 0 0 );
+        }
+        .btn-primary {
+            margin: 10px;
+        }
+        .nav-link {
+            color: black;
+        }
+        .nav-item {
+            margin: 10px;
+        }
+        .nav-bar {
+            margin-top: 10px;
+            box-shadow: 0px 9px 12px 0px rgb(0 0 0 );
+            height: 100%;
+        }
+        .head-body {
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+        .data-body {
+            border-bottom: 2px solid;
+            border-left: 2px solid;
+            border-right: 2px solid;
+        }
+    </style>
+</head>
+<body>
+    <div style="height: 100%">
+    <div class="header">
+        <div style="display: inline-block; border: 1px solid; margin: 20px">
+            <img src="https://eduplus.edu.vn/wp-content/uploads/2020/11/26991863_400942947032629_2294451261479869859_n.jpg" style="height: 200px">
+        </div>
+        <div style="display: inline-block">
+            <div style="font-size: x-large">Học viện Công nghệ Bưu chính Viễn thông</div>
+            <div style="font-size: x-large">Posts and Telecommunications Institute of Technology</div>
+            <div style="font-size: x-large">Cổng đăng ký học tín chỉ</div>
+        </div>
+        <div style="display: inline-block; float: right; margin: 20px" class="btn-group btn-group-toggle" data-toggle="buttons">
+            <button type="button" class="btn btn-primary">Hộp thư</button>
+            <button type="button" class="btn btn-primary">Đổi mật khẩu</button>
+            <button type="button" class="btn btn-primary">Đăng xuất</button>
+        </div>
+    </div>
+    <div style="float: left; background-color: gray; display: inline-block" class="nav-bar" id="nav-bar">
+        <ul class="nav flex-column">
+            <li class="nav-item" style="border: 1px solid; margin: 20px">
+                <img src="ptit/nhat.jpg" style="width: 125px">
+            </li>
+            <li class="nav-item" style="text-align: center">
+                <label>Name?</label>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#" style="text-align: center">Sơ yếu lý lịch</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" style="text-align: center">Xem lịch dạy</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" style="text-align: center">Xem báo cáo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#" style="text-align: center">Cấu hình điểm</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#" style="text-align: center">Sửa TT cá nhân</a>
+            </li>
+        </ul>
+    </div>
+    <div class="head-body" style="margin-top: 10px; display: inline-block; width: 86%; height: 94%; position: relative; float: right">
+        <div style="text-align: center; border: 2px solid">
+            <span style="font-size: large">Thông báo</span>
+        </div>
+        <div style="text-align: center; height: 100%" class="data-body">
+            <table id="ctl00_ContentPlaceHolder1_ctl00_tbThongTin" class="classTable" border="0" style=" margin-left: 20px; margin-right: 20px">
+                <tbody><tr>
+                    <td class="TextThongTin" align="left"><p class="MsoNormal" style="text-align: left;"><span style="text-decoration: underline;"><span style="font-family: Times New Roman; font-size: 12pt;"><strong>Ngày 18/03/2021:</strong></span><span style="font-family: Times New Roman; font-size: 12pt;"><strong style="mso-bidi-font-weight:
+normal"><span style="font-size:16.0pt;letter-spacing:-.2pt" lang="EN-US"></span></strong></span></span><span style="font-family: Times New Roman; font-size: 12pt;"><strong style="mso-bidi-font-weight:
+normal"><span style="font-size:16.0pt;letter-spacing:-.2pt" lang="EN-US"><span style="font-size: 10pt;"><br></span></span></strong></span></p><p class="MsoNormal" style="text-align: left;"><span style="font-family: Times New Roman; font-size: 14pt;"><strong style="mso-bidi-font-weight:
+normal"><span style="font-size:16.0pt;letter-spacing:-.2pt" lang="EN-US">THÔNG
+BÁO</span></strong><span style="font-weight: bold;"> </span><em style="mso-bidi-font-style:
+normal"><span style="letter-spacing: -0.2pt;" lang="EN-US">V/v: Hướng
+dẫn đăng ký chuyên ngành trên hệ thống qldt.ptit.edu.vn cho sinh viên khóa 2018
+các ngành: Quản trị kinh doanh; Công nghệ thông tin; Marketing</span></em></span></p></td>
+                </tr>
+                <tr>
+                    <td>
+                        1. Thời gian, thao tác thực hiên:
+                        -  Từ 8h ngày 22/03 đến 17h ngày 26/03/2021
+
+                        -  Sinh viên đăng nhập hệ thống -> mục ĐĂNG KÝ MÔN HỌC  -> kéo xuống cuối trang màn hình, tại ô Mã CHUYÊN NGÀNH, sinh viên nhập Mã chuyên ngành muốn đăng ký  (danh mục mã chuyên ngành xem tại mục 2) -> Lưu
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        2. Danh mục mã chuyên ngành:
+                        -  Ngành Công nghệ thông tin: chuyên ngành Công nghệ phần mềm (mã: CNPM), chuyên ngành Hệ thống thông tin (mã: HTTT)
+
+                        -  Ngành Quản trị kinh doanh: chuyên ngành Quản trị doanh nghiệp (mã: QTDN), chuyên ngành Thương mại điện tử (mã: TMDT)
+
+                        -  Ngành Marketing: chuyên ngành Internet Marketing (mã: IMR), chuyên ngành Phân tích dữ liệu marketing số (mã: PMR)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        3. Lưu ý
+                        -  Sinh viên chỉ được đăng ký một chuyên ngành duy nhât.
+
+                        -  Sinh viên muốn đổi đăng ký sang chuyên ngành khác phải thực hiện việc xóa chuyên ngành đã đăng ký trước đó trên hệ thống (Sinh viên vào mục XEM ĐĂNG KÝ tại phần ĐĂNG KÝ NGUYỆN VỌNG để thực hiện thao tác XÓA)
+
+                        -  Các trường hợp sinh viên không đăng ký chuyên ngành, đăng ký cả 2 chuyên ngành hoặc đăng ký sai chuyên ngành học đều phải học chuyên ngành theo sự sắp xếp của Học viện.
+
+                        Trân trọng thông báo!
+                    </td>
+                </tr></tbody>
+            </table>
+        </div>
+        <footer style="bottom: 0px; height: 6%; width: 100%" class="bottom-toolbar">
+            <div class="footer container pt-5 border-bottom">
+            </div>
+        </footer>
+    </div>
+    </div>
+<script>
+    window.onscroll = function () {
+        myFunction()
+    };
+    var left = document.getElementById("nav-bar");
+    var sticky = left.offsetTop;
+
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            left.classList.add("sticky");
+        } else {
+            left.classList.remove("sticky");
+        }
+    }
+</script>
+</body>
+</html>

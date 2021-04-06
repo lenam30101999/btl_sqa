@@ -14,7 +14,7 @@ import java.util.List;
 public class PointService extends BaseService{
 
   public List<PointDTO> getPointList(Student student){
-    List<Point> pointList = pointRepository.findAllByStudent(student);
+    List<Point> pointList = pointRepository.findPointsByStudentId(student.getId());
     List<PointDTO> PointDTOs= new ArrayList<>();
     pointList.forEach(s->{
       PointDTO PointDTO = new PointDTO();

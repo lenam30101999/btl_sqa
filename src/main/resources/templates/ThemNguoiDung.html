@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Title</title>
+    <style>
+        .bottom-toolbar{
+            position: relative;
+            left: 0px;
+            width: 100%;
+            bottom: 0px;
+            padding: 10px;
+            background-color: silver;
+            text-align: right;
+        }
+        html, body
+        {
+            height: 100%;
+        }
+        .sticky {
+            position: fixed;
+            top: 0;
+        }
+        .header {
+            height: 250px;
+            background-color: #fff;
+            box-shadow: 0px 9px 12px 0px rgb(0 0 0 );
+        }
+        .btn-primary {
+            margin: 10px;
+        }
+        .nav-link {
+            color: black;
+        }
+        .nav-item {
+            margin: 10px;
+        }
+        .nav-bar {
+            margin-top: 10px;
+            box-shadow: 0px 9px 12px 0px rgb(0 0 0 );
+            height: 100%;
+            width: 167px;
+        }
+        .head-body {
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+        .data-body {
+            border-bottom: 2px solid;
+            border-left: 2px solid;
+            border-right: 2px solid;
+            overflow: auto;
+        }
+        .table >thead >tr >th {
+            color: white;
+            text-align: center;
+        }
+        button:active {
+            background-color: pink;
+        }
+        .field-all > div {
+            margin-top: 20px;
+            display: inline-block;
+            width: 49%;
+        }
+        .field-all > div > span {
+            display: inline-block;
+            width: 150px;
+            margin-left: 50px;
+            margin-right: 20px;
+        }
+        .field-all > div > input {
+            width: 225px;
+        }
+    </style>
+</head>
+<body>
+<div style="height: 100%">
+    <div class="header">
+        <div style="display: inline-block; border: 1px solid; margin: 20px">
+            <img src="https://eduplus.edu.vn/wp-content/uploads/2020/11/26991863_400942947032629_2294451261479869859_n.jpg" style="height: 200px">
+        </div>
+        <div style="display: inline-block">
+            <div style="font-size: x-large">Học viện Công nghệ Bưu chính Viễn thông</div>
+            <div style="font-size: x-large">Posts and Telecommunications Institute of Technology</div>
+            <div style="font-size: x-large">Cổng đăng ký học tín chỉ</div>
+        </div>
+        <div style="display: inline-block; float: right; margin: 20px" class="btn-group btn-group-toggle" data-toggle="buttons">
+            <button type="button" class="btn btn-primary">Đổi mật khẩu</button>
+            <button type="button" class="btn btn-primary">Đăng xuất</button>
+        </div>
+    </div>
+    <div style="float: left; background-color: gray; display: inline-block" class="nav-bar" id="nav-bar">
+        <ul class="nav flex-column">
+            <li class="nav-item" style="border: 1px solid; margin: 20px">
+                <img src="ptit/nhat.jpg" style="width: 125px">
+            </li>
+            <li class="nav-item" style="text-align: center">
+                <label>Name?</label>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#" style="text-align: center">Thêm sinh viên</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" style="text-align: center">Danh sách sinh viên</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" style="text-align: center">Danh sách giáo viên</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#" style="text-align: center">Nhập điểm</a>
+            </li>
+        </ul>
+    </div>
+    <div class="head-body" style="margin-top: 10px; display: inline-block; width: 86%; height: 96%; position: relative; float: right">
+        <div style="text-align: center; border: 2px solid">
+            <span style="font-size: large">Thêm người dùng</span>
+        </div>
+        <div class="data-body" style="height: 100%">
+            <div class="field-all">
+                <div>
+                    <span>Họ và tên(*): </span>
+                    <input>
+                </div>
+                <div>
+                    <span>Tên tài khoản(*): </span>
+                    <input>
+                </div>
+                <div>
+                    <span>Địa chỉ email: </span>
+                    <input>
+                </div>
+                <div>
+                    <span>Mật khẩu(*): </span>
+                    <input>
+                </div>
+                <div>
+                    <span>Ngày/tháng/năm/sinh: </span>
+                    <input placeholder="dd/mm/yy">
+                </div>
+                <div>
+                    <span>Địa chỉ nhà: </span>
+                    <input>
+                </div>
+                <div>
+                    <span>Số điện thoại: </span>
+                    <input>
+                </div>
+            </div>
+            <div class="field-all">
+                <div>
+                    <span>Giới tính: </span>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="">Nam
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="">Nữ
+                    </label>
+                </div>
+            </div>
+            <hr>
+            <div class="field-all">
+                <span style="display: block; margin-left: 10px">Sinh viên</span>
+                <div>
+                    <span>Mã sinh viên(*): </span>
+                    <input>
+                </div>
+                <div>
+                    <span>Tên khoa(*): </span>
+                    <input>
+                </div>
+                <div>
+                    <span>Tên lớp(*): </span>
+                    <input>
+                </div>
+            </div>
+            <hr>
+            <div class="field-all">
+                <span style="display: block; margin-left: 10px">Giáo viên</span>
+                <div>
+                    <span>Tên khoa công tác(*): </span>
+                    <input>
+                </div>
+            </div>
+            <hr>
+            <div style="text-align: center">
+                <button type="button" class="btn btn-primary">Thêm người dùng</button>
+            </div>
+        </div>
+        <footer style="bottom: 0px; height: 6%; width: 100%" class="bottom-toolbar">
+            <div class="">
+            </div>
+        </footer>
+    </div>
+</div>
+
+<script>
+    window.onscroll = function () {
+        myFunction()
+    };
+    var left = document.getElementById("nav-bar");
+    var sticky = left.offsetTop;
+
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            left.classList.add("sticky");
+        } else {
+            left.classList.remove("sticky");
+        }
+    }
+</script>
+</body>
+</html>

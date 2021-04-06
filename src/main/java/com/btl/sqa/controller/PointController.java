@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class PointController {
@@ -23,8 +22,8 @@ public class PointController {
   @Transactional
   @GetMapping("/getAllPoint/{id}")
   public String getAllPoint(Model model, @PathVariable Integer id){
-    Optional<Student> student = studentRepository.findById(id);
-    List<PointDTO> pointList = pointService.getPointList(student.get());
+    Student student = studentRepository.findStudentById(id);
+    List<PointDTO> pointList = pointService.getPointList(student);
     model.addAttribute("pointList",pointList);
     return "pointList";
   }
