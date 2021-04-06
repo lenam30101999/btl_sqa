@@ -83,22 +83,21 @@
     <div style="float: left; background-color: gray; display: inline-block" class="nav-bar" id="nav-bar">
         <ul class="nav flex-column">
             <li class="nav-item" style="border: 1px solid; margin: 20px">
-                <img src="../../../../../../../Downloads/lol/ptit/nhat.jpg" style="width: 125px">
+                <img src="https://www.brookfield.com/sites/default/files/styles/d02_square/public/images/2019-07/male-avatar_0.png?h=7a9c3c9d&itok=uyWbiwNE" style="width: 125px">
             </li>
-            <li class="nav-item" style="text-align: center">
-                <label>Name?</label>
+            <form action="#" th:object="${user}" method="post" novalidate>
+                <li class="nav-item" style="text-align: center">
+                    <label type="text" th:text="${user.getName()}"></label>
+                </li>
+            </form>
+            <li class="nav-item">
+                <a class="nav-link active" href="/create" style="text-align: center">Thêm sinh viên</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="#" style="text-align: center">Thêm sinh viên</a>
+                <a class="nav-link" href="/getAllStudent" style="text-align: center">Danh sách sinh viên</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" style="text-align: center">Danh sách sinh viên</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" style="text-align: center">Danh sách giáo viên</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" style="text-align: center">Nhập điểm</a>
+                <a class="nav-link" href="/getAllLecturer" style="text-align: center">Danh sách giáo viên</a>
             </li>
         </ul>
     </div>
@@ -126,16 +125,23 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Nguyễn Văn Nam bếu</td>
-                    <td class="classID">B17DCCN123</td>
-                    <td>D17CN2</td>
-                    <td>09123456</td>
-                    <td>nambeu@gmail.com</td>
-                    <td>CNTT</td>
+                <tr th:if="${students.isEmpty()}">
+                    <td colspan="3"> Chưa có sinh viên </td>
+                </tr>
+                <tr th:each="student : ${students}">
+                    <td><span th:text="${student.getId()}"> Số thứ tự </span></td>
+                    <td><span th:text="${student.getUser().getName()}"> Họ và tên </span></td>
+                    <td class="classID"><span th:text="${student.getIdentifyCard()}"> Mã sinh viên </span></td>
+                    <td><span th:text="${student.getRoom().getName()}"> Lớp </span></td>
+                    <td><span th:text="${student.getUser().getPhoneNo()}"> Lớp </span></td>
+                    <td><span th:text="${student.getUser().getEmail()}"> Lớp </span></td>
+                    <td><span th:text="${student.getFacultyName()}"> Khoa </span></td>
                     <td style="text-align: center">
                         <form action="#" th:action="@{/deleteStudent}" th:object="${user}" method="post" >
+                            <input type="hidden" name="_method" value="delete" />
+                            <button id="deleteBtn">Sửa</button>
+                        </form>
+                        <form action="#" th:action="@{/updateStudent}" th:object="${user}" method="post" >
                             <input type="hidden" name="_method" value="delete" />
                             <button id="deleteBtn">Sửa</button>
                         </form>

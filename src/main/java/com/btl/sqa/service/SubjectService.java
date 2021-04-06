@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class SubjectService extends BaseService{
 
-  public List<Subject> getClassByStudentId(int studentId){
+  public List<Subject> getSubjectByStudentId(int studentId){
     Student student = studentRepository.findStudentById(studentId);
     int classId = student.getRoom().getId();
     List<Subject> subjects = subjectRepository.findSubjectsByClassModelId(classId);

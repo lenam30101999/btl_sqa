@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -97,22 +97,21 @@
     <div style="float: left; background-color: gray; display: inline-block" class="nav-bar" id="nav-bar">
         <ul class="nav flex-column">
             <li class="nav-item" style="border: 1px solid; margin: 20px">
-                <img src="ptit/nhat.jpg" style="width: 125px">
+                <img src="https://www.brookfield.com/sites/default/files/styles/d02_square/public/images/2019-07/male-avatar_0.png?h=7a9c3c9d&itok=uyWbiwNE" style="width: 125px">
             </li>
-            <li class="nav-item" style="text-align: center">
-                <label>Name?</label>
+            <form class="form-signin needs-validation" action="#" th:object="${user}" method="post" novalidate>
+                <li class="nav-item" style="text-align: center">
+                    <label type="text" th:text="${user.getName()}"></label>
+                </li>
+            </form>
+            <li class="nav-item">
+                <a class="nav-link active" href="/create" style="text-align: center">Thêm sinh viên</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="#" style="text-align: center">Thêm sinh viên</a>
+                <a class="nav-link" href="/getAllStudent" style="text-align: center">Danh sách sinh viên</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" style="text-align: center">Danh sách sinh viên</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" style="text-align: center">Danh sách giáo viên</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" style="text-align: center">Nhập điểm</a>
+                <a class="nav-link" href="/getAllLecturer" style="text-align: center">Danh sách giáo viên</a>
             </li>
         </ul>
     </div>
@@ -120,77 +119,80 @@
         <div style="text-align: center; border: 2px solid">
             <span style="font-size: large">Thêm người dùng</span>
         </div>
-        <div class="data-body" style="height: 100%">
-            <div class="field-all">
-                <div>
-                    <span>Họ và tên(*): </span>
-                    <input>
+        <!--/*@thymesVar id="userDTO" type="com.btl.sqa.dto.UserDTO"*/-->
+        <form class="form-inline" th:action="@{/create}" th:object="${userDTO}" method="post">
+            <div class="data-body" style="height: 100%">
+                <div class="field-all">
+                    <div>
+                        <span for="studentName">Họ và tên(*):</span>
+                        <input type="text" id="studentName" required autofocus th:field="*{name}">
+                    </div>
+                    <div>
+                        <span for="username">Tên tài khoản(*):</span>
+                        <input type="text" id="username" required autofocus th:field="*{username}">
+                    </div>
+                    <div>
+                        <span for="email">Địa chỉ email:</span>
+                        <input type="text" id="email" required autofocus th:field="*{email}">
+                    </div>
+                    <div>
+                        <span for="password">Mật khẩu(*):</span>
+                        <input type="text" id="password" required autofocus th:field="*{password}">
+                    </div>
+                    <div>
+                        <span for="dob">Ngày/tháng/năm/sinh:</span>
+                        <input type="text" id="dob" placeholder="dd/mm/yy" required autofocus th:field="*{dob}">
+                    </div>
+                    <div>
+                        <span for="address">Địa chỉ nhà:</span>
+                        <input type="text" id="address" required autofocus th:field="*{address}">
+                    </div>
+                    <div>
+                        <span for="phoneNo">Số điện thoại:</span>
+                        <input type="text" id="phoneNo" required autofocus th:field="*{phoneNo}">
+                    </div>
                 </div>
-                <div>
-                    <span>Tên tài khoản(*): </span>
-                    <input>
+                <div class="field-all">
+                    <div>
+                        <span>Giới tính: </span>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="MALE" required autofocus th:field="*{gender}"> Nam
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="FEMALE" required autofocus th:field="*{gender}"> Nữ
+                        </label>
+                    </div>
                 </div>
-                <div>
-                    <span>Địa chỉ email: </span>
-                    <input>
+                <hr>
+                <div class="field-all">
+                    <span style="display: block; margin-left: 10px">Sinh viên</span>
+                    <div>
+                        <span for="identifyCard">Mã sinh viên(*):</span>
+                        <input type="text" id="identifyCard" required autofocus th:field="*{identifyCard}">
+                    </div>
+                    <div>
+                        <span for="facultyNameStudent">Tên khoa(*):</span>
+                        <input type="text" id="facultyNameStudent" required autofocus th:field="*{facultyName}">
+                    </div>
+                    <div>
+                        <span for="className">Tên lớp(*):</span>
+                        <input type="text" id="className" required autofocus th:field="*{className}">
+                    </div>
                 </div>
-                <div>
-                    <span>Mật khẩu(*): </span>
-                    <input>
+                <hr>
+                <div class="field-all">
+                    <span style="display: block; margin-left: 10px">Giáo viên</span>
+                    <div>
+                        <span for="facultyNameLecturer">Tên khoa công tác(*):</span>
+                        <input type="text" id="facultyNameLecturer" required autofocus th:field="*{facultyName}">>
+                    </div>
                 </div>
-                <div>
-                    <span>Ngày/tháng/năm/sinh: </span>
-                    <input placeholder="dd/mm/yy">
-                </div>
-                <div>
-                    <span>Địa chỉ nhà: </span>
-                    <input>
-                </div>
-                <div>
-                    <span>Số điện thoại: </span>
-                    <input>
+                <hr>
+                <div style="text-align: center">
+                    <button type="submit" class="btn btn-primary mb-2">Thêm người dùng</button>
                 </div>
             </div>
-            <div class="field-all">
-                <div>
-                    <span>Giới tính: </span>
-                    <label class="checkbox-inline">
-                        <input type="checkbox" value="">Nam
-                    </label>
-                    <label class="checkbox-inline">
-                        <input type="checkbox" value="">Nữ
-                    </label>
-                </div>
-            </div>
-            <hr>
-            <div class="field-all">
-                <span style="display: block; margin-left: 10px">Sinh viên</span>
-                <div>
-                    <span>Mã sinh viên(*): </span>
-                    <input>
-                </div>
-                <div>
-                    <span>Tên khoa(*): </span>
-                    <input>
-                </div>
-                <div>
-                    <span>Tên lớp(*): </span>
-                    <input>
-                </div>
-            </div>
-            <hr>
-            <div class="field-all">
-                <span style="display: block; margin-left: 10px">Giáo viên</span>
-                <div>
-                    <span>Tên khoa công tác(*): </span>
-                    <input>
-                </div>
-            </div>
-            <hr>
-            <div style="text-align: center">
-                <button type="button" class="btn btn-primary">Thêm người dùng</button>
-            </div>
-        </div>
+        </form>
         <footer style="bottom: 0px; height: 6%; width: 100%" class="bottom-toolbar">
             <div class="">
             </div>

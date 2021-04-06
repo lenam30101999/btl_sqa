@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Log4j2
 @Controller
@@ -29,6 +30,7 @@ public class UserController {
   @Autowired private LecturerService lecturerService;
   @Autowired private SemesterService semesterService;
   @Autowired private SubjectService subjectService;
+  private static int i = 1;
 
   @PostMapping(value = "/")
   public ModelAndView login(@ModelAttribute("user") User user, Model model, HttpSession session) {
@@ -92,6 +94,18 @@ public class UserController {
     return "listGV";
   }
 
+  @GetMapping(value = "/inputPoint")
+  public String inputPointView(@ModelAttribute("studentId") int studentId, Model model, HttpSession session) {
+    User user = getUserFromSession(session);
+    model.addAttribute("studentId", studentId);
+    List<Subject> subjects = subjectService.getSubjectByStudentId(studentId);
+    Student student = studentService.getStudent(studentId);
+    model.addAttribute("user", user);
+    model.addAttribute("subjects", subjects);
+    model.addAttribute("student", student);
+    return "NhapDiem";
+  }
+
   @GetMapping(value = "/deleteStudent")
   public String deleteStudent(@ModelAttribute("student") Student student, Model model) {
     model.addAttribute("student", student);
@@ -111,17 +125,23 @@ public class UserController {
   }
 
   @GetMapping("/getAllStudent")
-  public String getAllStudent(Model model) {
+  public String getAllStudent(Model model, HttpSession session) {
+    User user = getUserFromSession(session);
     List<Student> students = studentService.getAllStudent();
+    students.stream().peek(p -> p.setId(getNumber())).collect(Collectors.toList());
+    model.addAttribute("user", user);
     model.addAttribute("students", students);
     return "DanhSachSinhVien";
   }
 
   @GetMapping("/getAllLecturer")
-  public String getAllLecturer(Model model) {
+  public String getAllLecturer(Model model, HttpSession session) {
+    User user = getUserFromSession(session);
     List<Lecturer> lecturers = lecturerService.getAllLecturer();
+    lecturers.stream().peek(p -> p.setId(getNumber())).collect(Collectors.toList());
+    model.addAttribute("user", user);
     model.addAttribute("lecturers", lecturers);
-    return "listGV";
+    return "DanhSachGiaoVien";
   }
 
   @PostMapping("/configPoint")
@@ -144,10 +164,10 @@ public class UserController {
     return "student";
   }
 
-  @GetMapping("/inputPoint")
-  public String initViewInputPoint(Model model, HttpSession session) {
+  @GetMapping("/configPoint")
+  public String initViewConfigPoint(Model model, HttpSession session) {
     User user = getUserFromSession(session);
-    List<Subject> subjects = subjectService.getClassByStudentId(user.getId());
+    List<Subject> subjects = subjectService.getSubjectByStudentId(user.getId());
     List<Semester> semesters = semesterService.getAllSemester(subjects);
 
     model.addAttribute("user", user);
@@ -156,16 +176,13 @@ public class UserController {
     return "point";
   }
 
-  @GetMapping("/configPoint")
-  public String initViewConfigPoint(Model model, HttpSession session) {
+  @GetMapping("/create")
+  public String createUserView(Model model, HttpSession session){
     User user = getUserFromSession(session);
-    List<Subject> subjects = subjectService.getClassByStudentId(user.getId());
-    List<Semester> semesters = semesterService.getAllSemester(subjects);
-
+    UserDTO userDTO = new UserDTO();
+    model.addAttribute("userDTO", userDTO);
     model.addAttribute("user", user);
-    model.addAttribute("semesters", semesters);
-    model.addAttribute("subjects", subjects);
-    return "point";
+    return "ThemNguoiDung";
   }
 
   private User getUserFromSession(HttpSession session){
@@ -187,5 +204,9 @@ public class UserController {
       default:
         return new ModelAndView("index");
     }
+  }
+
+  private int getNumber(){
+    return i++;
   }
 }

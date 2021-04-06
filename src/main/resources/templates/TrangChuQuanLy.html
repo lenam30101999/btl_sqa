@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -75,28 +75,27 @@
     <div style="float: left; background-color: gray; display: inline-block" class="nav-bar" id="nav-bar">
         <ul class="nav flex-column">
             <li class="nav-item" style="border: 1px solid; margin: 20px">
-                <img src="ptit/nhat.jpg" style="width: 125px">
+                <img src="https://www.brookfield.com/sites/default/files/styles/d02_square/public/images/2019-07/male-avatar_0.png?h=7a9c3c9d&itok=uyWbiwNE" style="width: 125px">
             </li>
-            <li class="nav-item" style="text-align: center">
-                <label>Name?</label>
+            <form class="form-signin needs-validation" action="#" th:object="${user}" method="post" novalidate>
+                <li class="nav-item" style="text-align: center">
+                    <label type="text" th:text="${user.getName()}"></label>
+                </li>
+            </form>
+            <li class="nav-item">
+                <a class="nav-link active" href="/create" style="text-align: center">Thêm sinh viên</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="#" style="text-align: center">Thêm sinh viên</a>
+                <a class="nav-link" href="/getAllStudent" style="text-align: center">Danh sách sinh viên</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" style="text-align: center">Danh sách sinh viên</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" style="text-align: center">Danh sách giáo viên</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" style="text-align: center">Nhập điểm</a>
+                <a class="nav-link" href="/getAllLecturer" style="text-align: center">Danh sách giáo viên</a>
             </li>
         </ul>
     </div>
     <div class="head-body" style="margin-top: 10px; display: inline-block; width: 86%; height: 94%; position: relative; float: right">
         <div style="text-align: center; border: 2px solid">
-            <span style="font-size: large">Thông báo</span>
+            <h2 style="font-size: large">Thông báo</h2>
         </div>
         <div style="text-align: center; height: 100%" class="data-body">
             <table id="ctl00_ContentPlaceHolder1_ctl00_tbThongTin" class="classTable" border="0" style=" margin-left: 20px; margin-right: 20px">
