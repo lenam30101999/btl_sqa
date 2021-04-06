@@ -1,8 +1,6 @@
 package com.btl.sqa.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,6 +18,21 @@ public class Subject implements Serializable {
   private int id;
 
   private String name;
+
+  @Column(name = "percent_cc")
+  private float percentCC;
+
+  @Column(name = "percent_th")
+  private float percentTH;
+
+  @Column(name = "percent_btl")
+  private float percentBTL;
+
+  @Column(name = "percent_kt")
+  private float percentKT;
+
+  @Column(name = "percent_cuoi_ky")
+  private float percentCuoiKy;
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinTable(name = "Subject_Class",

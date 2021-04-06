@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form class="form-signin needs-validation" action="#" th:action="@{/}" th:object="${name}" method="post" novalidate>
+    <span type="text" th:text="${name}">Welcome </span>
+</form>
+<table>
+    <thead>
+    <tr>
+        <th> Tên kỳ học </th>
+        <th> Mô tả </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${semesters.isEmpty()}">
+        <td colspan="2"> Chưa có kỳ học </td>
+    </tr>
+    <tr th:each="semester : ${semesters}">
+        <td><span th:text="${semester.getName()}"> Tên kỳ học </span></td>
+        <td><span th:text="${semester.getDescription()}"> Mô tả </span></td>
+    </tr>
+    </tbody>
+</table>
+<table>
+    <thead>
+    <tr>
+        <th> Tên môn </th>
+        <th> Điểm </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${subjects.isEmpty()}">
+        <td colspan="2"> Chưa có môn học </td>
+    </tr>
+    <tr th:each="subject : ${subjects}">
+        <td><span th:text="${subject.getName()}"> Tên môn </span></td>
+        <td><span th:text="${subject.getPercentCuoiKy()}"> Điểm </span></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

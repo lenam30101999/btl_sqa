@@ -7,7 +7,7 @@
 <body>
 <!--/*@thymesVar id="user" type="com.btl.sqa.model.User"*/-->
 <form class="form-signin needs-validation" action="#" th:action="@{/}" th:object="${user}" method="post" novalidate>
-    <output type="text" name="userName" value="James Carrot" th:value="${user.getName()}">Welcome STUDENT</output>
+    <span type="text" th:text="${user.getName()}">Welcome </span>
 </form>
 </body>
 </html>
