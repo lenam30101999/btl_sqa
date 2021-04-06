@@ -126,7 +126,7 @@ public class UserController {
 
   @PostMapping("/configPoint")
   public String configPoint(Model model) {
-    List<Subject> subjects = (List<Subject>) model.getAttribute("subjects");
+//    List<Subject> subjects = (List<Subject>) model.getAttribute("subjects");
 
     return "point";
   }

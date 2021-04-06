@@ -15,6 +15,6 @@ public class SemesterService extends BaseService{
 
   public List<Semester> getAllSemester(List<Subject> subjects){
     List<Integer> subjectIds = subjects.stream().map(p -> p.getId()).collect(toList());
-    return semesterRepository.findDistinctBySubjectsId(subjectIds);
+    return semesterRepository.findDistinctBySubjectsId(subjectIds.get(0));
   }
 }

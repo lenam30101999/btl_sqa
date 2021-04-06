@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface SemesterRepository extends JpaRepository<Semester, Integer> {
   Semester findById(int semesterId);
-  List<Semester> findDistinctBySubjectsId(List<Integer> subjectIds);
+  List<Semester> findDistinctBySubjectsId(Integer subjectId);
 }
