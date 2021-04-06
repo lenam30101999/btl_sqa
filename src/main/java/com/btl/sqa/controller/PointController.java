@@ -1,7 +1,5 @@
 package com.btl.sqa.controller;
 
-import com.btl.sqa.dto.PointDto;
-import com.btl.sqa.model.Point;
 import com.btl.sqa.model.Student;
 import com.btl.sqa.repository.StudentRepository;
 import com.btl.sqa.service.PointService;
@@ -21,13 +19,13 @@ public class PointController {
     PointService pointService;
     @Autowired
     StudentRepository studentRepository;
-    @Transactional
-    @GetMapping("/getAllPoint/{id}")
-    public String getAllPoint(Model model,@PathVariable Integer id){
-        Optional<Student> student = studentRepository.findById(id);
-        List<PointDto> pointList = pointService.getPointList(student.get());
-        model.addAttribute("pointList",pointList);
-        return "pointList";
-    }
+//    @Transactional
+//    @GetMapping("/getAllPoint/{id}")
+//    public String getAllPoint(Model model,@PathVariable Integer id){
+//        Optional<Student> student = studentRepository.findById(id);
+//        List<PointDto> pointList = pointService.getPointList(student.get());
+//        model.addAttribute("pointList",pointList);
+//        return "pointList";
+//    }
 
 }

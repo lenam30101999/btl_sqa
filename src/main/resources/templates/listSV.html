@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th> Tên SV </th>
+        <th> Mã sinh viên </th>
+        <th> Khoa </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${students.isEmpty()}">
+        <td colspan="3"> Chưa có sinh viên </td>
+    </tr>
+    <tr th:each="student : ${students}">
+        <td><span th:text="${student.getUser().getName()}"> Tên SV </span></td>
+        <td><span th:text="${student.getIdentifyCard()}"> Mã sinh viên </span></td>
+        <td><span th:text="${student.getFacultyName()}"> Khoa </span></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface ClassRepository extends JpaRepository<Class, Integer> {
   Optional<Class> findByName(String name);
+  Class findClassById(int classId);
 }
