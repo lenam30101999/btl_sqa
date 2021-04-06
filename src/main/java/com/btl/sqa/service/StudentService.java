@@ -41,4 +41,6 @@ public class StudentService extends BaseService{
   private Class getClass(String className){
     return classRepository.findByName(className).orElseThrow(() -> new NotFoundException("Class not found!"));
   }
+
+
 }
