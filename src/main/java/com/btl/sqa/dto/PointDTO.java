@@ -11,9 +11,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PointDTO {
   private Integer id;
+
   private float point4;
+
   private float point10;
+
   private String pointApla;
+
   private Subject subject;
+
   private Student student;
 }
