@@ -1,6 +1,6 @@
 package com.btl.sqa.service;
 
-import com.btl.sqa.dto.PointDTO;
+import com.btl.sqa.dto.PointInputDTO;
 import com.btl.sqa.dto.UserDTO;
 import com.btl.sqa.model.*;
 import com.btl.sqa.model.Class;
@@ -55,7 +55,7 @@ public class StudentService extends BaseService{
     }
   }
 
-  public Student inputPoint(PointDTO pointDTO){
+  public Student inputPoint(PointInputDTO pointDTO){
     try {
       Student updated = getStudent(pointDTO.getUserId());
       if (Objects.nonNull(updated)){

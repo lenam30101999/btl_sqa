@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PointDTO {
+public class PointInputDTO {
   private int userId;
 
   private float diemCC;

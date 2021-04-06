@@ -1,7 +1,7 @@
 package com.btl.sqa.controller;
 
 import com.btl.sqa.dto.MessageResponse;
-import com.btl.sqa.dto.PointDTO;
+import com.btl.sqa.dto.PointInputDTO;
 import com.btl.sqa.dto.UserDTO;
 import com.btl.sqa.model.*;
 import com.btl.sqa.service.*;
@@ -75,7 +75,7 @@ public class UserController {
   }
 
   @PostMapping(value = "/inputPoint")
-  public String inputPoint(@Valid @ModelAttribute("pointDTO") PointDTO pointDTO, Model model) {
+  public String inputPoint(@Valid @ModelAttribute("pointDTO") PointInputDTO pointDTO, Model model) {
     model.addAttribute("pointDTO", pointDTO);
     studentService.inputPoint(pointDTO);
     List<Student> students = studentService.getAllStudent();
