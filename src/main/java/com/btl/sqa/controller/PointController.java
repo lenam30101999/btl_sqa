@@ -1,12 +1,13 @@
 package com.btl.sqa.controller;
 
-import com.btl.sqa.service.SubjectService;
+import com.btl.sqa.service.PointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class SubjectController {
+public class PointController {
+
   @Autowired
-  private SubjectService subjectService;
+  private PointService pointService;
 
 }

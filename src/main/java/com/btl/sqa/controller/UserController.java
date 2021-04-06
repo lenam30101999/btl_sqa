@@ -4,27 +4,23 @@ import com.btl.sqa.dto.MessageResponse;
 import com.btl.sqa.dto.PointDTO;
 import com.btl.sqa.dto.UserDTO;
 import com.btl.sqa.model.*;
-import com.btl.sqa.model.Class;
 import com.btl.sqa.service.*;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
+@Log4j2
 @Controller
 public class UserController {
 
@@ -83,7 +79,6 @@ public class UserController {
     model.addAttribute("pointDTO", pointDTO);
     studentService.inputPoint(pointDTO);
     List<Student> students = studentService.getAllStudent();
-
     model.addAttribute("students", students);
     return "listSV";
   }
@@ -129,6 +124,13 @@ public class UserController {
     return "listGV";
   }
 
+  @PostMapping("/configPoint")
+  public String configPoint(Model model) {
+    List<Subject> subjects = (List<Subject>) model.getAttribute("subjects");
+
+    return "point";
+  }
+
   //================== INIT VIEW ==================//
 
   @GetMapping("/")
@@ -144,15 +146,31 @@ public class UserController {
 
   @GetMapping("/inputPoint")
   public String initViewInputPoint(Model model, HttpSession session) {
-    Integer userId = (Integer) session.getAttribute("userId");
-    String name = userService.getNameOfUser(userId);
-    List<Semester> semesters = semesterService.getAllSemester();
-    List<Subject> subjects = subjectService.getClassByStudentId(userId);
+    User user = getUserFromSession(session);
+    List<Subject> subjects = subjectService.getClassByStudentId(user.getId());
+    List<Semester> semesters = semesterService.getAllSemester(subjects);
 
-    model.addAttribute("name", name);
+    model.addAttribute("user", user);
     model.addAttribute("semesters", semesters);
     model.addAttribute("subjects", subjects);
     return "point";
+  }
+
+  @GetMapping("/configPoint")
+  public String initViewConfigPoint(Model model, HttpSession session) {
+    User user = getUserFromSession(session);
+    List<Subject> subjects = subjectService.getClassByStudentId(user.getId());
+    List<Semester> semesters = semesterService.getAllSemester(subjects);
+
+    model.addAttribute("user", user);
+    model.addAttribute("semesters", semesters);
+    model.addAttribute("subjects", subjects);
+    return "point";
+  }
+
+  private User getUserFromSession(HttpSession session){
+    Integer userId = (Integer) session.getAttribute("userId");
+    return userService.getUser(userId);
   }
 
 

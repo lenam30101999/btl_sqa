@@ -30,8 +30,7 @@ public class UserService extends BaseService{
     }
   }
 
-  public String getNameOfUser(int userId){
-    User user = userRepository.findUserById(userId);
-    return user.getName();
+  public User getUser(int userId){
+    return userRepository.findUserById(userId);
   }
 }
