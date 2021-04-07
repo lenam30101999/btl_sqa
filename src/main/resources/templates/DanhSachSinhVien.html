@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <title>Title</title>
+    <title>Quản lý đào tạo</title>
     <style>
         .bottom-toolbar{
             position: relative;
@@ -61,6 +61,12 @@
         }
         button:active {
             background-color: pink;
+        }
+        .loipro >form{
+           margin-bottom: 10px;
+        }
+        .loipro >form > button{
+            width: 70px;
         }
     </style>
 </head>
@@ -136,8 +142,8 @@
                     <td><span th:text="${student.getUser().getPhoneNo()}"> Lớp </span></td>
                     <td><span th:text="${student.getUser().getEmail()}"> Lớp </span></td>
                     <td><span th:text="${student.getFacultyName()}"> Khoa </span></td>
-                    <td style="text-align: center">
-                        <form action="#" th:action="@{/deleteStudent}" th:object="${user}" method="post" >
+                    <td style="text-align: center" class="loipro">
+                        <form action="#" th:action="@{'/deleteStudent/{id}'(id=${student.getId()})}" method="get" >
                             <input type="hidden" name="_method" value="delete" />
                             <button id="deleteBtn">Xoá</button>
                         </form>
@@ -145,7 +151,9 @@
                             <input type="hidden" name="_method" value="delete" />
                             <button id="updatedBtn">Sửa</button>
                         </form>
-                        <button>Nhập điểm</button>
+                        <form action="#" th:action="@{'/inputPoint/{id}'(id=${student.getId()})}" method="get" >
+                            <button>Nhập điểm</button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>

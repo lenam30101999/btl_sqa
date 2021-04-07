@@ -88,7 +88,8 @@ public class StudentService extends BaseService{
     try {
       Student student = getStudent(studentId);
       if (Objects.nonNull(student)){
-        studentRepository.deleteById(studentId);
+        userRepository.deleteById(studentId);
+        studentRepository.delete(student);
       }
     }catch (Exception e) {
       log.debug(e);

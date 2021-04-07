@@ -5,7 +5,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Quản lý đào tạo</title>
     <style>
     </style>
 </head>
@@ -30,17 +30,17 @@
                         <form class="form-signin needs-validation" action="#" th:action="@{/}" th:object="${user}" method="post"
                               novalidate>
                             <fieldset>
-                                <div>
+                                <div style="text-align: center">
                                     <h3>Nhập thông tin tài khoản</h3>
                                 </div>
                                 <hr>
-                                <div class="input-group has-validation">
+                                <div class="input-group has-validation" style="width: 100%">
                                     <label for="inputStudentId" class="sr-only">Mã sinh viên</label>
                                     <input type="text" name="studentId" id="inputStudentId" class="form-control" placeholder="Mã sinh viên" required
                                            autofocus th:field="*{username}">
                                 </div>
                                 <hr>
-                                <div class="input-group has-validation">
+                                <div class="input-group has-validation" style="width: 100%">
                                     <label for="inputPassword" class="sr-only">Mật khẩu</label>
                                     <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Mật khẩu"
                                            style="margin-bottom: 0" th:field="*{password}" required>

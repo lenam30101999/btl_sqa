@@ -41,4 +41,6 @@ public class UserDTO {
 
   @NotNull
   private String facultyName;
+
+
 }

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <title>Title</title>
+    <title>Quản lý đào tạo</title>
     <style>
         .bottom-toolbar{
             position: relative;
@@ -140,10 +140,7 @@
                 <div class="gather" style="margin-top: 30px">
                     <span>Môn học</span>
                     <select name="monhoc" id="mon-hoc">
-                        <option value="loi">loi</option>
-                        <option value="pro">pro</option>
-                        <option value="vip">vip</option>
-                        <option value="123">123</option>
+                        <option th:each="subject : ${subjects}" th:value="${subject}" th:text="${subject}"></option>
                     </select>
                 </div>
                 <div class="gather">

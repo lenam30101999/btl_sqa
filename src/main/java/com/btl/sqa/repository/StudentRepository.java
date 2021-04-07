@@ -9,4 +9,6 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
   Student save(Student student);
 
   Student findStudentById(int studentId);
+
+  void deleteStudentByIdentifyCard(String identifyCard);
 }

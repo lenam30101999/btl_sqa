@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -22,6 +23,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
+
 @Log4j2
 @Controller
 public class UserController {
@@ -31,7 +34,6 @@ public class UserController {
   @Autowired private LecturerService lecturerService;
   @Autowired private SemesterService semesterService;
   @Autowired private SubjectService subjectService;
-  private static int i = 1;
 
   @PostMapping(value = "/")
   public ModelAndView login(@ModelAttribute("user") User user, Model model, HttpSession session) {
@@ -94,11 +96,11 @@ public class UserController {
     return "listGV";
   }
 
-  @GetMapping(value = "/inputPoint")
-  public String inputPointView(@ModelAttribute("studentId") int studentId, Model model, HttpSession session) {
+  @GetMapping(value = "/inputPoint/{id}")
+  public String inputPointView(@PathVariable("id") int studentId, Model model, HttpSession session) {
     User user = getUserFromSession(session);
-    model.addAttribute("studentId", studentId);
-    List<Subject> subjects = subjectService.getSubjectByStudentId(studentId);
+    List<Subject> subjectsList = subjectService.getSubjectByStudentId(studentId);
+    List<String> subjects = subjectsList.stream().map(p -> p.getName()).collect(toList());
     Student student = studentService.getStudent(studentId);
     model.addAttribute("user", user);
     model.addAttribute("subjects", subjects);
@@ -106,13 +108,10 @@ public class UserController {
     return "NhapDiem";
   }
 
-  @GetMapping(value = "/deleteStudent")
-  public String deleteStudent(@ModelAttribute("student") Student student, Model model) {
-    model.addAttribute("student", student);
-    studentService.deleteStudent(student.getId());
-    List<Student> students = studentService.getAllStudent();
-    model.addAttribute("students", students);
-    return "DanhSachSinhVien";
+  @GetMapping(value = "/deleteStudent/{id}")
+  public RedirectView deleteStudent(@PathVariable("id") int studentId) {
+    studentService.deleteStudent(studentId);
+    return new RedirectView("/getAllStudent");
   }
 
   @GetMapping(value = "/deleteLecturer")
@@ -125,20 +124,20 @@ public class UserController {
   }
 
   @GetMapping("/getAllStudent")
-  public String getAllStudent(Model model, HttpSession session) {
+  public ModelAndView getAllStudent(HttpSession session) {
+    ModelMap modelMap = new ModelMap();
     User user = getUserFromSession(session);
     List<Student> students = studentService.getAllStudent();
-    students.stream().peek(p -> p.setId(getNumber())).collect(Collectors.toList());
-    model.addAttribute("user", user);
-    model.addAttribute("students", students);
-    return "DanhSachSinhVien";
+    students.stream().peek(p -> p.setIdentifyCard(p.getIdentifyCard().toUpperCase())).collect(toList());
+    modelMap.addAttribute("user", user);
+    modelMap.addAttribute("students", students);
+    return new ModelAndView("DanhSachSinhVien", modelMap);
   }
 
   @GetMapping("/getAllLecturer")
   public String getAllLecturer(Model model, HttpSession session) {
     User user = getUserFromSession(session);
     List<Lecturer> lecturers = lecturerService.getAllLecturer();
-    lecturers.stream().peek(p -> p.setId(getNumber())).collect(Collectors.toList());
     model.addAttribute("user", user);
     model.addAttribute("lecturers", lecturers);
     return "DanhSachGiaoVien";
@@ -206,7 +205,4 @@ public class UserController {
     }
   }
 
-  private int getNumber(){
-    return i++;
-  }
 }
