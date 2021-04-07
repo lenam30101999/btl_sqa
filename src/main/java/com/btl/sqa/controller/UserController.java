@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -50,21 +51,20 @@ public class UserController {
   }
 
   @PostMapping(value = "/create")
-  public String createUser(@Valid @ModelAttribute("userDTO") UserDTO userDTO, Model model) {
+  public RedirectView createUser(@Valid @ModelAttribute("userDTO") UserDTO userDTO, Model model) {
     model.addAttribute("userDTO", userDTO);
 
-    if (userDTO.getRole().equalsIgnoreCase("STUDENT")){
+    if (userDTO.getIdentifyCard() != null){
       studentService.addStudent(userDTO);
       List<Student> students = studentService.getAllStudent();
       model.addAttribute("students", students);
-      return "DanhSachSinhVien";
-    }else if (userDTO.getRole().equalsIgnoreCase("LECTURER")){
+      return new RedirectView("/getAllStudent");
+    }else {
       lecturerService.addLecturer(userDTO);
       List<Lecturer> lecturers = lecturerService.getAllLecturer();
       model.addAttribute("lecturers", lecturers);
-      return "listGV";
+      return new RedirectView("/getAllStudent");
     }
-    return "home";
   }
 
   @PostMapping(value = "/updateStudent")

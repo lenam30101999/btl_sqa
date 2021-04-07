@@ -105,7 +105,7 @@
                 </li>
             </form>
             <li class="nav-item">
-                <a class="nav-link active" href="/create" style="text-align: center">Thêm sinh viên</a>
+                <a class="nav-link active" href="/create" style="text-align: center">Thêm người dùng</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/getAllStudent" style="text-align: center">Danh sách sinh viên</a>
@@ -133,7 +133,7 @@
                     </div>
                     <div>
                         <span for="email">Địa chỉ email:</span>
-                        <input type="text" id="email" required autofocus th:field="*{email}">
+                        <input type="text" id="email" autofocus th:field="*{email}">
                     </div>
                     <div>
                         <span for="password">Mật khẩu(*):</span>
@@ -141,25 +141,25 @@
                     </div>
                     <div>
                         <span for="dob">Ngày/tháng/năm/sinh:</span>
-                        <input type="text" id="dob" placeholder="dd/mm/yy" required autofocus th:field="*{dob}">
+                        <input type="text" id="dob" placeholder="dd/mm/yy" autofocus th:field="*{dob}">
                     </div>
                     <div>
                         <span for="address">Địa chỉ nhà:</span>
-                        <input type="text" id="address" required autofocus th:field="*{address}">
+                        <input type="text" id="address" autofocus th:field="*{address}">
                     </div>
                     <div>
                         <span for="phoneNo">Số điện thoại:</span>
-                        <input type="text" id="phoneNo" required autofocus th:field="*{phoneNo}">
+                        <input type="text" id="phoneNo" autofocus th:field="*{phoneNo}">
                     </div>
                 </div>
                 <div class="field-all">
                     <div>
                         <span>Giới tính: </span>
                         <label class="checkbox-inline">
-                            <input type="checkbox" value="MALE" required autofocus th:field="*{gender}"> Nam
+                            <input type="checkbox" value="MALE" autofocus th:field="*{gender}"> Nam
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" value="FEMALE" required autofocus th:field="*{gender}"> Nữ
+                            <input type="checkbox" value="FEMALE" autofocus th:field="*{gender}"> Nữ
                         </label>
                     </div>
                 </div>
@@ -184,7 +184,7 @@
                     <span style="display: block; margin-left: 10px">Giáo viên</span>
                     <div>
                         <span for="facultyNameLecturer">Tên khoa công tác(*):</span>
-                        <input type="text" id="facultyNameLecturer" required autofocus th:field="*{facultyName}">>
+                        <input type="text" id="facultyNameLecturer" autofocus th:field="*{facultyName}">
                     </div>
                 </div>
                 <hr>

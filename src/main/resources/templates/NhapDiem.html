@@ -97,7 +97,7 @@
                 </li>
             </form>
             <li class="nav-item">
-                <a class="nav-link active" href="/create" style="text-align: center">Thêm sinh viên</a>
+                <a class="nav-link active" href="/create" style="text-align: center">Thêm người dùng</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/getAllStudent" style="text-align: center">Danh sách sinh viên</a>
@@ -112,61 +112,65 @@
         <div style="text-align: center;">
             <span style="font-size: large">Nhập điểm</span>
         </div>
-            <div class="gather">
-                <span>Họ và tên</span>
-                <span>Nguyễn Văn A</span>
-            </div>
-            <div class="gather">
-                <span>Địa chỉ email</span>
-                <span>nambeu@gmail.com</span>
-            </div>
-            <div class="gather">
-                <span>Mã sinh viên</span>
-                <span>B17CN69</span>
-            </div>
-            <div class="gather">
-                <span>Tên lớp</span>
-                <span>D17CN69</span>
-            </div>
-            <div class="gather">
-                <span>Tên khoa</span>
-                <span>CNTT</span>
-            </div>
+            <form action="#" th:object="${student}" method="post" novalidate>
+                <div class="gather">
+                    <span>Họ và tên</span>
+                    <span th:text="${student.getUser().getName()}"></span>
+                </div>
+                <div class="gather">
+                    <span>Địa chỉ email</span>
+                    <span th:text="${student.getUser().getEmail()}"></span>
+                </div>
+                <div class="gather">
+                    <span>Mã sinh viên</span>
+                    <span th:text="${student.getIdentifyCard()}"></span>
+                </div>
+                <div class="gather">
+                    <span>Tên lớp</span>
+                    <span th:text="${student.getRoom().getName()}"></span>
+                </div>
+                <div class="gather">
+                    <span>Tên khoa</span>
+                    <span th:text="${student.getFacultyName()}"></span>
+                </div>
+            </form>
         </div>
-        <div class="data-body" style="height: auto">
-            <div class="gather" style="margin-top: 30px">
-                <span>Môn học</span>
-                <select name="monhoc" id="mon-hoc">
-                    <option value="loi">loi</option>
-                    <option value="pro">pro</option>
-                    <option value="vip">vip</option>
-                    <option value="123">123</option>
-                </select>
+        <form action="#" th:object="${subjects}" method="post" novalidate>
+            <div class="data-body" style="height: auto">
+                <div class="gather" style="margin-top: 30px">
+                    <span>Môn học</span>
+                    <select name="monhoc" id="mon-hoc">
+                        <option value="loi">loi</option>
+                        <option value="pro">pro</option>
+                        <option value="vip">vip</option>
+                        <option value="123">123</option>
+                    </select>
+                </div>
+                <div class="gather">
+                    <span>Điểm chuyên cần</span>
+                    <input>
+                </div>
+                <div class="gather">
+                    <span>Điểm kiểm tra</span>
+                    <input>
+                </div>
+                <div class="gather">
+                    <span>Điểm thực hành</span>
+                    <input>
+                </div>
+                <div class="gather">
+                    <span>Điểm bài tập lớn</span>
+                    <input>
+                </div>
+                <div class="gather">
+                    <span>Điểm thi hết học phần</span>
+                    <input>
+                </div>
+                <div style="text-align: center; margin-top: 10px;">
+                    <button type="button" class="btn btn-primary">Thêm điểm</button>
+                </div>
             </div>
-            <div class="gather">
-                <span>Điểm chuyên cần</span>
-                <input>
-            </div>
-            <div class="gather">
-                <span>Điểm kiểm tra</span>
-                <input>
-            </div>
-            <div class="gather">
-                <span>Điểm thực hành</span>
-                <input>
-            </div>
-            <div class="gather">
-                <span>Điểm bài tập lớn</span>
-                <input>
-            </div>
-            <div class="gather">
-                <span>Điểm thi hết học phần</span>
-                <input>
-            </div>
-            <div style="text-align: center; margin-top: 10px;">
-                <button type="button" class="btn btn-primary">Thêm điểm</button>
-            </div>
-        </div>
+        </form>
         <footer style="bottom: 0px; height: 6%; width: 100%" class="bottom-toolbar">
             <div class="footer container pt-5 border-bottom">
             </div>

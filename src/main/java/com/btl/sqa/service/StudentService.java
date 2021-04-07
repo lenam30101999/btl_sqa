@@ -18,6 +18,7 @@ import java.util.Objects;
 public class StudentService extends BaseService{
 
   public void addStudent(UserDTO studentDTO) {
+    studentDTO.setRole("STUDENT");
     User user = saveUser(studentDTO);
     try {
       Student student = Student.builder()

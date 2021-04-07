@@ -15,6 +15,7 @@ public class LecturerService extends BaseService{
 
   public void addLecturer(UserDTO userDTO) {
     try {
+      userDTO.setRole("LECTURER");
       User user = saveUser(userDTO);
       Lecturer lecturer = Lecturer.builder()
           .user(user)

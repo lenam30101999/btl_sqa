@@ -91,7 +91,7 @@
                 </li>
             </form>
             <li class="nav-item">
-                <a class="nav-link active" href="/create" style="text-align: center">Thêm sinh viên</a>
+                <a class="nav-link active" href="/create" style="text-align: center">Thêm người dùng</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/getAllStudent" style="text-align: center">Danh sách sinh viên</a>
@@ -139,11 +139,11 @@
                     <td style="text-align: center">
                         <form action="#" th:action="@{/deleteStudent}" th:object="${user}" method="post" >
                             <input type="hidden" name="_method" value="delete" />
-                            <button id="deleteBtn">Sửa</button>
+                            <button id="deleteBtn">Xoá</button>
                         </form>
                         <form action="#" th:action="@{/updateStudent}" th:object="${user}" method="post" >
                             <input type="hidden" name="_method" value="delete" />
-                            <button id="deleteBtn">Sửa</button>
+                            <button id="updatedBtn">Sửa</button>
                         </form>
                         <button>Nhập điểm</button>
                     </td>
