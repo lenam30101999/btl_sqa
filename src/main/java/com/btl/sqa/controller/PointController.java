@@ -24,6 +24,7 @@ public class PointController {
   public String getAllPoint(Model model, @PathVariable Integer id){
     Student student = studentRepository.findStudentById(id);
     List<PointDTO> pointList = pointService.getPointList(student);
+    model.addAttribute("student", student);
     model.addAttribute("pointList",pointList);
     return "pointList";
   }

@@ -112,7 +112,7 @@
         <div style="text-align: center;">
             <span style="font-size: large">Nhập điểm</span>
         </div>
-            <form action="#" th:object="${student}" method="post" novalidate>
+            <form action="#" th:object="${student}" novalidate>
                 <div class="gather">
                     <span>Họ và tên</span>
                     <span th:text="${student.getUser().getName()}"></span>
@@ -143,29 +143,32 @@
                         <option th:each="subject : ${subjects}" th:value="${subject}" th:text="${subject}"></option>
                     </select>
                 </div>
-                <div class="gather">
-                    <span>Điểm chuyên cần</span>
-                    <input>
-                </div>
-                <div class="gather">
-                    <span>Điểm kiểm tra</span>
-                    <input>
-                </div>
-                <div class="gather">
-                    <span>Điểm thực hành</span>
-                    <input>
-                </div>
-                <div class="gather">
-                    <span>Điểm bài tập lớn</span>
-                    <input>
-                </div>
-                <div class="gather">
-                    <span>Điểm thi hết học phần</span>
-                    <input>
-                </div>
-                <div style="text-align: center; margin-top: 10px;">
-                    <button type="button" class="btn btn-primary">Thêm điểm</button>
-                </div>
+                <!--/*@thymesVar id="pointInputDTO" type="com.btl.sqa.dto.PointInputDTO"*/-->
+                <form th:action="@{/inputPoint}" th:object="${pointInputDTO}" method="post">
+                    <div class="gather">
+                        <span>Điểm chuyên cần</span>
+                        <input type="text" id="diemCC" autofocus th:field="*{diemCC}">
+                    </div>
+                    <div class="gather">
+                        <span>Điểm kiểm tra</span>
+                        <input type="text" id="diemKT" autofocus th:field="*{diemKT}">
+                    </div>
+                    <div class="gather">
+                        <span>Điểm thực hành</span>
+                        <input type="text" id="diemTH" autofocus th:field="*{diemTH}">
+                    </div>
+                    <div class="gather">
+                        <span>Điểm bài tập lớn</span>
+                        <input type="text" id="diemBTL" autofocus th:field="*{diemBTL}">
+                    </div>
+                    <div class="gather">
+                        <span>Điểm thi hết học phần</span>
+                        <input type="text" id="diemCuoiKy" autofocus th:field="*{diemCuoiKy}">
+                    </div>
+                    <div style="text-align: center; margin-top: 10px;">
+                        <button type="button" class="btn btn-primary">Thêm điểm</button>
+                    </div>
+                </form>
             </div>
         </form>
         <footer style="bottom: 0px; height: 6%; width: 100%" class="bottom-toolbar">

@@ -79,9 +79,9 @@ public class UserController {
   }
 
   @PostMapping(value = "/inputPoint")
-  public String inputPoint(@Valid @ModelAttribute("pointDTO") PointInputDTO pointDTO, Model model) {
-    model.addAttribute("pointDTO", pointDTO);
-    studentService.inputPoint(pointDTO);
+  public String inputPoint(@Valid @ModelAttribute("pointInputDTO") PointInputDTO pointInputDTO, Model model) {
+    model.addAttribute("pointInputDTO", pointInputDTO);
+    studentService.inputPoint(pointInputDTO);
     List<Student> students = studentService.getAllStudent();
     model.addAttribute("students", students);
     return "DanhSachSinhVien";
