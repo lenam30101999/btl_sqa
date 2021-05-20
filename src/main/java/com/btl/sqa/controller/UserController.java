@@ -39,6 +39,16 @@ public class UserController {
   public ModelAndView login(@ModelAttribute("user") User user, Model model, HttpSession session) {
     ModelMap modelMap = new ModelMap();
     model.addAttribute("user", user);
+    if (user.getUsername().equals("") || user.getPassword().equals("")) {
+      MessageResponse errorMessage = new MessageResponse("Vui lòng điền đủ thông tin");
+      modelMap.addAttribute("errorMessage", errorMessage);
+      return new ModelAndView("index", modelMap);
+    }
+    if (user.getPassword().length() < 5) {
+      MessageResponse errorMessage = new MessageResponse("Mật khẩu cần 5 ký tự trở lên");
+      modelMap.addAttribute("errorMessage", errorMessage);
+      return new ModelAndView("index", modelMap);
+    }
     User data = userService.userLogin(user.getUsername(), user.getPassword());
     if (Objects.isNull(data)){
       MessageResponse errorMessage = new MessageResponse("Tài khoản không tồn tại");
@@ -60,13 +70,12 @@ public class UserController {
       studentService.addStudent(userDTO);
       List<Student> students = studentService.getAllStudent();
       model.addAttribute("students", students);
-      return new RedirectView("/getAllStudent");
     }else {
       lecturerService.addLecturer(userDTO);
       List<Lecturer> lecturers = lecturerService.getAllLecturer();
       model.addAttribute("lecturers", lecturers);
-      return new RedirectView("/getAllStudent");
     }
+    return new RedirectView("/getAllStudent");
   }
 
   @PostMapping(value = "/updateStudent")
@@ -100,7 +109,7 @@ public class UserController {
   public String inputPointView(@PathVariable("id") int studentId, Model model, HttpSession session) {
     User user = getUserFromSession(session);
     List<Subject> subjectsList = subjectService.getSubjectByStudentId(studentId);
-    List<String> subjects = subjectsList.stream().map(p -> p.getName()).collect(toList());
+    List<String> subjects = subjectsList.stream().map(Subject::getName).collect(toList());
     Student student = studentService.getStudent(studentId);
     model.addAttribute("user", user);
     model.addAttribute("subjects", subjects);

@@ -17,6 +17,10 @@ import java.util.Objects;
 @Service
 public class StudentService extends BaseService{
 
+  /**
+   * @Description add Student
+   * @param studentDTO
+   */
   public void addStudent(UserDTO studentDTO) {
     studentDTO.setRole("STUDENT");
     User user = saveUser(studentDTO);
@@ -31,7 +35,7 @@ public class StudentService extends BaseService{
           .build();
 
       studentRepository.save(student);
-    }catch (Exception e) {
+    } catch (Exception e) {
       log.debug(e);
     }
   }

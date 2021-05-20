@@ -1,7 +1,5 @@
 package com.btl.sqa.dto;
 
-import com.btl.sqa.model.Student;
-import com.btl.sqa.model.Subject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,13 +10,20 @@ import lombok.NoArgsConstructor;
 public class PointDTO {
   private Integer id;
 
+  private float diemCC;
+
+  private float diemTH;
+
+  private float diemBTL;
+
+  private float diemKT;
+
+  private float diemCuoiKy;
+
   private float point4;
 
   private float point10;
 
-  private String pointApla;
+  private String pointString;
 
-  private Subject subject;
-
-  private Student student;
 }
