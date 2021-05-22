@@ -44,6 +44,7 @@ public class Point implements Serializable {
   @JoinColumn(name = "managerId", nullable = false)
   private Manager manager;
 
-  @ManyToMany(mappedBy = "points")
-  private List<Semester> semesters;
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "semesterId", nullable = false)
+  private Semester semester;
 }

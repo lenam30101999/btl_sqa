@@ -35,7 +35,7 @@ public class Subject implements Serializable {
   private float percentCuoiKy;
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinTable(name = "Subject_Class",
+  @JoinTable(name = "subject_class",
       joinColumns = @JoinColumn(name = "SubjectId"),
       inverseJoinColumns = @JoinColumn(name = "ClassId")
   )

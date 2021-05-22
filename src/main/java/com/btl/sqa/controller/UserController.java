@@ -2,6 +2,7 @@ package com.btl.sqa.controller;
 
 import com.btl.sqa.dto.MessageResponse;
 import com.btl.sqa.dto.PointInputDTO;
+import com.btl.sqa.dto.SemesterDTO;
 import com.btl.sqa.dto.UserDTO;
 import com.btl.sqa.model.*;
 import com.btl.sqa.service.*;
@@ -39,27 +40,19 @@ public class UserController {
   public ModelAndView login(@ModelAttribute("user") User user, Model model, HttpSession session) {
     ModelMap modelMap = new ModelMap();
     model.addAttribute("user", user);
-    if (user.getUsername().equals("") || user.getPassword().equals("")) {
-      MessageResponse errorMessage = new MessageResponse("Vui lòng điền đủ thông tin");
-      modelMap.addAttribute("errorMessage", errorMessage);
-      return new ModelAndView("index", modelMap);
+    MessageResponse msgError = userService.checkLogin(user);
+    if (msgError == null) {
+      User data = userService.userLogin(user.getUsername(), user.getPassword());
+      msgError = userService.checkAfterLogin(data);
+      if (Objects.nonNull(msgError)){
+        modelMap.addAttribute("errorMessage", msgError);
+        return new ModelAndView("index", modelMap);
+      }else {
+        return modelAndView(data, modelMap, session);
+      }
     }
-    if (user.getPassword().length() < 5) {
-      MessageResponse errorMessage = new MessageResponse("Mật khẩu cần 5 ký tự trở lên");
-      modelMap.addAttribute("errorMessage", errorMessage);
-      return new ModelAndView("index", modelMap);
-    }
-    User data = userService.userLogin(user.getUsername(), user.getPassword());
-    if (Objects.isNull(data)){
-      MessageResponse errorMessage = new MessageResponse("Tài khoản không tồn tại");
-      modelMap.addAttribute("errorMessage", errorMessage);
-      return new ModelAndView("index", modelMap);
-    }else if (Objects.isNull(data.getPassword())){
-      MessageResponse errorMessage = new MessageResponse("Sai mật khẩu");
-      modelMap.addAttribute("errorMessage", errorMessage);
-      return new ModelAndView("index", modelMap);
-    }
-    return modelAndView(data, modelMap, session);
+    modelMap.addAttribute("errorMessage", msgError);
+    return new ModelAndView("index", modelMap);
   }
 
   @PostMapping(value = "/create")
@@ -208,6 +201,8 @@ public class UserController {
       case "LECTURER":
         return new ModelAndView("trangChuSqa", modelMap);
       case "STUDENT":
+        List<SemesterDTO> semesters = semesterService.getAllSemesterByStudent(result.getId());
+        modelMap.addAttribute("pointList",semesters);
         return new ModelAndView("BangDiemCaNhanToanKhoa", modelMap);
       default:
         return new ModelAndView("index");

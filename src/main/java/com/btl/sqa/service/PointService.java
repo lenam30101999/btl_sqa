@@ -17,9 +17,8 @@ public class PointService extends BaseService{
     List<Point> pointList = pointRepository.findPointsByStudentId(student.getId());
     List<PointDTO> PointDTOs= new ArrayList<>();
     pointList.forEach(s->{
-      PointDTO PointDTO = new PointDTO();
-      PointDTO.setId(s.getId());
-      PointDTO.setPoint10(caculatePoint10(s));
+      PointDTO PointDTO = modelMapper.convertToPointDTO(s);
+      PointDTO.setPoint10(calculatePoint10(s));
       if(PointDTO.getPoint10()>=9){
         PointDTO.setPoint4(4.0F);
         PointDTO.setPointString("A+");
@@ -61,10 +60,12 @@ public class PointService extends BaseService{
     return PointDTOs;
   }
 
-  public float caculatePoint10(Point point){
-    float abs= point.getDiemCC()*point.getSubject().getPercentCC()+point.getDiemKT()*point.getSubject().getPercentKT()+point.getDiemBTL()*point.getSubject().getPercentKT()+
-        point.getDiemCuoiKy()*point.getSubject().getPercentCuoiKy();
-    return Math.round(abs*100)/100;
+  public double calculatePoint10(Point point){
+    float abs = point.getDiemCC() * point.getSubject().getPercentCC() +
+        point.getDiemKT() * point.getSubject().getPercentKT() +
+        point.getDiemBTL() * point.getSubject().getPercentKT()+
+        point.getDiemCuoiKy() * point.getSubject().getPercentCuoiKy();
+    return Math.round(abs * 100.0) / 100.0;
   }
 }
 

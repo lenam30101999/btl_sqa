@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,8 +24,9 @@ public class PointDTO {
 
   private float point4;
 
-  private float point10;
+  private double point10;
 
   private String pointString;
 
+  private String subjectName;
 }

@@ -10,4 +10,6 @@ import java.util.List;
 public interface SemesterRepository extends JpaRepository<Semester, Integer> {
   Semester findById(int semesterId);
   List<Semester> findDistinctBySubjectsId(Integer subjectId);
+  List<Semester> findAllByPointsStudentId(Integer studentId);
+  Semester findDistinctByPointsId(Integer pointId);
 }

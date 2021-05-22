@@ -72,7 +72,7 @@ public class StudentService extends BaseService{
             .diemTH(pointDTO.getDiemTH())
             .subject(getSubject(pointDTO.getSubjectId()))
             .manager(getManager(pointDTO.getManagerId()))
-            .semesters(getSemesters(pointDTO.getSemesterId()))
+            .semester(getSemester(pointDTO.getSemesterId()))
             .build();
 
         List<Point> points = updated.getPoints();
@@ -120,10 +120,7 @@ public class StudentService extends BaseService{
     return managerRepository.findById(managerId).get();
   }
 
-  private List<Semester> getSemesters(int semesterId){
-    List<Semester> semesters = new ArrayList<>();
-    Semester semester = semesterRepository.findById(semesterId);
-    semesters.add(semester);
-    return semesters;
+  private Semester getSemester(int semesterId){
+    return semesterRepository.findById(semesterId);
   }
 }
