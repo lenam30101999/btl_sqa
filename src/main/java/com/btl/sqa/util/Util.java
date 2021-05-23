@@ -4,7 +4,7 @@ public class Util {
   public static String USER_NOT_FOUND = "Không tìm thấy người dùng này!";
   public static String FILL_USERNAME = "Vui lòng điền tên tài khoản";
   public static String FILL_PASSWORD = "Vui lòng điền mật khẩu";
-  public static String PASSWORD_MORE_THAN_5_CHARACTERS = "Mật khẩu cần 5 ký tự trở lên";
+  public static String WRONG_USERNAME_OR_PASSWORD = "Tên hoặc mật khẩu không đúng";
   public static String ACCOUNT_NOT_EXISTS = "Tài khoản không tồn tại";
   public static String PASSWORD_WRONG = "Sai mật khẩu";
   public static String IDENTIFY_CARD_WRONG_FORMAT = "Định dạng thẻ sinh viên sai";

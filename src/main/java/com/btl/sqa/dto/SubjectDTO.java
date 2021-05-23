@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class SubjectDTO {
   private int id;
   private String subjectName;
+  private String codeSubject;
   private float percentCC;
   private float percentTH;
   private float percentBTL;

@@ -30,6 +30,7 @@ public class PointController {
   @Autowired private SemesterService semesterService;
   @Autowired private SubjectService subjectService;
 
+  @CrossOrigin(origins = "*")
   @GetMapping
   public ResponseEntity<?> getAllPoint(@RequestParam("studentId") Integer id){
     List<SemesterDTO> semesters = semesterService.getAllSemesterByStudent(id);
@@ -38,12 +39,14 @@ public class PointController {
     }else return new ResponseEntity<>(new MessageDTO(Util.USER_NOT_FOUND), HttpStatus.NOT_FOUND);
   }
 
+  @CrossOrigin(origins = "*")
   @PostMapping
   public ResponseEntity<?> inputPoint(@Valid @RequestBody PointInputDTO pointInputDTO) {
     pointService.inputPoint(pointInputDTO);
     return new ResponseEntity<>(new MessageDTO(Util.ADD_SUCCESS), HttpStatus.OK);
   }
 
+  @CrossOrigin(origins = "*")
   @PutMapping("/configPoint")
   public ResponseEntity<?> configPoint(@RequestBody SubjectDTO subjectDTO) {
     subjectService.updatePercent(subjectDTO);

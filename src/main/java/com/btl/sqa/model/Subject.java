@@ -19,6 +19,9 @@ public class Subject implements Serializable {
 
   private String name;
 
+  @Column(name = "code_subject")
+  private String codeSubject;
+
   @Column(name = "percent_cc")
   private float percentCC;
 

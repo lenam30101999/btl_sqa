@@ -32,6 +32,7 @@ public class UserController {
   @Autowired private StudentService studentService;
   @Autowired private LecturerService lecturerService;
 
+  @CrossOrigin(origins = "*")
   @PostMapping(path = "/login")
   public ResponseEntity<?> login(@RequestBody UserDTO user) {
     String messageError = userService.checkLogin(user);
@@ -43,6 +44,7 @@ public class UserController {
     }else return new ResponseEntity<>(new MessageDTO(messageError), HttpStatus.BAD_REQUEST);
   }
 
+  @CrossOrigin(origins = "*")
   @PostMapping(path = "/create")
   public ResponseEntity<?> createUser(@Valid @RequestBody UserDTO userDTO) {
     if (userDTO.getIdentifyCard() != null){
@@ -59,6 +61,7 @@ public class UserController {
     }
   }
 
+  @CrossOrigin(origins = "*")
   @PutMapping(path = "/updateStudent")
   public ResponseEntity<?> updateStudent(@Valid @RequestBody StudentDTO studentDTO) {
     StudentDTO updated = studentService.updateStudent(studentDTO);
@@ -70,24 +73,28 @@ public class UserController {
     }
   }
 
+  @CrossOrigin(origins = "*")
   @PutMapping(path = "/updateLecturer")
   public ResponseEntity<?> updateLecturer(@Valid @RequestBody LecturerDTO lecturerDTO) {
     lecturerService.updateLecturerInfo(lecturerDTO);
     return new ResponseEntity<>(new MessageDTO(Util.UPDATED_SUCCESS), HttpStatus.OK);
   }
 
+  @CrossOrigin(origins = "*")
   @DeleteMapping(path = "/deleteStudent/{id}")
   public ResponseEntity<?> deleteStudent(@PathVariable("id") int studentId) {
     studentService.deleteStudent(studentId);
     return new ResponseEntity<>(new MessageDTO(Util.DELETE_SUCCESS), HttpStatus.OK);
   }
 
+  @CrossOrigin(origins = "*")
   @DeleteMapping(path = "/deleteLecturer/{id}")
   public ResponseEntity<?> deleteLecturer(@PathVariable("id") int lecturerId) {
     lecturerService.deleteLecturer(lecturerId);
     return new ResponseEntity<>(new MessageDTO(Util.DELETE_SUCCESS), HttpStatus.OK);
   }
 
+  @CrossOrigin(origins = "*")
   @GetMapping(path = "/getAllStudent")
   public ResponseEntity<?> getAllStudent() {
     List<StudentDTO> students = studentService.getAllStudent();
@@ -95,6 +102,7 @@ public class UserController {
     return new ResponseEntity<>(students, HttpStatus.OK);
   }
 
+  @CrossOrigin(origins = "*")
   @GetMapping(path = "/getAllLecturer")
   public ResponseEntity<?> getAllLecturer() {
     List<LecturerDTO> lecturers = lecturerService.getAllLecturer();

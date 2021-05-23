@@ -63,7 +63,8 @@ public interface ModelMapper {
   SemesterDTO convertToSemesterDTO(Semester semester);
 
   @Mappings({
-      @Mapping(target = "subjectName", source = "subject.name")
+      @Mapping(target = "subjectName", source = "subject.name"),
+      @Mapping(target = "codeSubject", source = "subject.codeSubject")
   })
   PointDTO convertToPointDTO(Point point);
 

@@ -29,4 +29,6 @@ public class PointDTO {
   private String pointString;
 
   private String subjectName;
+
+  private String codeSubject;
 }
