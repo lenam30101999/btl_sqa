@@ -1,11 +1,13 @@
 package com.btl.sqa.service;
 
 import com.btl.sqa.dto.UserDTO;
-import com.btl.sqa.model.User;
+import com.btl.sqa.model.*;
 import com.btl.sqa.repository.*;
 import com.btl.sqa.util.ModelMapper;
 import com.btl.sqa.util.ServiceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Objects;
 
 public class BaseService {
   @Autowired protected ClassRepository classRepository;
@@ -24,5 +26,29 @@ public class BaseService {
     User user = modelMapper.convertStudentToUser(userDTO);
 //    user = userRepository.save(user);
     return user;
+  }
+
+  protected User findUserById(int id){
+    User user = userRepository.findUserById(id);
+    if (Objects.nonNull(user)){
+      return user;
+    }
+    return null;
+  }
+
+  public Student getStudent(int studentId){
+    return studentRepository.findById(studentId).orElse(null);
+  }
+
+  protected Subject getSubject(int subjectId){
+    return subjectRepository.findById(subjectId).orElse(null);
+  }
+
+  protected Manager getManager(int managerId){
+    return managerRepository.findById(managerId).orElse(null);
+  }
+
+  protected Semester getSemester(int semesterId){
+    return semesterRepository.findById(semesterId);
   }
 }

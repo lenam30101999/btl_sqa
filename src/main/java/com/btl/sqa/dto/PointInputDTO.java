@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PointInputDTO {
-  private int userId;
+  private int studentId;
 
   private float diemCC;
 

@@ -19,7 +19,7 @@ public class Lecturer {
   private int id;
 
   @MapsId
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
   @JoinColumn(name = "id")
   private User user;
 

@@ -1,13 +1,18 @@
 package com.btl.sqa.service;
 
+import com.btl.sqa.dto.LecturerDTO;
+import com.btl.sqa.dto.StudentDTO;
 import com.btl.sqa.dto.UserDTO;
 import com.btl.sqa.model.Lecturer;
+import com.btl.sqa.model.Student;
 import com.btl.sqa.model.User;
+import com.btl.sqa.util.ServiceUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Log4j2
 @Service
@@ -27,15 +32,17 @@ public class LecturerService extends BaseService{
     }
   }
 
-  public void updateLecturerInfo(Lecturer lecturer){
+  public void updateLecturerInfo(LecturerDTO lecturerDTO){
     try {
-      Lecturer updated = getLecturer(lecturer.getId());
-      if (Objects.nonNull(updated)){
-        updated = Lecturer.builder()
-                .user(lecturer.getUser())
-                .faculty(lecturer.getFaculty())
-                .subjects(lecturer.getSubjects())
-                .build();
+      Lecturer updated = getLecturer(lecturerDTO.getId());
+      User user = findUserById(lecturerDTO.getId());
+      if (Objects.nonNull(user) && Objects.nonNull(updated)){
+        user.setAddress(lecturerDTO.getAddress());
+        user.setEmail(lecturerDTO.getEmail());
+        user.setPhoneNo(lecturerDTO.getPhoneNo());
+        user.setDob(ServiceUtil.formatDate(lecturerDTO.getDob()));
+
+        updated.setFaculty(lecturerDTO.getFacultyName());
         lecturerRepository.saveAndFlush(updated);
       }
     }catch (Exception e){
@@ -55,10 +62,14 @@ public class LecturerService extends BaseService{
   }
 
   public Lecturer getLecturer(int lecturerId){
-    return lecturerRepository.findById(lecturerId).orElse(null);
+    return lecturerRepository.findLecturerById(lecturerId).orElse(null);
   }
 
-  public List<Lecturer> getAllLecturer(){
-    return lecturerRepository.findAll();
+  public List<LecturerDTO> getAllLecturer(){
+    return convertToStudentDTOs(lecturerRepository.findAll());
+  }
+
+  private List<LecturerDTO> convertToStudentDTOs(List<Lecturer> lecturers){
+    return lecturers.stream().map(modelMapper::convertToLecturerDTO).collect(Collectors.toList());
   }
 }

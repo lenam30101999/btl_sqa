@@ -1,20 +1,61 @@
 package com.btl.sqa.util;
 
-import com.btl.sqa.dto.PointDTO;
-import com.btl.sqa.dto.SemesterDTO;
-import com.btl.sqa.dto.UserDTO;
-import com.btl.sqa.model.Point;
-import com.btl.sqa.model.Semester;
-import com.btl.sqa.model.User;
+import com.btl.sqa.dto.*;
+import com.btl.sqa.model.*;
+import com.btl.sqa.model.Class;
 import jdk.jfr.MemoryAddress;
 import org.mapstruct.*;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Mapper(componentModel = "spring")
 public interface ModelMapper {
+
+  List<SemesterResponse> convertToSemesterResponse(List<Semester> semesters);
+
+  @Mappings({})
+  List<ClassDTO> convertToClassDTO(List<Class> classrooms);
+
+  @Mapping(target = "subjectName", source = "name")
+  SubjectDTO convertSubjectDTO(Subject subject);
+
+  @Mappings({
+      @Mapping(target = "name", source = "user.name"),
+      @Mapping(target = "username", source = "user.username"),
+      @Mapping(target = "password", source = "user.password"),
+      @Mapping(target = "dob", source = "user.dob"),
+      @Mapping(target = "phoneNo", source = "user.phoneNo"),
+      @Mapping(target = "role", source = "user.role"),
+      @Mapping(target = "gender", source = "user.gender"),
+      @Mapping(target = "address", source = "user.address"),
+      @Mapping(target = "email", source = "user.email"),
+      @Mapping(target = "facultyName", source = "faculty")
+  })
+  LecturerDTO convertToLecturerDTO(Lecturer lecturer);
+
+  @Mappings({
+      @Mapping(target = "name", source = "user.name"),
+      @Mapping(target = "username", source = "user.username"),
+      @Mapping(target = "password", source = "user.password"),
+      @Mapping(target = "dob", source = "user.dob"),
+      @Mapping(target = "phoneNo", source = "user.phoneNo"),
+      @Mapping(target = "role", source = "user.role"),
+      @Mapping(target = "gender", source = "user.gender"),
+      @Mapping(target = "address", source = "user.address"),
+      @Mapping(target = "email", source = "user.email"),
+      @Mapping(target = "className", source = "room.name")
+  })
+  StudentDTO convertStudentDTO(Student student);
+
+  @Mappings({
+      @Mapping(target = "identifyCard", source = "student.identifyCard"),
+      @Mapping(target = "className", source = "student.room.name"),
+      @Mapping(target = "facultyName", ignore = true)
+  })
+  UserDTO convertToUserDTO(User user);
 
   @Mappings({
       @Mapping(target = "points", source = "points")

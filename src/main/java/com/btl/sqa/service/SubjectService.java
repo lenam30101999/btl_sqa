@@ -1,5 +1,6 @@
 package com.btl.sqa.service;
 
+import com.btl.sqa.dto.SubjectDTO;
 import com.btl.sqa.model.Student;
 import com.btl.sqa.model.Subject;
 import lombok.extern.log4j.Log4j2;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Log4j2
@@ -14,27 +16,23 @@ import java.util.stream.Collectors;
 @Transactional
 public class SubjectService extends BaseService{
 
-  public List<Subject> getSubjectByStudentId(int studentId){
+  public List<SubjectDTO> getSubjectByStudentId(int studentId){
     Student student = studentRepository.findStudentById(studentId);
     int classId = student.getRoom().getId();
     List<Subject> subjects = subjectRepository.findSubjectsByClassModelId(classId);
-    return subjects;
+    return subjects.stream().map(modelMapper::convertSubjectDTO).collect(Collectors.toList());
   }
 
-  public void updatePercent(List<Subject> subjects){
-    subjects = subjects.stream().peek(this::updateSubject).collect(Collectors.toList());
-    if (subjects.size() > 0){
-      log.info("SUBJECT: " + subjects.get(0).getPercentCuoiKy());
+  public void updatePercent(SubjectDTO subjectDTO){
+    Subject updated = subjectRepository.findById(subjectDTO.getId()).orElse(null);
+    if (Objects.nonNull(updated)){
+      updated.setPercentBTL(subjectDTO.getPercentBTL());
+      updated.setPercentCC(subjectDTO.getPercentCC());
+      updated.setPercentCuoiKy(subjectDTO.getPercentCuoiKy());
+      updated.setPercentKT(subjectDTO.getPercentKT());
+      updated.setPercentTH(subjectDTO.getPercentTH());
+      subjectRepository.saveAndFlush(updated);
     }
   }
 
-  private void updateSubject(Subject subject){
-    Subject updated = subjectRepository.findById(subject.getId()).get();
-    updated.setPercentBTL(subject.getPercentBTL());
-    updated.setPercentCC(subject.getPercentCC());
-    updated.setPercentCuoiKy(subject.getPercentCuoiKy());
-    updated.setPercentKT(subject.getPercentKT());
-    updated.setPercentTH(subject.getPercentTH());
-    subjectRepository.saveAndFlush(updated);
-  }
 }

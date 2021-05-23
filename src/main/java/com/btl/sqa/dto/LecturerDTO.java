@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class LecturerDTO {
   private int id;
 
   @NotNull
@@ -34,13 +34,6 @@ public class UserDTO {
 
   protected String email;
 
-  private String identifyCard;
-
-  private int classId;
-
-  private String className;
-
   @NotNull
   private String facultyName;
-
 }
