@@ -88,12 +88,8 @@ public class StudentService extends BaseService{
   }
 
   public List<StudentDTO> findAllStudentByNameOrStudentCodeLike(String search){
-    List<Student> students;
-    if (ServiceUtil.formatIdentifyCardSearch(search)){
-      students = studentRepository.findAllByIdentifyCardIsContaining(search);
-    }else {
-      students = studentRepository.findAllByUserNameIsContaining(search);
-    }
+    List<Student> students =
+        studentRepository.findAllByIdentifyCardContainingOrUserNameContaining(search, search);
     return convertToStudentDTOs(students);
   }
 
