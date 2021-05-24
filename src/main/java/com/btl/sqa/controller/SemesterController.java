@@ -20,7 +20,7 @@ public class SemesterController {
   private SemesterService semesterService;
 
   @CrossOrigin(origins = "*")
-  @GetMapping
+  @GetMapping(produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> getAllSemester(){
     List<SemesterResponse> responses = semesterService.getAllSemester();
     return new ResponseEntity<>(responses, HttpStatus.OK);

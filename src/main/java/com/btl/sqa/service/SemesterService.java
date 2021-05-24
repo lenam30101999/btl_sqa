@@ -2,7 +2,6 @@ package com.btl.sqa.service;
 
 import com.btl.sqa.dto.SemesterDTO;
 import com.btl.sqa.dto.SemesterResponse;
-import com.btl.sqa.model.Point;
 import com.btl.sqa.model.Semester;
 import com.btl.sqa.model.User;
 import lombok.extern.log4j.Log4j2;

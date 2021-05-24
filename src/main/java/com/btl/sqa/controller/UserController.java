@@ -1,27 +1,17 @@
 package com.btl.sqa.controller;
 
 import com.btl.sqa.dto.*;
-import com.btl.sqa.model.*;
 import com.btl.sqa.service.*;
 import com.btl.sqa.util.Util;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
 
 @Log4j2
 @RestController
@@ -33,7 +23,7 @@ public class UserController {
   @Autowired private LecturerService lecturerService;
 
   @CrossOrigin(origins = "*")
-  @PostMapping(path = "/login")
+  @PostMapping(path = "/login", produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> login(@RequestBody UserDTO user) {
     String messageError = userService.checkLogin(user);
     UserDTO data = userService.userLogin(user.getUsername(), user.getPassword());
@@ -45,7 +35,7 @@ public class UserController {
   }
 
   @CrossOrigin(origins = "*")
-  @PostMapping(path = "/create")
+  @PostMapping(path = "/create", produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> createUser(@Valid @RequestBody UserDTO userDTO) {
     if (userDTO.getIdentifyCard() != null){
       StudentDTO dto = studentService.addStudent(userDTO);
@@ -62,7 +52,7 @@ public class UserController {
   }
 
   @CrossOrigin(origins = "*")
-  @PutMapping(path = "/updateStudent")
+  @PutMapping(path = "/updateStudent", produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> updateStudent(@Valid @RequestBody StudentDTO studentDTO) {
     StudentDTO updated = studentService.updateStudent(studentDTO);
     if (Objects.nonNull(updated)){
@@ -74,28 +64,36 @@ public class UserController {
   }
 
   @CrossOrigin(origins = "*")
-  @PutMapping(path = "/updateLecturer")
+  @PutMapping(path = "/updateLecturer", produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> updateLecturer(@Valid @RequestBody LecturerDTO lecturerDTO) {
     lecturerService.updateLecturerInfo(lecturerDTO);
     return new ResponseEntity<>(new MessageDTO(Util.UPDATED_SUCCESS), HttpStatus.OK);
   }
 
   @CrossOrigin(origins = "*")
-  @DeleteMapping(path = "/deleteStudent/{id}")
+  @DeleteMapping(path = "/deleteStudent/{id}", produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> deleteStudent(@PathVariable("id") int studentId) {
-    studentService.deleteStudent(studentId);
-    return new ResponseEntity<>(new MessageDTO(Util.DELETE_SUCCESS), HttpStatus.OK);
+    boolean deleted = studentService.deleteStudent(studentId);
+    if (deleted){
+      return new ResponseEntity<>(new MessageDTO(Util.DELETE_SUCCESS), HttpStatus.OK);
+    }else {
+      return new ResponseEntity<>(new MessageDTO(Util.USER_NOT_FOUND), HttpStatus.BAD_REQUEST);
+    }
   }
 
   @CrossOrigin(origins = "*")
-  @DeleteMapping(path = "/deleteLecturer/{id}")
+  @DeleteMapping(path = "/deleteLecturer/{id}", produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> deleteLecturer(@PathVariable("id") int lecturerId) {
-    lecturerService.deleteLecturer(lecturerId);
-    return new ResponseEntity<>(new MessageDTO(Util.DELETE_SUCCESS), HttpStatus.OK);
+    boolean deleted = lecturerService.deleteLecturer(lecturerId);
+    if (deleted){
+      return new ResponseEntity<>(new MessageDTO(Util.DELETE_SUCCESS), HttpStatus.OK);
+    }else {
+      return new ResponseEntity<>(new MessageDTO(Util.USER_NOT_FOUND), HttpStatus.BAD_REQUEST);
+    }
   }
 
   @CrossOrigin(origins = "*")
-  @GetMapping(path = "/getAllStudent")
+  @GetMapping(path = "/getAllStudent", produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> getAllStudent() {
     List<StudentDTO> students = studentService.getAllStudent();
     students.forEach(p -> p.setIdentifyCard(p.getIdentifyCard().toUpperCase()));
@@ -103,22 +101,22 @@ public class UserController {
   }
 
   @CrossOrigin(origins = "*")
-  @GetMapping(path = "/getAllStudent", params = "name")
-  public ResponseEntity<?> getAllStudentByName(@RequestParam("name") String name) {
-    List<StudentDTO> students = studentService.findAllStudentByNameLike(name);
+  @GetMapping(path = "/getAllStudent", params = "search", produces = "application/json;charset=UTF-8")
+  public ResponseEntity<?> getAllStudentByName(@RequestParam("search") String search) {
+    List<StudentDTO> students = studentService.findAllStudentByNameOrStudentCodeLike(search);
     students.forEach(p -> p.setIdentifyCard(p.getIdentifyCard().toUpperCase()));
     return new ResponseEntity<>(students, HttpStatus.OK);
   }
 
   @CrossOrigin(origins = "*")
-  @GetMapping(path = "/getAllLecturer")
+  @GetMapping(path = "/getAllLecturer", produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> getAllLecturer() {
     List<LecturerDTO> lecturers = lecturerService.getAllLecturer();
     return new ResponseEntity<>(lecturers, HttpStatus.OK);
   }
 
   @CrossOrigin(origins = "*")
-  @GetMapping(path = "/getAllLecturer", params = "name")
+  @GetMapping(path = "/getAllLecturer", params = "name", produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> getAllLecturerByName(@RequestParam("name") String name) {
     List<LecturerDTO> lecturers = lecturerService.findAllLecturerByNameLike(name);
     return new ResponseEntity<>(lecturers, HttpStatus.OK);

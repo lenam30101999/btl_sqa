@@ -4,8 +4,6 @@ import com.btl.sqa.dto.MessageDTO;
 import com.btl.sqa.dto.PointInputDTO;
 import com.btl.sqa.dto.SemesterDTO;
 import com.btl.sqa.dto.SubjectDTO;
-import com.btl.sqa.model.Student;
-import com.btl.sqa.model.Subject;
 import com.btl.sqa.service.PointService;
 import com.btl.sqa.service.SemesterService;
 import com.btl.sqa.service.SubjectService;
@@ -14,7 +12,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -31,7 +28,7 @@ public class PointController {
   @Autowired private SubjectService subjectService;
 
   @CrossOrigin(origins = "*")
-  @GetMapping(params = "studentId")
+  @GetMapping(params = "studentId", produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> getAllPoint(@RequestParam("studentId") Integer id){
     List<SemesterDTO> semesters = semesterService.getAllSemesterByStudent(id);
     if (Objects.nonNull(semesters)){
@@ -40,8 +37,8 @@ public class PointController {
   }
 
   @CrossOrigin(origins = "*")
-  @GetMapping(params = {"studentId", "subjectName"})
-  public ResponseEntity<?> getAllPointAndSubjectName(@RequestParam("studentId") Integer id,
+  @GetMapping(params = {"studentId", "subjectName"}, produces = "application/json;charset=UTF-8")
+  public ResponseEntity<?> getAllPointByStudentIdAndSubjectName(@RequestParam("studentId") Integer id,
                                                      @RequestParam("subjectName") String subjectName){
     List<SemesterDTO> semesters = semesterService.getAllSemesterByStudentAndSubjectName(id, subjectName);
     if (Objects.nonNull(semesters)){
@@ -50,16 +47,22 @@ public class PointController {
   }
 
   @CrossOrigin(origins = "*")
-  @PostMapping
+  @PostMapping(produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> inputPoint(@Valid @RequestBody PointInputDTO pointInputDTO) {
-    pointService.inputPoint(pointInputDTO);
-    return new ResponseEntity<>(new MessageDTO(Util.ADD_SUCCESS), HttpStatus.OK);
+    PointInputDTO dto = pointService.inputPoint(pointInputDTO);
+    if (Objects.nonNull(dto)){
+      return new ResponseEntity<>(new MessageDTO(Util.ADD_SUCCESS), HttpStatus.OK);
+    }else return new ResponseEntity<>(new MessageDTO(Util.ADD_NOT_SUCCESS), HttpStatus.BAD_REQUEST);
   }
 
   @CrossOrigin(origins = "*")
-  @PutMapping("/configPoint")
+  @PutMapping(path = "/configPoint", produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> configPoint(@RequestBody SubjectDTO subjectDTO) {
-    subjectService.updatePercent(subjectDTO);
-    return new ResponseEntity<>(new MessageDTO(Util.UPDATED_SUCCESS), HttpStatus.OK);
+    SubjectDTO dto = subjectService.updatePercent(subjectDTO);
+    if (Objects.nonNull(dto)){
+      return new ResponseEntity<>(new MessageDTO(Util.UPDATED_SUCCESS), HttpStatus.OK);
+    }else {
+      return new ResponseEntity<>(new MessageDTO(Util.UPDATED_NOT_SUCCESS), HttpStatus.BAD_REQUEST);
+    }
   }
 }

@@ -15,10 +15,11 @@ import java.util.List;
 @RequestMapping("/api/v1/subjects")
 public class SubjectController {
 
-  @Autowired private SubjectService subjectService;
+  @Autowired
+  private SubjectService subjectService;
 
   @CrossOrigin(origins = "*")
-  @GetMapping
+  @GetMapping(produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> getSubjectsByStudent(@RequestParam("studentId") int studentId){
     List<SubjectDTO> subjectDTOS = subjectService.getSubjectByStudentId(studentId);
     return new ResponseEntity<>(subjectDTOS, HttpStatus.OK);

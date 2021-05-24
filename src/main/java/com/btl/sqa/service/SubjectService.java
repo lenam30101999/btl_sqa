@@ -23,7 +23,7 @@ public class SubjectService extends BaseService{
     return subjects.stream().map(modelMapper::convertSubjectDTO).collect(Collectors.toList());
   }
 
-  public void updatePercent(SubjectDTO subjectDTO){
+  public SubjectDTO updatePercent(SubjectDTO subjectDTO){
     Subject updated = subjectRepository.findById(subjectDTO.getId()).orElse(null);
     if (Objects.nonNull(updated)){
       updated.setPercentBTL(subjectDTO.getPercentBTL());
@@ -32,7 +32,8 @@ public class SubjectService extends BaseService{
       updated.setPercentKT(subjectDTO.getPercentKT());
       updated.setPercentTH(subjectDTO.getPercentTH());
       subjectRepository.saveAndFlush(updated);
-    }
+      return modelMapper.convertSubjectDTO(updated);
+    }else return null;
   }
 
 }

@@ -9,6 +9,8 @@ public class Util {
   public static String PASSWORD_WRONG = "Sai mật khẩu";
   public static String IDENTIFY_CARD_WRONG_FORMAT = "Định dạng thẻ sinh viên sai";
   public static String UPDATED_SUCCESS = "Thay đổi thành công";
+  public static String UPDATED_NOT_SUCCESS = "Thay đổi không thành công";
   public static String ADD_SUCCESS = "Thêm thành công";
+  public static String ADD_NOT_SUCCESS = "Thêm không thành công";
   public static String DELETE_SUCCESS = "Xoá thành công";
 }

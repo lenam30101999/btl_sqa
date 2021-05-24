@@ -19,7 +19,7 @@ public class ClassroomController {
   private ClassService classService;
 
   @CrossOrigin(origins = "*")
-  @GetMapping
+  @GetMapping(produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> getAllClassroom(){
     List<ClassDTO> classDTOS = classService.getAllClass();
     return new ResponseEntity<>(classDTOS, HttpStatus.OK);

@@ -1,10 +1,8 @@
 package com.btl.sqa.service;
 
 import com.btl.sqa.dto.LecturerDTO;
-import com.btl.sqa.dto.StudentDTO;
 import com.btl.sqa.dto.UserDTO;
 import com.btl.sqa.model.Lecturer;
-import com.btl.sqa.model.Student;
 import com.btl.sqa.model.User;
 import com.btl.sqa.util.ServiceUtil;
 import lombok.extern.log4j.Log4j2;
@@ -50,15 +48,17 @@ public class LecturerService extends BaseService{
     }
   }
 
-  public void deleteLecturer(int lecturerId) {
+  public boolean deleteLecturer(int lecturerId) {
     try {
       Lecturer lecturer = getLecturer(lecturerId);
       if (Objects.nonNull(lecturer)){
         lecturerRepository.deleteById(lecturerId);
+        return true;
       }
     }catch (Exception e) {
       log.debug(e);
     }
+    return false;
   }
 
   public List<LecturerDTO> findAllLecturerByNameLike(String name){

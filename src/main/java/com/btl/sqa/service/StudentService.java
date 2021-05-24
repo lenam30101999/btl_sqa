@@ -57,9 +57,9 @@ public class StudentService extends BaseService{
             updated.setIdentifyCard(studentDTO.getIdentifyCard());
             updated.setFacultyName(studentDTO.getFacultyName());
             updated.setRoom(getClass(studentDTO.getClassId()));
+            updated.setUser(user);
 
-          userRepository.saveAndFlush(user);
-          studentRepository.saveAndFlush(updated);
+          updated = studentRepository.saveAndFlush(updated);
           return modelMapper.convertStudentDTO(updated);
         }
       }
@@ -69,24 +69,31 @@ public class StudentService extends BaseService{
     return null;
   }
 
-  public void deleteStudent(int studentId) {
+  public boolean deleteStudent(int studentId) {
     try {
       Student student = getStudent(studentId);
       if (Objects.nonNull(student)){
         userRepository.deleteById(studentId);
         studentRepository.delete(student);
+        return true;
       }
     }catch (Exception e) {
       log.debug(e);
     }
+    return false;
   }
 
   public List<StudentDTO> getAllStudent(){
     return convertToStudentDTOs(studentRepository.findAll());
   }
 
-  public List<StudentDTO> findAllStudentByNameLike(String name){
-    List<Student> students = studentRepository.findAllByUserNameIsContaining(name);
+  public List<StudentDTO> findAllStudentByNameOrStudentCodeLike(String search){
+    List<Student> students;
+    if (ServiceUtil.formatIdentifyCardSearch(search)){
+      students = studentRepository.findAllByIdentifyCardIsContaining(search);
+    }else {
+      students = studentRepository.findAllByUserNameIsContaining(search);
+    }
     return convertToStudentDTOs(students);
   }
 
