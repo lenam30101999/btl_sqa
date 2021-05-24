@@ -19,9 +19,16 @@ public class SubjectController {
   private SubjectService subjectService;
 
   @CrossOrigin(origins = "*")
-  @GetMapping(produces = "application/json;charset=UTF-8")
+  @GetMapping(params = "studentId", produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> getSubjectsByStudent(@RequestParam("studentId") int studentId){
     List<SubjectDTO> subjectDTOS = subjectService.getSubjectByStudentId(studentId);
+    return new ResponseEntity<>(subjectDTOS, HttpStatus.OK);
+  }
+
+  @CrossOrigin(origins = "*")
+  @GetMapping(produces = "application/json;charset=UTF-8")
+  public ResponseEntity<?> getAllSubject(){
+    List<SubjectDTO> subjectDTOS = subjectService.getAllSubject();
     return new ResponseEntity<>(subjectDTOS, HttpStatus.OK);
   }
 }

@@ -23,6 +23,21 @@ public class SubjectService extends BaseService{
     return subjects.stream().map(modelMapper::convertSubjectDTO).collect(Collectors.toList());
   }
 
+  public List<SubjectDTO> getAllSubject(){
+    List<Subject> subjects = subjectRepository.findAll();
+    List<SubjectDTO> subjectDTOs = subjects.stream().map(modelMapper::convertSubjectDTO).collect(Collectors.toList());
+    subjectDTOs.forEach(this::editPercent);
+    return subjectDTOs;
+  }
+
+  private void editPercent(SubjectDTO subjectDTO){
+    subjectDTO.setPercentCC(subjectDTO.getPercentCC() * 100);
+    subjectDTO.setPercentBTL(subjectDTO.getPercentBTL() * 100);
+    subjectDTO.setPercentCuoiKy(subjectDTO.getPercentCuoiKy() * 100);
+    subjectDTO.setPercentKT(subjectDTO.getPercentKT() * 100);
+    subjectDTO.setPercentTH(subjectDTO.getPercentTH() * 100);
+  }
+
   public SubjectDTO updatePercent(SubjectDTO subjectDTO){
     Subject updated = subjectRepository.findById(subjectDTO.getId()).orElse(null);
     if (Objects.nonNull(updated)){
