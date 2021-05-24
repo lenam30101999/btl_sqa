@@ -85,6 +85,11 @@ public class StudentService extends BaseService{
     return convertToStudentDTOs(studentRepository.findAll());
   }
 
+  public List<StudentDTO> findAllStudentByNameLike(String name){
+    List<Student> students = studentRepository.findAllByUserNameIsContaining(name);
+    return convertToStudentDTOs(students);
+  }
+
   private Class getClass(int classId){
     return classRepository.findClassById(classId).orElse(null);
   }

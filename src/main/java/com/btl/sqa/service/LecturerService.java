@@ -61,6 +61,11 @@ public class LecturerService extends BaseService{
     }
   }
 
+  public List<LecturerDTO> findAllLecturerByNameLike(String name){
+    List<Lecturer> lecturers = lecturerRepository.findAllByUserNameIsContaining(name);
+    return convertToStudentDTOs(lecturers);
+  }
+
   public Lecturer getLecturer(int lecturerId){
     return lecturerRepository.findLecturerById(lecturerId).orElse(null);
   }

@@ -103,9 +103,24 @@ public class UserController {
   }
 
   @CrossOrigin(origins = "*")
+  @GetMapping(path = "/getAllStudent", params = "name")
+  public ResponseEntity<?> getAllStudentByName(@RequestParam("name") String name) {
+    List<StudentDTO> students = studentService.findAllStudentByNameLike(name);
+    students.forEach(p -> p.setIdentifyCard(p.getIdentifyCard().toUpperCase()));
+    return new ResponseEntity<>(students, HttpStatus.OK);
+  }
+
+  @CrossOrigin(origins = "*")
   @GetMapping(path = "/getAllLecturer")
   public ResponseEntity<?> getAllLecturer() {
     List<LecturerDTO> lecturers = lecturerService.getAllLecturer();
+    return new ResponseEntity<>(lecturers, HttpStatus.OK);
+  }
+
+  @CrossOrigin(origins = "*")
+  @GetMapping(path = "/getAllLecturer", params = "name")
+  public ResponseEntity<?> getAllLecturerByName(@RequestParam("name") String name) {
+    List<LecturerDTO> lecturers = lecturerService.findAllLecturerByNameLike(name);
     return new ResponseEntity<>(lecturers, HttpStatus.OK);
   }
 
