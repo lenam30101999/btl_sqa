@@ -31,9 +31,19 @@ public class PointController {
   @Autowired private SubjectService subjectService;
 
   @CrossOrigin(origins = "*")
-  @GetMapping
+  @GetMapping(params = "studentId")
   public ResponseEntity<?> getAllPoint(@RequestParam("studentId") Integer id){
     List<SemesterDTO> semesters = semesterService.getAllSemesterByStudent(id);
+    if (Objects.nonNull(semesters)){
+      return new ResponseEntity<>(semesters, HttpStatus.OK);
+    }else return new ResponseEntity<>(new MessageDTO(Util.USER_NOT_FOUND), HttpStatus.NOT_FOUND);
+  }
+
+  @CrossOrigin(origins = "*")
+  @GetMapping(params = {"studentId", "subjectName"})
+  public ResponseEntity<?> getAllPointAndSubjectName(@RequestParam("studentId") Integer id,
+                                                     @RequestParam("subjectName") String subjectName){
+    List<SemesterDTO> semesters = semesterService.getAllSemesterByStudentAndSubjectName(id, subjectName);
     if (Objects.nonNull(semesters)){
       return new ResponseEntity<>(semesters, HttpStatus.OK);
     }else return new ResponseEntity<>(new MessageDTO(Util.USER_NOT_FOUND), HttpStatus.NOT_FOUND);

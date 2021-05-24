@@ -1,6 +1,9 @@
 package com.btl.sqa.controller;
 
 import com.btl.sqa.dto.UserDTO;
+import com.btl.sqa.model.Class;
+import com.btl.sqa.model.Student;
+import com.btl.sqa.model.User;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
@@ -105,7 +108,13 @@ public class UserControllerTest {
   }
 
   @Test
-  public void createUser() {
+  public void createNewStudentCorrectData() {
+
+  }
+
+  @Test
+  public void createNewStudentIncorrectData() {
+
   }
 
   @Test

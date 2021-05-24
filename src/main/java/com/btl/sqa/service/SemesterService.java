@@ -30,6 +30,16 @@ public class SemesterService extends BaseService{
     }else return null;
   }
 
+  public List<SemesterDTO> getAllSemesterByStudentAndSubjectName(int studentId, String subjectName){
+    User user = findUserById(studentId);
+    if (user != null){
+      List<Semester> result = semesterRepository.findAllByPointsStudentId(studentId);
+      remove(result, studentId);
+      removeDiffSubjectName(result, subjectName);
+      return convertSemesterDTOs(result);
+    }else return null;
+  }
+
   private List<SemesterDTO> convertSemesterDTOs(List<Semester> semesters){
     return semesters.stream().map(modelMapper::convertToSemesterDTO).distinct().collect(Collectors.toList());
   }
@@ -37,6 +47,12 @@ public class SemesterService extends BaseService{
   private void remove(List<Semester> semesters, int studentId){
     for (Semester semester : semesters){
       semester.getPoints().removeIf(point -> point.getStudent().getId() != studentId);
+    }
+  }
+
+  private void removeDiffSubjectName(List<Semester> semesters, String subjectName){
+    for (Semester semester : semesters){
+      semester.getPoints().removeIf(point -> !point.getSubject().getName().equals(subjectName));
     }
   }
 
