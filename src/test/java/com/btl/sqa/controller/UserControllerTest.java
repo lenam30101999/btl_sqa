@@ -3,6 +3,7 @@ package com.btl.sqa.controller;
 import com.btl.sqa.dto.LecturerDTO;
 import com.btl.sqa.dto.StudentDTO;
 import com.btl.sqa.dto.UserDTO;
+import com.btl.sqa.model.Lecturer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 import org.junit.Assert;
@@ -126,6 +127,30 @@ public class UserControllerTest {
 
     MvcResult result = mockMvc.perform(post("/api/v1/users/create")
         .content(asJsonString(studentDTO))
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().is2xxSuccessful())
+        .andReturn();
+    String content = result.getResponse().getContentAsString();
+    log.info(content);
+  }
+
+  @Test
+  public void createNewLecturerCorrectData() throws Exception {
+    LecturerDTO lecturerDTO = LecturerDTO.builder()
+        .username("tranvanxyz")
+        .password("tranvanxyz01")
+        .role("LECTURER")
+        .email("tranvanxyz@gmail.com")
+        .name("Tran Van X")
+        .phoneNo("0913123311")
+        .gender("MALE")
+        .address("Hà Nội")
+        .facultyName("Công nghệ thông tin")
+        .build();
+
+    MvcResult result = mockMvc.perform(post("/api/v1/users/create")
+        .content(asJsonString(lecturerDTO))
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().is2xxSuccessful())
