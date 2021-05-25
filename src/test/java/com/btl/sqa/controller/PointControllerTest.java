@@ -117,7 +117,7 @@ public class PointControllerTest {
   }
 
   @Test
-  public void inputIncorrectPoint() throws Exception {
+  public void inputIncorrectPoint1() throws Exception {
     PointInputDTO pointInputDTO = PointInputDTO.builder()
         .studentId(9)
         .diemCC(-2f)
@@ -143,7 +143,7 @@ public class PointControllerTest {
   public void inputIncorrectPoint2() throws Exception {
     PointInputDTO pointInputDTO = PointInputDTO.builder()
         .studentId(9)
-        .diemCC(-2f)
+        .diemCC(-2)
         .diemTH(7)
         .diemBTL(8)
         .diemKT(900)

@@ -41,4 +41,14 @@ public class SubjectControllerTest {
         .andReturn();
     Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
   }
+
+  @Test
+  public void getSubjectsByStudentHaveNone() throws Exception {
+    MvcResult result = mockMvc.perform(get("/api/v1/subjects")
+        .param("studentId", "100"))
+        .andDo(print())
+        .andExpect(status().is4xxClientError())
+        .andReturn();
+    Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+  }
 }
