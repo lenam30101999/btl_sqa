@@ -41,7 +41,7 @@ public class PointControllerTest {
   private MockMvc mockMvc;
 
   @Test
-  public void getAllPoint() throws Exception {
+  public void getAllPointByStudentId() throws Exception {
     MvcResult result = mockMvc.perform(get("/api/v1/points")
         .param("studentId", "9"))
         .andDo(print())
@@ -51,12 +51,44 @@ public class PointControllerTest {
   }
 
   @Test
-  public void getAllPointByStudentIdAndSubjectName() throws Exception {
+  public void getAllPointByStudentIdHaveNone() throws Exception {
+    MvcResult result = mockMvc.perform(get("/api/v1/points")
+        .param("studentId", "100"))
+        .andDo(print())
+        .andExpect(status().is4xxClientError())
+        .andReturn();
+    Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+  }
+
+  @Test
+  public void getAllPointByStudentIdAndSubjectName1() throws Exception {
     MvcResult result = mockMvc.perform(get("/api/v1/points")
         .param("studentId", "2")
         .param("subjectName", "Java"))
         .andDo(print())
         .andExpect(status().is2xxSuccessful())
+        .andReturn();
+    Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+  }
+
+  @Test
+  public void getAllPointByStudentIdAndSubjectName2() throws Exception {
+    MvcResult result = mockMvc.perform(get("/api/v1/points")
+        .param("studentId", "2")
+        .param("subjectName", "C"))
+        .andDo(print())
+        .andExpect(status().is2xxSuccessful())
+        .andReturn();
+    Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+  }
+
+  @Test
+  public void getAllPointByStudentIdAndSubjectName3() throws Exception {
+    MvcResult result = mockMvc.perform(get("/api/v1/points")
+        .param("studentId", "100")
+        .param("subjectName", "C"))
+        .andDo(print())
+        .andExpect(status().is4xxClientError())
         .andReturn();
     Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
   }
@@ -108,20 +140,63 @@ public class PointControllerTest {
   }
 
   @Test
+  public void inputIncorrectPoint2() throws Exception {
+    PointInputDTO pointInputDTO = PointInputDTO.builder()
+        .studentId(9)
+        .diemCC(-2f)
+        .diemTH(7)
+        .diemBTL(8)
+        .diemKT(900)
+        .diemCuoiKy(9)
+        .subjectId(3)
+        .managerId(5)
+        .semesterId(2)
+        .build();
+    MvcResult result = mockMvc.perform(post("/api/v1/points")
+        .content(asJsonString(pointInputDTO))
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().is4xxClientError())
+        .andReturn();
+    String content = result.getResponse().getContentAsString();
+    log.info(content);
+  }
+
+  @Test
   public void configPoint() throws Exception {
     SubjectDTO subjectDTO = SubjectDTO.builder()
         .id(2)
-        .percentCC(0.1f)
-        .percentTH(0.1f)
-        .percentBTL(0.2f)
-        .percentKT(0.2f)
-        .percentCuoiKy(0.4f)
+        .percentCC(10)
+        .percentTH(10)
+        .percentBTL(10)
+        .percentKT(10)
+        .percentCuoiKy(60)
         .build();
     MvcResult result = mockMvc.perform(put("/api/v1/points/configPoint")
         .content(asJsonString(subjectDTO))
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().is2xxSuccessful())
+        .andReturn();
+    String content = result.getResponse().getContentAsString();
+    log.info(content);
+  }
+
+  @Test
+  public void configPointError() throws Exception {
+    SubjectDTO subjectDTO = SubjectDTO.builder()
+        .id(2)
+        .percentCC(10)
+        .percentTH(-1)
+        .percentBTL(20)
+        .percentKT(20)
+        .percentCuoiKy(40)
+        .build();
+    MvcResult result = mockMvc.perform(put("/api/v1/points/configPoint")
+        .content(asJsonString(subjectDTO))
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().is4xxClientError())
         .andReturn();
     String content = result.getResponse().getContentAsString();
     log.info(content);

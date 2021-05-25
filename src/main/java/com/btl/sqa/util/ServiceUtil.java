@@ -27,6 +27,12 @@ public class ServiceUtil {
     }else return null;
   }
 
+  public static Float formatPercent(float percent){
+    if (percent >= 0.0 && percent <= 100.0){
+      return checkDecimal(percent / 100.0f);
+    }else return null;
+  }
+
   public static float checkDecimal(float number){
     return Float.parseFloat(new DecimalFormat("##.#").format(number));
   }

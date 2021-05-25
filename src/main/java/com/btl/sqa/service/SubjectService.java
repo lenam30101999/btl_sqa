@@ -3,6 +3,7 @@ package com.btl.sqa.service;
 import com.btl.sqa.dto.SubjectDTO;
 import com.btl.sqa.model.Student;
 import com.btl.sqa.model.Subject;
+import com.btl.sqa.util.ServiceUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
@@ -40,15 +41,23 @@ public class SubjectService extends BaseService{
 
   public SubjectDTO updatePercent(SubjectDTO subjectDTO){
     Subject updated = subjectRepository.findById(subjectDTO.getId()).orElse(null);
-    if (Objects.nonNull(updated)){
-      updated.setPercentBTL(subjectDTO.getPercentBTL());
-      updated.setPercentCC(subjectDTO.getPercentCC());
-      updated.setPercentCuoiKy(subjectDTO.getPercentCuoiKy());
-      updated.setPercentKT(subjectDTO.getPercentKT());
-      updated.setPercentTH(subjectDTO.getPercentTH());
+    if (Objects.nonNull(updated) && checkPercent(subjectDTO)){
+      updated.setPercentBTL(subjectDTO.getPercentBTL() / 100);
+      updated.setPercentCC(subjectDTO.getPercentCC() / 100);
+      updated.setPercentCuoiKy(subjectDTO.getPercentCuoiKy() / 100);
+      updated.setPercentKT(subjectDTO.getPercentKT() / 100);
+      updated.setPercentTH(subjectDTO.getPercentTH() / 100);
       subjectRepository.saveAndFlush(updated);
       return modelMapper.convertSubjectDTO(updated);
     }else return null;
+  }
+
+  private boolean checkPercent(SubjectDTO subjectDTO){
+    return ServiceUtil.formatPercent(subjectDTO.getPercentBTL()) != null &&
+        ServiceUtil.formatPercent(subjectDTO.getPercentCC()) != null &&
+        ServiceUtil.formatPercent(subjectDTO.getPercentCuoiKy()) != null &&
+        ServiceUtil.formatPercent(subjectDTO.getPercentKT()) != null &&
+        ServiceUtil.formatPercent(subjectDTO.getPercentTH()) != null;
   }
 
 }
