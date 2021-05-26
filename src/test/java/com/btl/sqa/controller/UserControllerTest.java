@@ -192,6 +192,24 @@ public class UserControllerTest {
   }
 
   @Test
+  public void updateStudentHaveNone() throws Exception {
+    studentDTO.setId(100);
+    studentDTO.setPhoneNo("0914781748");
+    studentDTO.setDob("10/10/1999");
+    studentDTO.setIdentifyCard("B17DCDT457");
+    studentDTO.setEmail("tranvanbb@gmail.com");
+
+    MvcResult result = mockMvc.perform(put("/api/v1/users/updateStudent")
+        .content(asJsonString(studentDTO))
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().is4xxClientError())
+        .andReturn();
+    String content = result.getResponse().getContentAsString();
+    log.info(content);
+  }
+
+  @Test
   public void updateLecturer() throws Exception {
     LecturerDTO lecturerDTO = LecturerDTO.builder()
         .dob("10/10/1995")
@@ -209,8 +227,25 @@ public class UserControllerTest {
   }
 
   @Test
+  public void updateLecturerHaveNone() throws Exception {
+    LecturerDTO lecturerDTO = LecturerDTO.builder()
+        .dob("10/10/1995")
+        .id(99)
+        .email("tranvanabcda@gmail.com")
+        .build();
+    MvcResult result = mockMvc.perform(put("/api/v1/users/updateLecturer")
+        .content(asJsonString(lecturerDTO))
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().is4xxClientError())
+        .andReturn();
+    String content = result.getResponse().getContentAsString();
+    log.info(content);
+  }
+
+  @Test
   public void deleteStudent() throws Exception {
-    MvcResult result = mockMvc.perform(delete("/api/v1/users/deleteStudent/{id}", "28")
+    MvcResult result = mockMvc.perform(delete("/api/v1/users/deleteStudent/{id}", "9")
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().is2xxSuccessful())
@@ -220,11 +255,33 @@ public class UserControllerTest {
   }
 
   @Test
+  public void deleteStudentHaveNone() throws Exception {
+    MvcResult result = mockMvc.perform(delete("/api/v1/users/deleteStudent/{id}", "40")
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().is4xxClientError())
+        .andReturn();
+    String content = result.getResponse().getContentAsString();
+    log.info(content);
+  }
+
+  @Test
   public void deleteLecturer() throws Exception {
-    MvcResult result = mockMvc.perform(delete("/api/v1/users/deleteLecturer/{id}", "11")
+    MvcResult result = mockMvc.perform(delete("/api/v1/users/deleteLecturer/{id}", "35")
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().is2xxSuccessful())
+        .andReturn();
+    String content = result.getResponse().getContentAsString();
+    log.info(content);
+  }
+
+  @Test
+  public void deleteLecturerHaveNone() throws Exception {
+    MvcResult result = mockMvc.perform(delete("/api/v1/users/deleteLecturer/{id}", "50")
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().is4xxClientError())
         .andReturn();
     String content = result.getResponse().getContentAsString();
     log.info(content);
