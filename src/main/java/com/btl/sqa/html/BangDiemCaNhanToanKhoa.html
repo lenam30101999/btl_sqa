@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="../myjs/ShowBangDiemToanKhoa.js"></script>
+    <title>Title</title>
+    <style>
+        .bottom-toolbar{
+            position: relative;
+            left: 0px;
+            width: 100%;
+            bottom: 0px;
+            padding: 10px;
+            background-color: silver;
+            text-align: right;
+        }
+        html, body
+        {
+            height: 100%;
+        }
+        .sticky {
+            position: fixed;
+            top: 0;
+        }
+        .header {
+            height: 250px;
+            background-color: #fff;
+            box-shadow: 0px 9px 12px 0px rgb(0 0 0 );
+        }
+        .btn-primary {
+            margin: 10px;
+        }
+        .nav-link {
+            color: black;
+        }
+        .nav-item {
+            margin: 10px;
+        }
+        .nav-bar {
+            margin-top: 10px;
+            box-shadow: 0px 9px 12px 0px rgb(0 0 0 );
+            height: 100%;
+        }
+        .head-body {
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+        .data-body {
+            border-bottom: 2px solid;
+            border-left: 2px solid;
+            border-right: 2px solid;
+            overflow: auto;
+        }
+        .table >thead >tr >th {
+            color: white;
+            text-align: center;
+        }
+        button:active {
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+<div style="height: 100%">
+    <div class="header">
+        <div style="display: inline-block; border: 1px solid; margin: 20px">
+            <img src="ptit/ptit.png" style="height: 200px">
+        </div>
+        <div style="display: inline-block">
+            <div style="font-size: x-large">Học viện Công nghệ Bưu chính Viễn thông</div>
+            <div style="font-size: x-large">Posts and Telecommunications Institute of Technology</div>
+            <div style="font-size: x-large">Cổng đăng ký học tín chỉ</div>
+        </div>
+        <div style="display: inline-block; float: right; margin: 20px" class="btn-group btn-group-toggle" data-toggle="buttons">
+            <button type="button" class="btn btn-primary">Hộp thư</button>
+            <button type="button" class="btn btn-primary">Đổi mật khẩu</button>
+            <button type="button" class="btn btn-primary">Đăng xuất</button>
+        </div>
+    </div>
+    <div style="float: left; background-color: gray; display: inline-block" class="nav-bar" id="nav-bar">
+        <ul class="nav flex-column">
+            <li class="nav-item" style="border: 1px solid; margin: 20px">
+                <img src="../html/ptit/nhat.jpg" style="width: 125px">
+            </li>
+            <li class="nav-item" style="text-align: center">
+                <span>Name?</span>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#" style="text-align: center">Sơ yếu lý lịch</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" style="text-align: center">Xem lịch dạy</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" style="text-align: center">Xem báo cáo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#" style="text-align: center">Cấu hình điểm</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#" style="text-align: center">Sửa TT cá nhân</a>
+            </li>
+        </ul>
+    </div>
+    <div class="head-body" style="margin-top: 10px; display: inline-block; width: 86%; height: 94%; position: relative; float: right">
+            <div style="text-align: center; border: 2px solid">
+                <span style="font-size: large">Bảng điểm cá nhân toàn khoa</span>
+                <div>
+                    <div style="display: inline-block; margin-right: 60px; width: 300px; margin-left: 120px">
+                        <div style="text-align: left">
+                            <span>Điểm tích lũy thang 4: </span>
+                            <span>3.1</span>
+                        </div>
+                        <div style="text-align: left">
+                            <span>Điểm tích lũy thang 10: </span>
+                            <span>8.6</span>
+                        </div>
+                        <div style="text-align: left">
+                            <span>Số môn thi lại: </span>
+                            <span>0</span>
+                        </div>
+                        <div style="text-align: left">
+                            <span>Số môn học lại: </span>
+                            <span>0</span>
+                        </div>
+                    </div>
+                    <div style="display: inline-block; margin-left: 40px; width: 300px">
+                        <div style="text-align: left">
+                            <span>Xếp hạng học lực: </span>
+                            <span>Bình thường</span>
+                        </div>
+                        <div style="text-align: left">
+                            <span>Xếp hạng học sinh giỏi thang 4: </span>
+                            <span>Giỏi</span>
+                        </div>
+                        <div style="text-align: left">
+                            <span>Xếp hạng học sinh giỏi thang 10: </span>
+                            <span>Giỏi</span>
+                        </div>
+                        <div style="text-align: left">
+                            <span>Số tín chỉ tích lũy: </span>
+                            <span>124</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="data-body" style="height: 100%">
+                <table class="table table-striped table-hover table-bordered">
+                    <thead style="background-color: black">
+                    <tr>
+                        <th scope="col">Mã học phần</th>
+                        <th scope="col">Tên học phần</th>
+                        <th scope="col">Điểm chuyên cần</th>
+                        <th scope="col">Điểm kiểm tra</th>
+                        <th scope="col">Điểm thực hành</th>
+                        <th scope="col">Điểm bài tập lớn</th>
+                        <th scope="col">Cuối kỳ</th>
+                        <th scope="col">Thang điểm 4</th>
+                        <th scope="col">Thang điểm 10</th>
+                        <th scope="col">Thang điểm chữ</th>
+                        <th scope="col">Ghi chú</th>
+                    </tr>
+                    </thead>
+                    <tbody id="bodyDiem">
+                    </tbody>
+                    <script>
+                        var point = JSON.parse(sessionStorage.AllPoint);
+                        var html = "";
+                        for (var i = 0; i < point.length; i++) {
+                            html += '<tr>';
+                            html += '<td colspan="11">'+ point[i].description + " " + point[i].name +'</td>'
+                            html += '</tr>';
+                            for (var j = 0; j < point[i].points.length; j++) {
+                                html += '<tr>';
+                                html += '<td>'+ point[i].points[j].codeSubject +'</td>';
+                                html += '<td>'+ point[i].points[j].subjectName +'</td>';
+                                html += '<td>'+ point[i].points[j].diemCC +'</td>';
+                                html += '<td>'+ point[i].points[j].diemKT +'</td>';
+                                html += '<td>'+ point[i].points[j].diemTH +'</td>';
+                                html += '<td>'+ point[i].points[j].diemBTL +'</td>';
+                                html += '<td>'+ point[i].points[j].diemCuoiKy +'</td>';
+                                html += '<td>'+ point[i].points[j].point4 +'</td>';
+                                html += '<td>'+ point[i].points[j].point10 +'</td>';
+                                html += '<td>'+ point[i].points[j].pointString +'</td>';
+                                html += '<td>'+ "" +'</td>';
+
+                                html += '</tr>';
+                            }
+                        }
+                        $('#bodyDiem').html(html);
+                    </script>
+                </table>
+            </div>
+        <footer style="bottom: 0px; height: 6%; width: 100%" class="bottom-toolbar">
+            <div class="footer container pt-5 border-bottom">
+            </div>
+        </footer>
+    </div>
+
+</div>
+<script>
+    window.onscroll = function () {
+        myFunction()
+    };
+    var left = document.getElementById("nav-bar");
+    var sticky = left.offsetTop;
+
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            left.classList.add("sticky");
+        } else {
+            left.classList.remove("sticky");
+        }
+    }
+</script>
+</body>
+</html>
