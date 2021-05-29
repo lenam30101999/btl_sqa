@@ -30,7 +30,8 @@ public class UserService extends BaseService{
   public String checkAfterLogin(UserDTO user) {
     if (Objects.isNull(user)){
       return Util.ACCOUNT_NOT_EXISTS;
-    }else if (Objects.isNull(user.getPassword())){
+    }
+    if (Objects.isNull(user.getUsername()) && Objects.isNull(user.getPassword())){
       return Util.PASSWORD_WRONG;
     }
     return null;
@@ -42,19 +43,18 @@ public class UserService extends BaseService{
       User user = userRepository.findUserByUsernameIgnoreCase(username);
       if (Objects.isNull(user)){
         return null;
-      }else if (user.getPassword().equals(password)){
+      }
+      if (user.getPassword().equals(password)){
         userDTO = modelMapper.convertToUserDTO(user);
         if (Objects.nonNull(user.getStudent())){
           userDTO.setFacultyName(user.getStudent().getFacultyName());
         }else if (Objects.nonNull(user.getLecturer())){
           userDTO.setFacultyName(user.getLecturer().getFaculty());
         }
-        return userDTO;
       }else {
         userDTO = new UserDTO();
-        userDTO.setUsername(username);
-        return userDTO;
       }
+      return userDTO;
     }catch (Exception e){
       log.error(e);
       return null;

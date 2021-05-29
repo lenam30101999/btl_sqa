@@ -18,9 +18,12 @@ import java.util.Objects;
 @RequestMapping("/api/v1/users")
 public class UserController {
 
-  @Autowired private UserService userService;
-  @Autowired private StudentService studentService;
-  @Autowired private LecturerService lecturerService;
+  @Autowired
+  private UserService userService;
+  @Autowired
+  private StudentService studentService;
+  @Autowired
+  private LecturerService lecturerService;
 
   @CrossOrigin(origins = "*")
   @PostMapping(path = "/login", produces = "application/json;charset=UTF-8")
@@ -29,9 +32,13 @@ public class UserController {
     UserDTO data = userService.userLogin(user.getUsername(), user.getPassword());
     String messageError2 = userService.checkAfterLogin(data);
 
-    if (messageError == null || messageError2 == null){
+    if (messageError != null) {
+      return new ResponseEntity<>(new MessageDTO(messageError), HttpStatus.BAD_REQUEST);
+    } else if (messageError2 != null) {
+      return new ResponseEntity<>(new MessageDTO(messageError2), HttpStatus.BAD_REQUEST);
+    }else {
       return new ResponseEntity<>(data, HttpStatus.OK);
-    }else return new ResponseEntity<>(new MessageDTO(messageError), HttpStatus.BAD_REQUEST);
+    }
   }
 
   @CrossOrigin(origins = "*")
