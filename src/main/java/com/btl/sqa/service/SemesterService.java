@@ -51,7 +51,7 @@ public class SemesterService extends BaseService{
 
   private void removeDiffSubjectName(List<Semester> semesters, String subjectName){
     for (Semester semester : semesters){
-      semester.getPoints().removeIf(point -> !point.getSubject().getName().equals(subjectName));
+      semester.getPoints().removeIf(point -> !point.getSubject().getName().contains(subjectName));
     }
   }
 
