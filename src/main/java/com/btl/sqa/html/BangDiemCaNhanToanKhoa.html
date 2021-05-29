@@ -77,76 +77,33 @@
             <div style="font-size: x-large">Cổng đăng ký học tín chỉ</div>
         </div>
         <div style="display: inline-block; float: right; margin: 20px" class="btn-group btn-group-toggle" data-toggle="buttons">
-            <button type="button" class="btn btn-primary">Hộp thư</button>
-            <button type="button" class="btn btn-primary">Đổi mật khẩu</button>
-            <button type="button" class="btn btn-primary">Đăng xuất</button>
+            <button type="button" class="btn btn-primary" id="logout">Đăng xuất</button>
+            <script>
+                $(document).on('click','#logout', function () {
+                    window.location.href = '../html/Login.html';
+                })
+            </script>
         </div>
     </div>
     <div style="float: left; background-color: gray; display: inline-block" class="nav-bar" id="nav-bar">
         <ul class="nav flex-column">
-            <li class="nav-item" style="border: 1px solid; margin: 20px">
-                <img src="../html/ptit/nhat.jpg" style="width: 125px">
+            <li class="nav-item" style="border: 1px solid; margin: 20px" id="img">
             </li>
-            <li class="nav-item" style="text-align: center">
-                <span>Name?</span>
+            <li class="nav-item" style="text-align: center" id="username">
             </li>
+            <script src="../myjs/userPic.js"></script>
             <li class="nav-item">
-                <a class="nav-link active" href="#" style="text-align: center">Sơ yếu lý lịch</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" style="text-align: center">Xem lịch dạy</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" style="text-align: center">Xem báo cáo</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" style="text-align: center">Cấu hình điểm</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" style="text-align: center">Sửa TT cá nhân</a>
+                <a class="nav-link disabled" href="BangDiemCaNhanToanKhoa.html" style="text-align: center">Bảng điểm</a>
             </li>
         </ul>
     </div>
     <div class="head-body" style="margin-top: 10px; display: inline-block; width: 86%; height: 94%; position: relative; float: right">
             <div style="text-align: center; border: 2px solid">
                 <span style="font-size: large">Bảng điểm cá nhân toàn khoa</span>
-                <div>
-                    <div style="display: inline-block; margin-right: 60px; width: 300px; margin-left: 120px">
-                        <div style="text-align: left">
-                            <span>Điểm tích lũy thang 4: </span>
-                            <span>3.1</span>
-                        </div>
-                        <div style="text-align: left">
-                            <span>Điểm tích lũy thang 10: </span>
-                            <span>8.6</span>
-                        </div>
-                        <div style="text-align: left">
-                            <span>Số môn thi lại: </span>
-                            <span>0</span>
-                        </div>
-                        <div style="text-align: left">
-                            <span>Số môn học lại: </span>
-                            <span>0</span>
-                        </div>
-                    </div>
-                    <div style="display: inline-block; margin-left: 40px; width: 300px">
-                        <div style="text-align: left">
-                            <span>Xếp hạng học lực: </span>
-                            <span>Bình thường</span>
-                        </div>
-                        <div style="text-align: left">
-                            <span>Xếp hạng học sinh giỏi thang 4: </span>
-                            <span>Giỏi</span>
-                        </div>
-                        <div style="text-align: left">
-                            <span>Xếp hạng học sinh giỏi thang 10: </span>
-                            <span>Giỏi</span>
-                        </div>
-                        <div style="text-align: left">
-                            <span>Số tín chỉ tích lũy: </span>
-                            <span>124</span>
-                        </div>
-                    </div>
+                <div style="margin: 10px">
+                    <label style="margin-right: 15px">Tìm điểm theo môn</label>
+                    <input style="margin-right: 15px">
+                    <button id="search_sub" name="stu_name">Tìm kiếm</button>
                 </div>
             </div>
             <div class="data-body" style="height: 100%">

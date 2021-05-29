@@ -88,12 +88,11 @@
     </div>
     <div style="float: left; background-color: gray; display: inline-block" class="nav-bar" id="nav-bar">
         <ul class="nav flex-column">
-            <li class="nav-item" style="border: 1px solid; margin: 20px">
-                <img src="ptit/nhat.jpg" style="width: 125px">
+            <li class="nav-item" style="border: 1px solid; margin: 20px" id="img">
             </li>
-            <li class="nav-item" style="text-align: center">
-                <label>Name?</label>
+            <li class="nav-item" style="text-align: center" id="username">
             </li>
+            <script src="../myjs/userPic.js"></script>
             <li class="nav-item">
                 <a class="nav-link active" href="TrangChuQuanLy.html" style="text-align: center">Trang chủ</a>
             </li>
@@ -101,10 +100,7 @@
                 <a class="nav-link" href="DanhSachSinhVien.html" style="text-align: center">Danh sách sinh viên</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="DanhSachGiaoVien.html" style="text-align: center">Danh sách giáo viên</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="NhapDiem.html" style="text-align: center">Nhập điểm</a>
+                <a class="nav-link" href="DanhSachGiangVien.html" style="text-align: center">Danh sách giáo viên</a>
             </li>
         </ul>
     </div>
@@ -137,12 +133,16 @@
         <div class="data-body" style="height: auto">
             <div class="gather" style="margin-top: 30px">
                 <span>Môn học</span>
-                <select name="monhoc" id="mon-hoc">
-                    <option value="loi">loi</option>
-                    <option value="pro">pro</option>
-                    <option value="vip">vip</option>
-                    <option value="123">123</option>
+                <select id="lop">
                 </select>
+                <script>
+                    var list = JSON.parse(sessionStorage.classroom);
+                    var html = "";
+                    for (var i = 0; i < list.length; i++) {
+                        html += '<option value="'+list[i].id+'">'+ list[i].name +'</option>'
+                    }
+                    $('#lop').html(html);
+                </script>
             </div>
             <div class="gather">
                 <span>Điểm chuyên cần</span>
