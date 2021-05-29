@@ -24,6 +24,9 @@ public class UserService extends BaseService{
     if (user.getPassword().length() < 5 || user.getUsername().length() < 5) {
       return Util.WRONG_USERNAME_OR_PASSWORD;
     }
+    if (user.getPassword().length() > 100 || user.getUsername().length() > 100) {
+      return Util.WRONG_USERNAME_OR_PASSWORD;
+    }
     return null;
   }
 
