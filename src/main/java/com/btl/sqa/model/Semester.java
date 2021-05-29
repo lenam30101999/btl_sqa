@@ -24,12 +24,8 @@ public class Semester implements Serializable {
 
   private String description;
 
-  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinTable(name = "Semester_Point",
-      joinColumns = @JoinColumn(name = "SemesterId"),
-      inverseJoinColumns = @JoinColumn(name = "PointId")
-  )
-  List<Point> points;
+  @OneToMany(mappedBy = "semester")
+  private List<Point> points;
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinTable(name = "Semester_Subject",

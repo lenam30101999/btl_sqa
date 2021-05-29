@@ -34,11 +34,13 @@ public class UserDTO {
 
   protected String email;
 
-  @NotNull
   private String identifyCard;
+
+  private int classId;
 
   private String className;
 
   @NotNull
   private String facultyName;
+
 }

@@ -1,6 +1,8 @@
 package com.btl.sqa.service;
 
+import com.btl.sqa.dto.UserDTO;
 import com.btl.sqa.model.User;
+import com.btl.sqa.util.Util;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
@@ -12,26 +14,54 @@ import java.util.Objects;
 @Transactional
 public class UserService extends BaseService{
 
-  public User userLogin(String username, String password) {
+  public String checkLogin(UserDTO user){
+    if (user.getUsername().equals("")) {
+      return Util.FILL_USERNAME;
+    }
+    if (user.getPassword().equals("")){
+      return Util.FILL_PASSWORD;
+    }
+    if (user.getPassword().length() < 5 || user.getUsername().length() < 5) {
+      return Util.WRONG_USERNAME_OR_PASSWORD;
+    }
+    if (user.getPassword().length() > 100 || user.getUsername().length() > 100) {
+      return Util.WRONG_USERNAME_OR_PASSWORD;
+    }
+    return null;
+  }
+
+  public String checkAfterLogin(UserDTO user) {
+    if (Objects.isNull(user)){
+      return Util.ACCOUNT_NOT_EXISTS;
+    }
+    if (Objects.isNull(user.getUsername()) && Objects.isNull(user.getPassword())){
+      return Util.PASSWORD_WRONG;
+    }
+    return null;
+  }
+
+  public UserDTO userLogin(String username, String password) {
     try {
+      UserDTO userDTO;
       User user = userRepository.findUserByUsernameIgnoreCase(username);
       if (Objects.isNull(user)){
         return null;
-      }else if (user.getPassword().equals(password)){
-        return user;
-      }else {
-        user = new User();
-        user.setUsername(username);
-        return user;
       }
+      if (user.getPassword().equals(password)){
+        userDTO = modelMapper.convertToUserDTO(user);
+        if (Objects.nonNull(user.getStudent())){
+          userDTO.setFacultyName(user.getStudent().getFacultyName());
+        }else if (Objects.nonNull(user.getLecturer())){
+          userDTO.setFacultyName(user.getLecturer().getFaculty());
+        }
+      }else {
+        userDTO = new UserDTO();
+      }
+      return userDTO;
     }catch (Exception e){
       log.error(e);
       return null;
     }
   }
 
-  public String getNameOfUser(int userId){
-    User user = userRepository.findUserById(userId);
-    return user.getName();
-  }
 }

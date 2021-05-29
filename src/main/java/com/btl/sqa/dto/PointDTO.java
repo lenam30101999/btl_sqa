@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class PointDTO {
-  private int userId;
+  private Integer id;
 
   private float diemCC;
 
@@ -20,10 +22,13 @@ public class PointDTO {
 
   private float diemCuoiKy;
 
-  private int subjectId;
+  private float point4;
 
-  private int managerId;
+  private double point10;
 
-  private int semesterId;
+  private String pointString;
 
+  private String subjectName;
+
+  private String codeSubject;
 }

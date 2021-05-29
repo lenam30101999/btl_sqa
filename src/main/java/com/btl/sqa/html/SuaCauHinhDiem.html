@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <title>Title</title>
+    <style>
+        .bottom-toolbar{
+            position: relative;
+            left: 0px;
+            width: 100%;
+            bottom: 0px;
+            padding: 10px;
+            background-color: silver;
+            text-align: right;
+        }
+        html, body
+        {
+            height: 100%;
+        }
+        .sticky {
+            position: fixed;
+            top: 0;
+        }
+        .header {
+            height: 250px;
+            background-color: #fff;
+            box-shadow: 0px 9px 12px 0px rgb(0 0 0 );
+        }
+        .btn-primary {
+            margin: 10px;
+        }
+        .nav-link {
+            color: black;
+        }
+        .nav-item {
+            margin: 10px;
+        }
+        .nav-bar {
+            margin-top: 10px;
+            box-shadow: 0px 9px 12px 0px rgb(0 0 0 );
+            height: 100%;
+            width: 167px;
+        }
+        .head-body {
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+        .data-body {
+            border-bottom: 2px solid;
+            border-left: 2px solid;
+            border-right: 2px solid;
+            overflow: auto;
+        }
+        .table >thead >tr >th {
+            color: white;
+            text-align: center;
+        }
+        button:active {
+            background-color: pink;
+        }
+        .field-all > div {
+            margin-top: 20px;
+            display: inline-block;
+            width: 49%;
+        }
+        .field-all > div > span {
+            display: inline-block;
+            width: 150px;
+            margin-left: 50px;
+            margin-right: 20px;
+        }
+        .field-all > div > input {
+            width: 225px;
+        }
+    </style>
+</head>
+<body>
+<div style="height: 100%">
+    <div class="header">
+        <div style="display: inline-block; border: 1px solid; margin: 20px">
+            <img src="ptit/ptit.png" style="height: 200px">
+        </div>
+        <div style="display: inline-block">
+            <div style="font-size: x-large">Học viện Công nghệ Bưu chính Viễn thông</div>
+            <div style="font-size: x-large">Posts and Telecommunications Institute of Technology</div>
+            <div style="font-size: x-large">Cổng đăng ký học tín chỉ</div>
+        </div>
+        <div style="display: inline-block; float: right; margin: 20px" class="btn-group btn-group-toggle" data-toggle="buttons">
+            <button type="button" class="btn btn-primary">Đăng xuất</button>
+        </div>
+    </div>
+    <div style="float: left; background-color: gray; display: inline-block" class="nav-bar" id="nav-bar">
+        <ul class="nav flex-column">
+            <li class="nav-item" style="border: 1px solid; margin: 20px" id="img">
+            </li>
+            <li class="nav-item" style="text-align: center" id="username">
+            </li>
+            <script src="../myjs/userPic.js"></script>
+            <li class="nav-item">
+                <a class="nav-link active" href="TrangChuQuanLy.html" style="text-align: center">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="DanhSachSinhVien.html" style="text-align: center">Danh sách sinh viên</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="DanhSachGiangVien.html" style="text-align: center">Danh sách giáo viên</a>
+            </li>
+        </ul>
+    </div>
+    <div class="head-body" style="margin-top: 10px; display: inline-block; width: 86%; height: 96%; position: relative; float: right">
+        <div style="text-align: center; border: 2px solid">
+            <span style="font-size: large">Sửa cấu hình điểm</span>
+        </div>
+        <div class="data-body" style="height: 100%">
+            <div class="field-all">
+                <div>
+                    <span >Tên môn học: </span>
+                    <input name="">
+                </div>
+                <div>
+                    <span >Phần trăm chuyên cần: </span>
+                    <input name="">
+                </div>
+                <div>
+                    <span >Phần trăm thực hành: </span>
+                    <input name="">
+                </div>
+                <div>
+                    <span >Phần trăm BTL: </span>
+                    <input name="">
+                </div>
+                <div>
+                    <span >Phần trăm kiểm tra: </span>
+                    <input name="dOB">
+                </div>
+                <div>
+                    <span >Phần trăm cuối kỳ: </span>
+                    <input name="">
+                </div>
+            </div>
+            <hr>
+            <hr>
+            <hr>
+            <div style="text-align: center">
+                <button type="button" class="btn btn-primary" id="">Xác nhận</button>
+            </div>
+        </div>
+        <footer style="bottom: 0px; height: 6%; width: 100%" class="bottom-toolbar">
+            <div class="">
+            </div>
+        </footer>
+    </div>
+</div>
+<script src="../myjs/AddingEdit.js"></script>
+<script>
+    window.onscroll = function () {
+        myFunction()
+    };
+    var left = document.getElementById("nav-bar");
+    var sticky = left.offsetTop;
+
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            left.classList.add("sticky");
+        } else {
+            left.classList.remove("sticky");
+        }
+    }
+</script>
+</body>
+</html>

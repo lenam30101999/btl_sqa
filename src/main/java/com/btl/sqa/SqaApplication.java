@@ -8,10 +8,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @SpringBootApplication
-@ComponentScan("com.btl.sqa.*")
-@EntityScan("com.btl.sqa.model")
-@EnableJpaRepositories("com.btl.sqa.repository")
-@EnableWebMvc
 public class SqaApplication {
 
   public static void main(String[] args) {

@@ -1,81 +1,67 @@
 package com.btl.sqa.service;
 
-import com.btl.sqa.dto.PointDTO;
+import com.btl.sqa.dto.StudentDTO;
 import com.btl.sqa.dto.UserDTO;
 import com.btl.sqa.model.*;
 import com.btl.sqa.model.Class;
-import com.btl.sqa.model.Point;
+import com.btl.sqa.util.ServiceUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import javax.ws.rs.NotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Log4j2
 @Service
 public class StudentService extends BaseService{
 
-  public void addStudent(UserDTO studentDTO) {
-    User user = saveUser(studentDTO);
-    try {
-      Student student = Student.builder()
-          .identifyCard(studentDTO.getIdentifyCard())
-          .facultyName(studentDTO.getFacultyName())
-          .room(getClass(studentDTO.getClassName()))
-          .user(user)
-          .gpa(0)
-          .points(null)
-          .build();
-
-      studentRepository.save(student);
-    }catch (Exception e) {
-      log.debug(e);
-    }
-  }
-
-  public void updateStudent(Student student){
-    try {
-      Student updated = getStudent(student.getId());
-         if (Objects.nonNull(updated)){
-           updated = Student.builder()
-                     .identifyCard(student.getIdentifyCard())
-                     .facultyName(student.getFacultyName())
-                     .room(getClass(student.getRoom().getName()))
-                     .user(student.getUser())
-                     .gpa(student.getGpa())
-                     .points(student.getPoints())
-                     .build();
-
-           studentRepository.saveAndFlush(updated);
-         }
-    }catch (Exception e) {
-      log.debug(e);
-    }
-  }
-
-  public Student inputPoint(PointDTO pointDTO){
-    try {
-      Student updated = getStudent(pointDTO.getUserId());
-      if (Objects.nonNull(updated)){
-        Point point = Point.builder()
-            .diemCC(pointDTO.getDiemCC())
-            .diemBTL(pointDTO.getDiemBTL())
-            .diemCuoiKy(pointDTO.getDiemCuoiKy())
-            .diemKT(pointDTO.getDiemKT())
-            .diemTH(pointDTO.getDiemTH())
-            .subject(getSubject(pointDTO.getSubjectId()))
-            .manager(getManager(pointDTO.getManagerId()))
-            .semesters(getSemesters(pointDTO.getSemesterId()))
+  /**
+   * @Description add Student
+   * @param studentDTO
+   */
+  public StudentDTO addStudent(UserDTO studentDTO) {
+      try {
+        if (ServiceUtil.formatIdentifyCard(studentDTO.getIdentifyCard())){
+          studentDTO.setRole("STUDENT");
+          User user = saveUser(studentDTO);
+          Student student = Student.builder()
+            .identifyCard(studentDTO.getIdentifyCard())
+            .facultyName(studentDTO.getFacultyName())
+            .room(getClass(studentDTO.getClassId()))
+            .user(user)
+            .gpa(0)
+            .points(null)
             .build();
 
-        List<Point> points = updated.getPoints();
-        points.add(point);
-        updated.setPoints(points);
+          studentRepository.save(student);
+          return modelMapper.convertStudentDTO(student);
+      };
+    } catch (Exception e) {
+      log.debug(e);
+    }
+    return null;
+  }
 
-        updated = studentRepository.saveAndFlush(updated);
-        return updated;
+  public StudentDTO updateStudent(StudentDTO studentDTO){
+    try {
+      if (ServiceUtil.formatIdentifyCard(studentDTO.getIdentifyCard())){
+        Student updated = getStudent(studentDTO.getId());
+        User user = findUserById(studentDTO.getId());
+        if (Objects.nonNull(user) && Objects.nonNull(updated)){
+            user.setAddress(studentDTO.getAddress());
+            user.setEmail(studentDTO.getEmail());
+            user.setPhoneNo(studentDTO.getPhoneNo());
+            user.setDob(ServiceUtil.formatDate(studentDTO.getDob()));
+
+            updated.setIdentifyCard(studentDTO.getIdentifyCard());
+            updated.setFacultyName(studentDTO.getFacultyName());
+            updated.setRoom(getClass(studentDTO.getClassId()));
+            updated.setUser(user);
+
+          updated = studentRepository.saveAndFlush(updated);
+          return modelMapper.convertStudentDTO(updated);
+        }
       }
     }catch (Exception e) {
       log.debug(e);
@@ -83,41 +69,35 @@ public class StudentService extends BaseService{
     return null;
   }
 
-  public void deleteStudent(int studentId) {
+  public boolean deleteStudent(int studentId) {
     try {
       Student student = getStudent(studentId);
       if (Objects.nonNull(student)){
-        studentRepository.deleteById(studentId);
+        userRepository.deleteById(studentId);
+        studentRepository.delete(student);
+        return true;
       }
     }catch (Exception e) {
       log.debug(e);
     }
+    return false;
   }
 
-  public Student getStudent(int studentId){
-    return studentRepository.findById(studentId).orElse(null);
+  public List<StudentDTO> getAllStudent(){
+    return convertToStudentDTOs(studentRepository.findAll());
   }
 
-  public List<Student> getAllStudent(){
-    return studentRepository.findAll();
+  public List<StudentDTO> findAllStudentByNameOrStudentCodeLike(String search){
+    List<Student> students =
+        studentRepository.findAllByIdentifyCardContainingOrUserNameContaining(search, search);
+    return convertToStudentDTOs(students);
   }
 
-  private Class getClass(String className){
-    return classRepository.findByName(className).orElseThrow(() -> new NotFoundException("Class not found!"));
+  private Class getClass(int classId){
+    return classRepository.findClassById(classId).orElse(null);
   }
 
-  private Subject getSubject(int subjectId){
-    return subjectRepository.findById(subjectId).get();
-  }
-
-  private Manager getManager(int managerId){
-    return managerRepository.findById(managerId).get();
-  }
-
-  private List<Semester> getSemesters(int semesterId){
-    List<Semester> semesters = new ArrayList<>();
-    Semester semester = semesterRepository.findById(semesterId);
-    semesters.add(semester);
-    return semesters;
+  private List<StudentDTO> convertToStudentDTOs(List<Student> students){
+    return students.stream().map(modelMapper::convertStudentDTO).collect(Collectors.toList());
   }
 }

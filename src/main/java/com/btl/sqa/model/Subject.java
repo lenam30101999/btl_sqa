@@ -19,6 +19,9 @@ public class Subject implements Serializable {
 
   private String name;
 
+  @Column(name = "code_subject")
+  private String codeSubject;
+
   @Column(name = "percent_cc")
   private float percentCC;
 
@@ -35,7 +38,7 @@ public class Subject implements Serializable {
   private float percentCuoiKy;
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinTable(name = "Subject_Class",
+  @JoinTable(name = "subject_class",
       joinColumns = @JoinColumn(name = "SubjectId"),
       inverseJoinColumns = @JoinColumn(name = "ClassId")
   )
