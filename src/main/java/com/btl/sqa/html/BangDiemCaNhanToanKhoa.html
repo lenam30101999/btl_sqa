@@ -7,7 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="../myjs/ShowBangDiemToanKhoa.js"></script>
+
     <title>Title</title>
     <style>
         .bottom-toolbar{
@@ -102,7 +102,7 @@
                 <span style="font-size: large">Bảng điểm cá nhân toàn khoa</span>
                 <div style="margin: 10px">
                     <label style="margin-right: 15px">Tìm điểm theo môn</label>
-                    <input style="margin-right: 15px">
+                    <input style="margin-right: 15px" name="sub">
                     <button id="search_sub" name="stu_name">Tìm kiếm</button>
                 </div>
             </div>
@@ -125,32 +125,6 @@
                     </thead>
                     <tbody id="bodyDiem">
                     </tbody>
-                    <script>
-                        var point = JSON.parse(sessionStorage.AllPoint);
-                        var html = "";
-                        for (var i = 0; i < point.length; i++) {
-                            html += '<tr>';
-                            html += '<td colspan="11">'+ point[i].description + " " + point[i].name +'</td>'
-                            html += '</tr>';
-                            for (var j = 0; j < point[i].points.length; j++) {
-                                html += '<tr>';
-                                html += '<td>'+ point[i].points[j].codeSubject +'</td>';
-                                html += '<td>'+ point[i].points[j].subjectName +'</td>';
-                                html += '<td>'+ point[i].points[j].diemCC +'</td>';
-                                html += '<td>'+ point[i].points[j].diemKT +'</td>';
-                                html += '<td>'+ point[i].points[j].diemTH +'</td>';
-                                html += '<td>'+ point[i].points[j].diemBTL +'</td>';
-                                html += '<td>'+ point[i].points[j].diemCuoiKy +'</td>';
-                                html += '<td>'+ point[i].points[j].point4 +'</td>';
-                                html += '<td>'+ point[i].points[j].point10 +'</td>';
-                                html += '<td>'+ point[i].points[j].pointString +'</td>';
-                                html += '<td>'+ "" +'</td>';
-
-                                html += '</tr>';
-                            }
-                        }
-                        $('#bodyDiem').html(html);
-                    </script>
                 </table>
             </div>
         <footer style="bottom: 0px; height: 6%; width: 100%" class="bottom-toolbar">
@@ -160,6 +134,7 @@
     </div>
 
 </div>
+<script src="../myjs/ShowBangDiemToanKhoa.js"></script>
 <script>
     window.onscroll = function () {
         myFunction()
