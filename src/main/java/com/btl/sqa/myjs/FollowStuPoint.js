@@ -11,9 +11,10 @@ var FollowStuPoint = (function () {
     var bindEvent = function () {
         $(document).on('click','#search_stu', function () {
             var obj = JSON.parse(sessionStorage.Student);
-            var id = $('input[name=stu_name]').val().trim();
+            var name = $('input[name=stu_name]').val().trim();
+            var id = null;
             for (var i = 0; i < obj.length; i++) {
-                if (obj[i].name === id) {
+                if (obj[i].name === name) {
                     id = obj[i].id;
                     break;
                 }
