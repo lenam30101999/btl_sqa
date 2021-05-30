@@ -45,4 +45,8 @@ public class StudentDTO {
 
   @NotNull
   private String facultyName;
+
+  private Double gpa;
+  private Double gpa10;
+  private String gpaApha;
 }

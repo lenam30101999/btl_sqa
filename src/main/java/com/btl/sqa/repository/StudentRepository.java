@@ -17,4 +17,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
   List<Student> findAllByIdentifyCardContainingOrUserNameContaining(String identifyCard, String name);
 
   void deleteStudentByIdentifyCard(String identifyCard);
+
+  List<Student> findByGpaGreaterThan(Double gpa);
+  List<Student> findByGpaLessThan(Double gpa);
 }

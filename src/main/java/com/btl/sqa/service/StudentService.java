@@ -4,10 +4,13 @@ import com.btl.sqa.dto.StudentDTO;
 import com.btl.sqa.dto.UserDTO;
 import com.btl.sqa.model.*;
 import com.btl.sqa.model.Class;
+import com.btl.sqa.util.ReportUtil;
 import com.btl.sqa.util.ServiceUtil;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -99,5 +102,44 @@ public class StudentService extends BaseService{
 
   private List<StudentDTO> convertToStudentDTOs(List<Student> students){
     return students.stream().map(modelMapper::convertStudentDTO).collect(Collectors.toList());
+  }
+
+  @Transactional
+  public List<StudentDTO> getALlStudentReport(){
+    List<Student> students = studentRepository.findAll();
+    List<StudentDTO> studentDTOS = convertToStudentDTOs(students);
+    for(StudentDTO s:studentDTOS){
+      s = ReportUtil.gpatoReport(s);
+    }
+    return studentDTOS;
+  }
+
+  @Transactional
+  public List<StudentDTO> getALlStudentReportByClass(){
+    List<Student> students = studentRepository.findAll(Sort.by(Sort.Direction.ASC,"room"));
+    List<StudentDTO> studentDTOS = convertToStudentDTOs(students);
+    for(StudentDTO s:studentDTOS){
+      s = ReportUtil.gpatoReport(s);
+    }
+    return studentDTOS;
+  }
+
+  @Transactional
+  public List<StudentDTO> getALlStudentReportBySchoolarship(Double gpa){
+    List<Student> students = studentRepository.findByGpaGreaterThan(gpa);
+    List<StudentDTO> studentDTOS = convertToStudentDTOs(students);
+    for(StudentDTO s:studentDTOS){
+      s = ReportUtil.gpatoReport(s);
+    }
+    return studentDTOS;
+  }
+  @Transactional
+  public List<StudentDTO> getALlStudentReportByFailure(Double gpa){
+    List<Student> students = studentRepository.findByGpaLessThan(gpa);
+    List<StudentDTO> studentDTOS = convertToStudentDTOs(students);
+    for(StudentDTO s:studentDTOS){
+      s = ReportUtil.gpatoReport(s);
+    }
+    return studentDTOS;
   }
 }
