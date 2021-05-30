@@ -19,6 +19,9 @@ public class SubjectService extends BaseService{
 
   public List<SubjectDTO> getSubjectByStudentId(int studentId){
     Student student = studentRepository.findStudentById(studentId);
+    if (Objects.isNull(student)){
+      return null;
+    }
     int classId = student.getRoom().getId();
     List<Subject> subjects = subjectRepository.findSubjectsByClassModelId(classId);
     return subjects.stream().map(modelMapper::convertSubjectDTO).collect(Collectors.toList());

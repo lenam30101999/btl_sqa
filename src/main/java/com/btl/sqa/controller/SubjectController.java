@@ -1,7 +1,9 @@
 package com.btl.sqa.controller;
 
+import com.btl.sqa.dto.MessageDTO;
 import com.btl.sqa.dto.SubjectDTO;
 import com.btl.sqa.service.SubjectService;
+import com.btl.sqa.util.Util;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +24,9 @@ public class SubjectController {
   @GetMapping(params = "studentId", produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> getSubjectsByStudent(@RequestParam("studentId") int studentId){
     List<SubjectDTO> subjectDTOS = subjectService.getSubjectByStudentId(studentId);
-    return new ResponseEntity<>(subjectDTOS, HttpStatus.OK);
+    if (subjectDTOS != null){
+      return new ResponseEntity<>(subjectDTOS, HttpStatus.OK);
+    }else return new ResponseEntity<>(new MessageDTO(Util.USER_NOT_FOUND), HttpStatus.BAD_REQUEST);
   }
 
   @CrossOrigin(origins = "*")

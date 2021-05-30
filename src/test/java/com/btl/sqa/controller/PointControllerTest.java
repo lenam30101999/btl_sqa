@@ -19,10 +19,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.io.UnsupportedEncodingException;
-
-import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -54,6 +52,16 @@ public class PointControllerTest {
   public void getAllPointByStudentIdHaveNone() throws Exception {
     MvcResult result = mockMvc.perform(get("/api/v1/points")
         .param("studentId", "100"))
+        .andDo(print())
+        .andExpect(status().is4xxClientError())
+        .andReturn();
+    Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+  }
+
+  @Test
+  public void getAllPointByStudentIdHaveNone2() throws Exception {
+    MvcResult result = mockMvc.perform(get("/api/v1/points")
+        .param("studentId", ""))
         .andDo(print())
         .andExpect(status().is4xxClientError())
         .andReturn();
@@ -94,6 +102,51 @@ public class PointControllerTest {
   }
 
   @Test
+  public void getAllPointByStudentIdAndSubjectName4() throws Exception {
+    MvcResult result = mockMvc.perform(get("/api/v1/points")
+        .param("studentId", "100")
+        .param("subjectName", "C"))
+        .andDo(print())
+        .andExpect(status().is4xxClientError())
+        .andReturn();
+    Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+  }
+
+  @Test
+  public void getAllPointByStudentIdAndSubjectName5() throws Exception {
+    MvcResult result = mockMvc.perform(get("/api/v1/points")
+        .param("studentId", "")
+        .param("subjectName", "C"))
+        .andDo(print())
+        .andExpect(status().is4xxClientError())
+        .andReturn();
+    Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+  }
+
+  @Test
+  public void getAllPointByStudentIdAndSubjectName6() throws Exception {
+    MvcResult result = mockMvc.perform(get("/api/v1/points")
+        .param("studentId", "2")
+        .param("subjectName", ""))
+        .andDo(print())
+        .andExpect(status().is2xxSuccessful())
+        .andReturn();
+    Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+  }
+
+  @Test
+  public void getAllPointByStudentIdAndSubjectName7() throws Exception {
+    MvcResult result = mockMvc.perform(get("/api/v1/points")
+        .param("studentId", "")
+        .param("subjectName", ""))
+        .andDo(print())
+        .andExpect(status().is4xxClientError())
+        .andReturn();
+    Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+  }
+
+  @Test
+  @Transactional
   public void inputCorrectPoint() throws Exception {
     PointInputDTO pointInputDTO = PointInputDTO.builder()
         .studentId(9)
@@ -112,11 +165,11 @@ public class PointControllerTest {
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().is2xxSuccessful())
         .andReturn();
-    String content = result.getResponse().getContentAsString();
-    log.info(content);
+    Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
   }
 
   @Test
+  @Transactional
   public void inputIncorrectPoint1() throws Exception {
     PointInputDTO pointInputDTO = PointInputDTO.builder()
         .studentId(9)
@@ -135,11 +188,11 @@ public class PointControllerTest {
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().is4xxClientError())
         .andReturn();
-    String content = result.getResponse().getContentAsString();
-    log.info(content);
+    Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
   }
 
   @Test
+  @Transactional
   public void inputIncorrectPoint2() throws Exception {
     PointInputDTO pointInputDTO = PointInputDTO.builder()
         .studentId(9)
@@ -158,11 +211,11 @@ public class PointControllerTest {
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().is4xxClientError())
         .andReturn();
-    String content = result.getResponse().getContentAsString();
-    log.info(content);
+    Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
   }
 
   @Test
+  @Transactional
   public void configPoint() throws Exception {
     SubjectDTO subjectDTO = SubjectDTO.builder()
         .id(2)
@@ -178,11 +231,11 @@ public class PointControllerTest {
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().is2xxSuccessful())
         .andReturn();
-    String content = result.getResponse().getContentAsString();
-    log.info(content);
+    Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
   }
 
   @Test
+  @Transactional
   public void configPointError() throws Exception {
     SubjectDTO subjectDTO = SubjectDTO.builder()
         .id(2)
@@ -198,8 +251,7 @@ public class PointControllerTest {
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().is4xxClientError())
         .andReturn();
-    String content = result.getResponse().getContentAsString();
-    log.info(content);
+    Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
   }
 
   public static String asJsonString(final Object obj) {
