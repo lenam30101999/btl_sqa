@@ -1,9 +1,6 @@
 package com.btl.sqa.controller;
 
-import com.btl.sqa.dto.MessageDTO;
-import com.btl.sqa.dto.PointInputDTO;
-import com.btl.sqa.dto.SemesterDTO;
-import com.btl.sqa.dto.SubjectDTO;
+import com.btl.sqa.dto.*;
 import com.btl.sqa.service.PointService;
 import com.btl.sqa.service.SemesterService;
 import com.btl.sqa.service.SubjectService;
@@ -29,7 +26,7 @@ public class PointController {
 
   @CrossOrigin(origins = "*")
   @GetMapping(params = "studentId", produces = "application/json;charset=UTF-8")
-  public ResponseEntity<?> getAllPoint(@RequestParam("studentId") Integer id){
+  public ResponseEntity<?> getAllPointByStudentId(@RequestParam("studentId") Integer id){
     if (id == null){
       return new ResponseEntity<>(new MessageDTO(Util.USER_NOT_FOUND), HttpStatus.NOT_FOUND);
     }
@@ -37,6 +34,13 @@ public class PointController {
     if (Objects.nonNull(semesters)){
       return new ResponseEntity<>(semesters, HttpStatus.OK);
     }else return new ResponseEntity<>(new MessageDTO(Util.USER_NOT_FOUND), HttpStatus.NOT_FOUND);
+  }
+
+  @CrossOrigin(origins = "*")
+  @GetMapping(produces = "application/json;charset=UTF-8")
+  public ResponseEntity<?> getAllPoint(){
+    List<PointResponseDTO> pointResponseDTOs = pointService.getAllPoints();
+    return new ResponseEntity<>(pointResponseDTOs, HttpStatus.OK);
   }
 
   @CrossOrigin(origins = "*")

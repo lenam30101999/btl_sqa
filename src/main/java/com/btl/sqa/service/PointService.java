@@ -1,14 +1,18 @@
 package com.btl.sqa.service;
 
 import com.btl.sqa.dto.PointInputDTO;
+import com.btl.sqa.dto.PointResponseDTO;
 import com.btl.sqa.model.Point;
 import com.btl.sqa.model.Student;
 import com.btl.sqa.util.ServiceUtil;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -48,6 +52,11 @@ public class PointService extends BaseService{
         ServiceUtil.formatNumber(pointInputDTO.getDiemCuoiKy()) != null &&
         ServiceUtil.formatNumber(pointInputDTO.getDiemKT()) != null &&
         ServiceUtil.formatNumber(pointInputDTO.getDiemTH()) != null;
+  }
+
+  public List<PointResponseDTO> getAllPoints(){
+    List<Point> points = pointRepository.findAll(Sort.by(Sort.Direction.ASC,"semester"));
+    return points.stream().map(modelMapper::convertToPointResponse).distinct().collect(Collectors.toList());
   }
 }
 
