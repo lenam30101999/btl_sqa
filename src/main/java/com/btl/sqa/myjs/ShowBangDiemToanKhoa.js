@@ -4,9 +4,9 @@ var ShowBangDiem = (function () {
     var id = obj.id;
     var sub = null;
     var initial =function () {
+        getAllPoit();
         drawTable();
         getAllSub();
-        getAllPoit();
         bindEvent();
     };
 

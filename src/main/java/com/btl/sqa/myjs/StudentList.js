@@ -6,20 +6,20 @@ var ShowStudentList = (function () {
     };
 
     var GetAll = function () {
-        $.ajax({
-            url: 'http://localhost:8080/api/v1/users/getAllStudent',
-            type: "GET",
-            success: function(result) {
-                if(result.length > 0) {
-                    sessionStorage.setItem("Student",JSON.stringify(result));
-                } else {
-                    alert("không có danh sách");
-                }
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        });
+        // $.ajax({
+        //     url: 'http://localhost:8080/api/v1/users/getAllStudent',
+        //     type: "GET",
+        //     success: function(result) {
+        //         if(result.length > 0) {
+        //             sessionStorage.setItem("Student",JSON.stringify(result));
+        //         } else {
+        //             alert("không có danh sách");
+        //         }
+        //     },
+        //     error: function(error) {
+        //         console.log(error);
+        //     }
+        // });
     };
 
     var bindEvent = function () {
@@ -62,7 +62,6 @@ var ShowStudentList = (function () {
         $(document).on('click','#editS', function (){
             var currentRow = $(this).closest('tr');
             var ma = currentRow.find("td:eq(1)").text();
-            debugger
             window.location.href = '../html/ThemNguoiDung.html';
             var obj = {isAdd: false, isEdit: true, stuLec: 'stu', ma:ma};
             localStorage.setItem("checkAddEdit",JSON.stringify(obj));

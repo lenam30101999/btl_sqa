@@ -38,6 +38,20 @@ var Login = (function () {
                         window.location.href = '../html/trangChuSqa.html';
                         sessionStorage.setItem("user",JSON.stringify(result));
                     } else {
+                        $.ajax({
+                            url: 'http://localhost:8080/api/v1/users/getAllStudent',
+                            type: "GET",
+                            success: function(result) {
+                                if(result.length > 0) {
+                                    sessionStorage.setItem("Student",JSON.stringify(result));
+                                } else {
+                                    alert("không có danh sách");
+                                }
+                            },
+                            error: function(error) {
+                                console.log(error);
+                            }
+                        });
                         window.location.href = '../html/TrangChuQuanLy.html';
                         sessionStorage.setItem("user",JSON.stringify(result));
                     }

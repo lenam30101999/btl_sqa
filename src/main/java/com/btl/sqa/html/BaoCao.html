@@ -44,7 +44,6 @@
             margin-top: 10px;
             box-shadow: 0px 9px 12px 0px rgb(0 0 0 );
             height: 100%;
-            width: 167px;
         }
         .head-body {
             margin-top: 10px;
@@ -63,20 +62,6 @@
         button:active {
             background-color: pink;
         }
-        .field-all > div {
-            margin-top: 20px;
-            display: inline-block;
-            width: 49%;
-        }
-        .field-all > div > span {
-            display: inline-block;
-            width: 150px;
-            margin-left: 50px;
-            margin-right: 20px;
-        }
-        .field-all > div > input {
-            width: 225px;
-        }
     </style>
 </head>
 <body>
@@ -91,7 +76,12 @@
             <div style="font-size: x-large">Cổng đăng ký học tín chỉ</div>
         </div>
         <div style="display: inline-block; float: right; margin: 20px" class="btn-group btn-group-toggle" data-toggle="buttons">
-            <button type="button" class="btn btn-primary">Đăng xuất</button>
+            <button type="button" class="btn btn-primary" id="logout">Đăng xuất</button>
+            <script>
+                $(document).on('click','#logout', function () {
+                    window.location.href = '../html/Login.html';
+                })
+            </script>
         </div>
     </div>
     <div style="float: left; background-color: gray; display: inline-block" class="nav-bar" id="nav-bar">
@@ -116,100 +106,55 @@
             <li class="nav-item">
                 <a class="nav-link" href="TheoDoiDiem.html" style="text-align: center">Theo dõi điểm</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="BaoCao.html" style="text-align: center">Báo cáo</a>
+            </li>
         </ul>
     </div>
-    <div class="head-body" style="margin-top: 10px; display: inline-block; width: 86%; height: 96%; position: relative; float: right">
-        <div style="text-align: center; border: 2px solid" id="title">
-            <span style="font-size: large">Thêm người dùng</span>
+    <div class="head-body" style="margin-top: 10px; display: inline-block; width: 86%; height: 94%; position: relative; float: right">
+        <div style="text-align: center; border: 2px solid">
+            <span style="font-size: large">Báo cáo</span>
+            <div>
+                <div style="margin: 10px; display: inline">
+                    <button id="stu_list" class="btn btn-primary">Danh sách theo lớp</button>
+                </div>
+                <div style="margin: 10px; display: inline">
+                    <button id="stu_scho" class="btn btn-primary" >Sinh viên được học bổng</button>
+                </div>
+                <div style="margin: 10px; display: inline">
+                    <button id="stu_pass" class="btn btn-primary">Sinh viên đỗ</button>
+                </div>
+                <div style="margin: 10px; display: inline">
+                    <button id="stu_fail" class="btn btn-primary">Sinh viên trượt</button>
+                </div>
+            </div>
         </div>
         <div class="data-body" style="height: 100%">
-            <div class="field-all">
-                <div>
-                    <span >Họ và tên(*): </span>
-                    <input name="name">
-                </div>
-                <div>
-                    <span >Tên tài khoản(*): </span>
-                    <input name="username">
-                </div>
-                <div>
-                    <span >Địa chỉ email: </span>
-                    <input name="email">
-                </div>
-                <div>
-                    <span >Mật khẩu(*): </span>
-                    <input name="password">
-                </div>
-                <div>
-                    <span >Ngày/tháng/năm/sinh: </span>
-                    <input placeholder="dd/mm/yy" name="dOB">
-                </div>
-                <div>
-                    <span >Địa chỉ nhà: </span>
-                    <input name="address">
-                </div>
-                <div>
-                    <span >Số điện thoại: </span>
-                    <input type="number" name="number">
-                </div>
-            </div>
-            <div class="field-all">
-                <div>
-                    <span>Giới tính: </span>
-                    <label class="checkbox-inline">
-                        <input type="checkbox" value="MALE" name="cb" id="MALE">Nam
-                    </label>
-                    <label class="checkbox-inline">
-                        <input type="checkbox" value="FEMALE" name="cb" id="FEMALE">Nữ
-                    </label>
-                </div>
-            </div>
-            <hr>
-            <div class="field-all" id="forS">
-                <span style="display: block; margin-left: 10px" >Sinh viên</span>
-                <div>
-                    <span >Mã sinh viên(*): </span>
-                    <input name="idS">
-                </div>
-                <div>
-                    <span >Tên khoa(*): </span>
-                    <input name="faculty">
-                </div>
-                <div id="class">
-                    <span >Tên lớp(*): </span>
-                    <select id="lop">
-                    </select>
-                    <script>
-                        var list = JSON.parse(sessionStorage.classroom);
-                        var html = "";
-                        for (var i = 0; i < list.length; i++) {
-                            html += '<option value="'+list[i].id+'">'+ list[i].name +'</option>'
-                        }
-                        $('#lop').html(html);
-                    </script>
-                </div>
-<!--                ty lam tiep-->
-            </div>
-            <hr>
-            <div class="field-all" id="forL">
-                <span style="display: block; margin-left: 10px" >Giáo viên</span>
-                <div>
-                    <span >Tên khoa công tác(*): </span>
-                    <input name="facultyWork">
-                </div>
-            </div>
-            <hr>
-            <div style="text-align: center">
-                <button type="button" class="btn btn-primary" id="addEdit">Xác nhận</button>
-            </div>
+            <table class="table table-striped table-hover table-bordered">
+                <thead style="background-color: black">
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Tên</th>
+                    <th scope="col">Lớp</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Ngành</th>
+                    <th scope="col">GPA hệ 4</th>
+                    <th scope="col">GPA hệ 10</th>
+                    <th scope="col">Kết quả</th>
+                </tr>
+                </thead>
+                <tbody id="bodyDiem">
+                </tbody>
+            </table>
         </div>
         <footer style="bottom: 0px; height: 6%; width: 100%" class="bottom-toolbar">
-            <div class="">
+            <div class="footer container pt-5 border-bottom">
             </div>
         </footer>
     </div>
+
 </div>
-<script src="../myjs/AddingEdit.js"></script>
+<script src="../myjs/Report.js"></script>
 <script>
     window.onscroll = function () {
         myFunction()
