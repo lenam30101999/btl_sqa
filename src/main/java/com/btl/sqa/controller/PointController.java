@@ -30,6 +30,9 @@ public class PointController {
   @CrossOrigin(origins = "*")
   @GetMapping(params = "studentId", produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> getAllPoint(@RequestParam("studentId") Integer id){
+    if (id == null){
+      return new ResponseEntity<>(new MessageDTO(Util.USER_NOT_FOUND), HttpStatus.NOT_FOUND);
+    }
     List<SemesterDTO> semesters = semesterService.getAllSemesterByStudent(id);
     if (Objects.nonNull(semesters)){
       return new ResponseEntity<>(semesters, HttpStatus.OK);
@@ -40,6 +43,9 @@ public class PointController {
   @GetMapping(params = {"studentId", "subjectName"}, produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> getAllPointByStudentIdAndSubjectName(@RequestParam("studentId") Integer id,
                                                      @RequestParam("subjectName") String subjectName){
+    if (id == null){
+      return new ResponseEntity<>(new MessageDTO(Util.USER_NOT_FOUND), HttpStatus.NOT_FOUND);
+    }
     List<SemesterDTO> semesters = semesterService.getAllSemesterByStudentAndSubjectName(id, subjectName);
     if (Objects.nonNull(semesters)){
       return new ResponseEntity<>(semesters, HttpStatus.OK);

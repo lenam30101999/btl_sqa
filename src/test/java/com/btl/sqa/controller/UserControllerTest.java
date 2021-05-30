@@ -22,6 +22,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -121,6 +122,24 @@ public class UserControllerTest {
   }
 
   @Test
+  @Order(5)
+  public void loginTest5() throws Exception {
+    UserDTO userDTO = new UserDTO();
+    userDTO.setUsername("1827318391");
+    userDTO.setPassword("admin");
+
+    MvcResult result = mockMvc.perform(post("/api/v1/users/login")
+        .content(asJsonString(userDTO))
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().is4xxClientError())
+        .andReturn();
+    String content = result.getResponse().getContentAsString();
+    log.info(content);
+  }
+
+  @Test
+  @Transactional
   public void createNewStudentCorrectData() throws Exception {
     studentDTO.setPhoneNo("091874982");
     studentDTO.setIdentifyCard("B17DCCN237");
@@ -136,6 +155,7 @@ public class UserControllerTest {
   }
 
   @Test
+  @Transactional
   public void createNewLecturerCorrectData() throws Exception {
     LecturerDTO lecturerDTO = LecturerDTO.builder()
         .username("tranvanxyz")
@@ -160,6 +180,7 @@ public class UserControllerTest {
   }
 
   @Test
+  @Transactional
   public void createNewStudentIncorrectData() throws Exception {
     studentDTO.setIdentifyCard("B17D321CCN");
 
@@ -174,6 +195,7 @@ public class UserControllerTest {
   }
 
   @Test
+  @Transactional
   public void updateStudent() throws Exception {
     studentDTO.setId(10);
     studentDTO.setPhoneNo("0914781748");
@@ -192,6 +214,7 @@ public class UserControllerTest {
   }
 
   @Test
+  @Transactional
   public void updateStudentHaveNone() throws Exception {
     studentDTO.setId(100);
     studentDTO.setPhoneNo("0914781748");
@@ -210,6 +233,7 @@ public class UserControllerTest {
   }
 
   @Test
+  @Transactional
   public void updateLecturer() throws Exception {
     LecturerDTO lecturerDTO = LecturerDTO.builder()
         .dob("10/10/1995")
@@ -227,6 +251,7 @@ public class UserControllerTest {
   }
 
   @Test
+  @Transactional
   public void updateLecturerHaveNone() throws Exception {
     LecturerDTO lecturerDTO = LecturerDTO.builder()
         .dob("10/10/1995")
@@ -244,6 +269,7 @@ public class UserControllerTest {
   }
 
   @Test
+  @Transactional
   public void deleteStudent() throws Exception {
     MvcResult result = mockMvc.perform(delete("/api/v1/users/deleteStudent/{id}", "9")
         .contentType(MediaType.APPLICATION_JSON)
@@ -255,6 +281,7 @@ public class UserControllerTest {
   }
 
   @Test
+  @Transactional
   public void deleteStudentHaveNone() throws Exception {
     MvcResult result = mockMvc.perform(delete("/api/v1/users/deleteStudent/{id}", "40")
         .contentType(MediaType.APPLICATION_JSON)
@@ -266,6 +293,7 @@ public class UserControllerTest {
   }
 
   @Test
+  @Transactional
   public void deleteLecturer() throws Exception {
     MvcResult result = mockMvc.perform(delete("/api/v1/users/deleteLecturer/{id}", "35")
         .contentType(MediaType.APPLICATION_JSON)
@@ -277,6 +305,7 @@ public class UserControllerTest {
   }
 
   @Test
+  @Transactional
   public void deleteLecturerHaveNone() throws Exception {
     MvcResult result = mockMvc.perform(delete("/api/v1/users/deleteLecturer/{id}", "50")
         .contentType(MediaType.APPLICATION_JSON)
