@@ -36,7 +36,11 @@ public class LecturerService extends BaseService{
       User user = findUserById(lecturerDTO.getId());
       if (Objects.nonNull(user) && Objects.nonNull(updated)){
         user.setAddress(lecturerDTO.getAddress());
+        user.setUsername(lecturerDTO.getUsername());
+        user.setPassword(lecturerDTO.getPassword());
         user.setEmail(lecturerDTO.getEmail());
+        user.setName(lecturerDTO.getName());
+        user.setGender(lecturerDTO.getGender());
         user.setPhoneNo(lecturerDTO.getPhoneNo());
         user.setDob(ServiceUtil.formatDate(lecturerDTO.getDob()));
 

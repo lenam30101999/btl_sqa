@@ -6,6 +6,7 @@ import com.btl.sqa.model.*;
 import com.btl.sqa.model.Class;
 import com.btl.sqa.util.ReportUtil;
 import com.btl.sqa.util.ServiceUtil;
+import com.btl.sqa.util.Util;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -53,18 +54,27 @@ public class StudentService extends BaseService{
         User user = findUserById(studentDTO.getId());
         if (Objects.nonNull(user) && Objects.nonNull(updated)){
             user.setAddress(studentDTO.getAddress());
+            user.setUsername(studentDTO.getUsername());
+            user.setPassword(studentDTO.getPassword());
             user.setEmail(studentDTO.getEmail());
+            user.setName(studentDTO.getName());
+            user.setGender(studentDTO.getGender());
             user.setPhoneNo(studentDTO.getPhoneNo());
             user.setDob(ServiceUtil.formatDate(studentDTO.getDob()));
 
             updated.setIdentifyCard(studentDTO.getIdentifyCard());
             updated.setFacultyName(studentDTO.getFacultyName());
             updated.setRoom(getClass(studentDTO.getClassId()));
-            updated.setUser(user);
 
-          updated = studentRepository.saveAndFlush(updated);
+          userRepository.saveAndFlush(user);
+          studentRepository.saveAndFlush(updated);
+          updated = studentRepository.findStudentById(studentDTO.getId());
           return modelMapper.convertStudentDTO(updated);
         }
+      }else {
+        StudentDTO dto = new StudentDTO();
+        dto.setUsername(Util.IDENTIFY_CARD_WRONG_FORMAT);
+        return dto;
       }
     }catch (Exception e) {
       log.debug(e);
