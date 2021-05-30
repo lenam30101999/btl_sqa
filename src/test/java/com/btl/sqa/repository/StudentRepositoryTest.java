@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -82,5 +83,33 @@ public class StudentRepositoryTest {
     String name = "Van";
     List<Student> students = studentRepository.findAllByUserNameIsContaining(name);
     assertThat(students).size().isGreaterThan(0);
+  }
+  @Test
+  public void getAllStudentReport(){
+    List<Student> students = studentRepository.findAll();
+    assertThat(students).size().isGreaterThan(0);
+  }
+  @Test
+  public void getALlStudentReportByClass(){
+    List<Student> students = studentRepository.findAll();
+    List<Student> studentsByClass = studentRepository.findAll(Sort.by(Sort.Direction.ASC,"room"));
+    assertThat(studentsByClass).size().isGreaterThan(0);
+    assertThat(studentsByClass).size().isEqualTo(students.size());
+  }
+  @Test
+  public void getALlStudentReportBySchoolarship(Double gpa){
+    List<Student> students = studentRepository.findAll();
+    List<Student> studentsByClass = studentRepository.findByGpaGreaterThan(gpa);
+    assertThat(studentsByClass).size().isGreaterThan(0);
+    assertThat(studentsByClass).size().isLessThan(students.size());
+    assertThat(studentsByClass.stream().findAny().get().getGpa()).isGreaterThan(gpa);
+  }
+  @Test
+  public void getALlStudentReportByFailure(Double gpa){
+    List<Student> students = studentRepository.findAll();
+    List<Student> studentsByClass = studentRepository.findByGpaLessThan(gpa);
+    assertThat(studentsByClass).size().isGreaterThan(0);
+    assertThat(studentsByClass).size().isLessThan(students.size());
+    assertThat(studentsByClass.stream().findAny().get().getGpa()).isLessThan(gpa);
   }
 }
