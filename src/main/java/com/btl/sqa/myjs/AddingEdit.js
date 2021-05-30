@@ -149,6 +149,8 @@ var AddingEdit = (function () {
         if (obj.stuLec==='stu') {
             $('#forL').addClass('hidden');
             if (obj.isEdit === true) {
+                var html = '<span style="font-size: large">Sửa sinh viên</span>';
+                $('#title').html(html);
                 var stu = JSON.parse(sessionStorage.Student);
                 for (var i = 0; i < stu.length; i++) {
                     if (stu[i].username === obj.ma) {
@@ -175,10 +177,15 @@ var AddingEdit = (function () {
                     }
                 }
                 document.getElementById('lop').value = id;
+            } else {
+                var html = '<span style="font-size: large">Thêm sinh viên</span>';
+                $('#title').html(html);
             }
         } else if (obj.stuLec==='lec') {
             $('#forS').addClass('hidden');
             if (obj.isEdit === true) {
+                var html = '<span style="font-size: large">Sửa giảng viên</span>';
+                $('#title').html(html);
                 var lec = JSON.parse(sessionStorage.Lecturer);
                 for (var i = 0; i < lec.length; i++) {
                     if (lec[i].id === parseInt(obj.ma)) {
@@ -196,6 +203,9 @@ var AddingEdit = (function () {
                 $('#'+lecturer.gender).prop("checked", true);
                 $('input[name=facultyWork]').val(lecturer.facultyName);
                 $('input[name=idS]').val(lecturer.id);
+            } else {
+                var html = '<span style="font-size: large">Thêm giảng viên</span>';
+                $('#title').html(html);
             }
         }
 

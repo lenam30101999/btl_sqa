@@ -62,7 +62,6 @@ var ShowStudentList = (function () {
         $(document).on('click','#editS', function (){
             var currentRow = $(this).closest('tr');
             var ma = currentRow.find("td:eq(1)").text();
-            debugger
             window.location.href = '../html/ThemNguoiDung.html';
             var obj = {isAdd: false, isEdit: true, stuLec: 'stu', ma:ma};
             localStorage.setItem("checkAddEdit",JSON.stringify(obj));
