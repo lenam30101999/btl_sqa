@@ -12,6 +12,10 @@ import java.util.List;
 public class PointDTO {
   private Integer id;
 
+  private String studentName;
+
+  private String studentCode;
+
   private float diemCC;
 
   private float diemTH;

@@ -64,7 +64,9 @@ public interface ModelMapper {
 
   @Mappings({
       @Mapping(target = "subjectName", source = "subject.name"),
-      @Mapping(target = "codeSubject", source = "subject.codeSubject")
+      @Mapping(target = "codeSubject", source = "subject.codeSubject"),
+      @Mapping(target = "studentCode", source = "student.identifyCard"),
+      @Mapping(target = "studentName", source = "student.user.name")
   })
   PointDTO convertToPointDTO(Point point);
 
