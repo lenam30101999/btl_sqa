@@ -37,7 +37,6 @@ var ShowSubjectList = (function () {
                         var html = "";
                         for (var i = 0; i < list.length; i++) {
                             var stt = i + 1;
-                            var stt = i + 1;
                             html += '<tr>';
                             html += '<td style="text-align: center">'+ stt +'</td>';
                             html += '<td style="text-align: center">'+ list[i].id +'</td>';

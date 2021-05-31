@@ -6,20 +6,20 @@ var ShowStudentList = (function () {
     };
 
     var GetAll = function () {
-        $.ajax({
-            url: 'http://localhost:8080/api/v1/users/getAllStudent',
-            type: "GET",
-            success: function(result) {
-                if(result.length > 0) {
-                    sessionStorage.setItem("Student",JSON.stringify(result));
-                } else {
-                    alert("không có danh sách");
+            $.ajax({
+                url: 'http://localhost:8080/api/v1/users/getAllStudent',
+                type: "GET",
+                success: function(result) {
+                    if(result.length > 0) {
+                        sessionStorage.setItem("Student",JSON.stringify(result));
+                    } else {
+                        alert("không có danh sách");
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
                 }
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        });
+            });
     };
 
     var bindEvent = function () {

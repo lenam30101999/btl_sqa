@@ -51,8 +51,7 @@ public class SubjectController {
   @CrossOrigin(origins = "*")
   @GetMapping( params = "id", produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> findSubjectById(@RequestParam("id") int id){
-    List<SubjectDTO> s=new ArrayList<>();
-    s.add(subjectService.findSubjectById(id));
+    List<SubjectDTO> s=subjectService.findSubjectById(id);
     return new ResponseEntity<>(s, HttpStatus.OK);
   }
 

@@ -37,18 +37,22 @@ public class SubjectService extends BaseService{
   }
 
 
-  public SubjectDTO findSubjectById(int id){
-    List<Subject> t=new ArrayList<>();
-    Subject subjects =
+  public List<SubjectDTO> findSubjectById(int id){
+    List<Subject> subjects=new ArrayList<>();
+    Subject subject =
             subjectRepository.findById(id).get();
-    t.add(subjects);
-    return convertToSubjectDTOs(t).get(0);
+    subjects.add(subject);
+    List<SubjectDTO> subjectDTOs = subjects.stream().map(modelMapper::convertSubjectDTO).collect(Collectors.toList());
+    subjectDTOs.forEach(this::editPercent);
+    return subjectDTOs;
   }
 
   public List<SubjectDTO> findAllSubjectByName(String search){
     List<Subject> subjects =
             subjectRepository.findSubjectByNameContaining(search);
-    return convertToSubjectDTOs(subjects);
+    List<SubjectDTO> subjectDTOs = subjects.stream().map(modelMapper::convertSubjectDTO).collect(Collectors.toList());
+    subjectDTOs.forEach(this::editPercent);
+    return subjectDTOs;
   }
 
   private List<SubjectDTO> convertToSubjectDTOs(List<Subject> subjects){
