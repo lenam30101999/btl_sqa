@@ -18,7 +18,7 @@ public class TestDemo extends TestDriver {
 
   @Test
   public void guiLogin() {
-    chromeDriver.get("http://localhost:63342/btl_sqa/com/btl/sqa/html/Login.html");
+    chromeDriver.get("http://localhost:63342/btl_sqa/com/btl/sqa/html/CauHinhDiem.html");
     String title = chromeDriver.getTitle();
     String expected = "Quản lý đào tạo";
     chromeDriver.close();
