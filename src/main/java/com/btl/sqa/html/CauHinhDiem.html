@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="../myjs/SubjectList.js"></script>
     <title>Title</title>
     <style>
         .bottom-toolbar{
@@ -73,7 +74,7 @@
             <div style="font-size: x-large">Học viện Công nghệ Bưu chính Viễn thông</div>
             <div style="font-size: x-large">Posts and Telecommunications Institute of Technology</div>
             <div style="font-size: x-large">Cổng đăng ký học tín chỉ</div>
-        </div>
+        </div>	
         <div style="display: inline-block; float: right; margin: 20px" class="btn-group btn-group-toggle" data-toggle="buttons">
             <button type="button" class="btn btn-primary">Đăng xuất</button>
         </div>
@@ -111,8 +112,8 @@
                 <span style="font-size: large">Cấu hình điểm</span>
                 <div style="margin: 10px">
                     <label style="margin-right: 15px">Tìm theo tên môn học</label>
-                    <input style="margin-right: 15px">
-                    <button>Tìm kiếm</button>
+                    <input name="searchSub" style="margin-right: 15px">
+                    <button id="search">Tìm kiếm</button>
                 </div>
             </div>
             <div  class="data-body" style="height: 100%">
@@ -120,6 +121,7 @@
                     <thead style="background-color: #7b7676">
                     <tr>
                         <th scope="col">STT</th>
+                        <th scope="col">ID</th>
                         <th scope="col">Tên môn học</th>
                         <th scope="col">Phần trăm chuyên cần</th>
                         <th scope="col">Phần trăm thực hành</th>
@@ -129,17 +131,28 @@
                         <th scope="col">Lựa chọn</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>hello</td>
-                        <td>loi</td>
-                        <td>pro</td>
-                        <td>đây</td>
-                        <td>nam</td>
-                        <td>bếu</td>
-                        <td><button id="">Sửa</button></td>
-                    </tr>
+                    <tbody id="bodyList">
+		   <script>
+                    var list = JSON.parse(sessionStorage.Subject);
+                    var html = "";
+					
+                    for (var i = 0; i < list.length; i++) {
+                        var stt = i + 1;
+                        html += '<tr>';
+						html += '<td style="text-align: center">'+ stt +'</td>';
+                        html += '<td style="text-align: center">'+ list[i].id +'</td>';
+                        html += '<td style="text-align: center">'+ list[i].subjectName +'</td>';
+                        html += '<td style="text-align: center">'+ list[i].percentCC +'</td>';
+                        html += '<td style="text-align: center">'+ list[i].percentTH +'</td>';
+                        html += '<td style="text-align: center">'+ list[i].percentBTL +'</td>';
+                        html += '<td style="text-align: center">'+ list[i].percentKT +'</td>';
+                        html += '<td style="text-align: center">'+ list[i].percentCuoiKy +'</td>';
+                        html += '<td style="text-align: center"><button class="editS" onClick="reply_click('+(list[i].id)+')" >Sửa</button></td>';
+                        html += '</tr>';
+                    }
+                    $('#bodyList').html(html);
+                </script>
+                    
                     </tbody>
                 </table>
             </div>
@@ -156,6 +169,11 @@
     };
     var left = document.getElementById("nav-bar");
     var sticky = left.offsetTop;
+
+    function reply_click(clicked_id)
+    {
+        window.location.href = '../html/SuaCauHinhDiem.html?id='+clicked_id;
+    }
 
     function myFunction() {
         if (window.pageYOffset >= sticky) {

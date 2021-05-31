@@ -1,7 +1,10 @@
 package com.btl.sqa.controller;
 
 import com.btl.sqa.dto.MessageDTO;
+import com.btl.sqa.dto.StudentDTO;
 import com.btl.sqa.dto.SubjectDTO;
+import com.btl.sqa.model.Student;
+import com.btl.sqa.model.Subject;
 import com.btl.sqa.service.SubjectService;
 import com.btl.sqa.util.Util;
 import lombok.extern.log4j.Log4j2;
@@ -10,7 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Log4j2
 @RestController
@@ -35,4 +40,24 @@ public class SubjectController {
     List<SubjectDTO> subjectDTOS = subjectService.getAllSubject();
     return new ResponseEntity<>(subjectDTOS, HttpStatus.OK);
   }
+
+  @CrossOrigin(origins = "*")
+  @GetMapping( params = "search", produces = "application/json;charset=UTF-8")
+  public ResponseEntity<?> findAllSubjectByName(@RequestParam("search") String search){
+    List<SubjectDTO> subjectDTOS = subjectService.findAllSubjectByName(search);
+    return new ResponseEntity<>(subjectDTOS, HttpStatus.OK);
+  }
+
+  @CrossOrigin(origins = "*")
+  @GetMapping( params = "id", produces = "application/json;charset=UTF-8")
+  public ResponseEntity<?> findSubjectById(@RequestParam("id") int id){
+    List<SubjectDTO> s=new ArrayList<>();
+    s.add(subjectService.findSubjectById(id));
+    return new ResponseEntity<>(s, HttpStatus.OK);
+  }
+
+
+
+
+
 }

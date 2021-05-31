@@ -1,5 +1,6 @@
 package com.btl.sqa.service;
 
+import com.btl.sqa.dto.StudentDTO;
 import com.btl.sqa.dto.SubjectDTO;
 import com.btl.sqa.model.Student;
 import com.btl.sqa.model.Subject;
@@ -8,6 +9,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -32,6 +34,25 @@ public class SubjectService extends BaseService{
     List<SubjectDTO> subjectDTOs = subjects.stream().map(modelMapper::convertSubjectDTO).collect(Collectors.toList());
     subjectDTOs.forEach(this::editPercent);
     return subjectDTOs;
+  }
+
+
+  public SubjectDTO findSubjectById(int id){
+    List<Subject> t=new ArrayList<>();
+    Subject subjects =
+            subjectRepository.findById(id).get();
+    t.add(subjects);
+    return convertToSubjectDTOs(t).get(0);
+  }
+
+  public List<SubjectDTO> findAllSubjectByName(String search){
+    List<Subject> subjects =
+            subjectRepository.findSubjectByNameContaining(search);
+    return convertToSubjectDTOs(subjects);
+  }
+
+  private List<SubjectDTO> convertToSubjectDTOs(List<Subject> subjects){
+    return subjects.stream().map(modelMapper::convertSubjectDTO).collect(Collectors.toList());
   }
 
   private void editPercent(SubjectDTO subjectDTO){
