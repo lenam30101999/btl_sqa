@@ -119,7 +119,7 @@
         </div>
         <div class="data-body" style="height: 100%">
             <table class="table table-striped table-hover table-bordered">
-                <thead style="background-color: black">
+                <thead style="background-color: #7b7676">
                 <tr>
                     <th scope="col">Số thứ tự</th>
                     <th scope="col">Mã Giảng viên</th>
@@ -144,12 +144,13 @@
                             html += '<td style="text-align: center">'+ list[i].phoneNo +'</td>';
                             html += '<td style="text-align: center">'+ list[i].email +'</td>';
                             html += '<td>'+ list[i].facultyName +'</td>';
-                            html += '<td style="text-align: center"><button id="addL">Thêm</button> <button id="editL">Sửa</button><button id="deleteL">Xóa</button></td>';
+                            html += '<td style="text-align: center"><button id="editL">Sửa</button><button id="deleteL">Xóa</button></td>';
                             html += '</tr>';
                     }
                     $('#bodyList').html(html);
                 </script>
             </table>
+            <button style="float: right; width: 60px; margin-right: 20px" id="addL">Thêm</button>
         </div>
         <footer style="bottom: 0px; height: 6%; width: 100%" class="bottom-toolbar">
             <div class="footer container pt-5 border-bottom">
