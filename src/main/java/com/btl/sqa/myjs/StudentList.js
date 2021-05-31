@@ -35,13 +35,13 @@ var ShowStudentList = (function () {
                             var stt = i + 1;
                             html += '<tr>';
                             html += '<td style="text-align: center">'+ stt +'</td>';
-                            html += '<td style="text-align: center">'+ list[i].id +'</td>';
+                            html += '<td style="text-align: center">'+ list[i].username +'</td>';
                             html += '<td>'+ list[i].name +'</td>';
                             html += '<td style="text-align: center">'+ list[i].className +'</td>';
                             html += '<td style="text-align: center">'+ list[i].phoneNo +'</td>';
                             html += '<td style="text-align: center">'+ list[i].email +'</td>';
                             html += '<td>'+ list[i].facultyName +'</td>';
-                            html += '<td style="text-align: center"><button>Thêm</button> <button>Sửa</button><button>Sửa</button></td>';
+                            html += '<td style="text-align: center"><button id="editS">Sửa</button><button id="deleteS">Sửa</button></td>';
                             html += '</tr>';
                         }
                         $('#bodyList').html(html);
@@ -56,8 +56,28 @@ var ShowStudentList = (function () {
         })
 
         $(document).on('click','#deleteS', function (){
-            alert('Đã xóa');
-            window.location.href = 'DanhSachSinhVien.html';
+            var currentRow = $(this).closest('tr');
+            var ma = currentRow.find("td:eq(1)").text();
+            var id = null;
+            var listStu = JSON.parse(sessionStorage.Student);
+            for (var i = 0; i < listStu.length; i++) {
+                if (ma === listStu[i].username) {
+                    id = listStu[i].id;
+                    break;
+                }
+            }
+            $.ajax({
+                url: "http://localhost:8080/api/v1/users/deleteStudent/" + id,
+                type: "delete",
+                success: function(result) {
+                    alert('Đã xóa');
+                    window.location.href = 'DanhSachSinhVien.html';
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+
         })
         $(document).on('click','#editS', function (){
             var currentRow = $(this).closest('tr');
