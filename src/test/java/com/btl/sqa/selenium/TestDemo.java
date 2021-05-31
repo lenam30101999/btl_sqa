@@ -15,8 +15,8 @@ public class TestDemo extends TestDriver {
 
   @Test
   public void getSearchPage() {
-    this.driver.get("https://www.google.com");
-    WebElement element = this.driver.findElement(By.name("q"));
+    getDriver().get("https://www.google.com");
+    WebElement element = getDriver().findElement(By.name("q"));
     assertNotNull(element);
   }
 }
