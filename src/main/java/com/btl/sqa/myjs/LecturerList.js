@@ -35,12 +35,12 @@ var ShowLecturerList = (function () {
                             var STT = i + 1;
                             html += '<tr>';
                             html += '<td style="text-align: center">'+ STT +'</td>';
-                            html += '<td style="text-align: center">'+ list[i].username +'</td>';
+                            html += '<td style="text-align: center">'+ list[i].id +'</td>';
                             html += '<td>'+ list[i].name +'</td>';
                             html += '<td style="text-align: center">'+ list[i].phoneNo +'</td>';
                             html += '<td style="text-align: center">'+ list[i].email +'</td>';
                             html += '<td>'+ list[i].facultyName +'</td>';
-                            html += '<td style="text-align: center"><button>Thêm</button> <button>Sửa</button><button>Xóa</button></td>';
+                            html += '<td style="text-align: center"><button id="editL">Sửa</button><button id="deleteL">Xóa</button></td>';
                             html += '</tr>';
                         }
                         $('#bodyList').html(html)
@@ -55,8 +55,19 @@ var ShowLecturerList = (function () {
         })
 
         $(document).on('click','#deleteL', function (){
-            alert('Đã xóa');
-            window.location.href = 'DanhSachGiangVien.html';
+            var currentRow = $(this).closest('tr');
+            var ma = currentRow.find("td:eq(1)").text();
+            $.ajax({
+                url: "http://localhost:8080/api/v1/users/deleteLecturer/" + ma,
+                type: "delete",
+                success: function(result) {
+                    alert('Đã xóa');
+                    window.location.href = 'DanhSachGiangVien.html';
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
         })
         $(document).on('click','#editL', function (){
             var currentRow = $(this).closest('tr');

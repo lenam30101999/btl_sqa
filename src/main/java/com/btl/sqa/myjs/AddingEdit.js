@@ -56,6 +56,7 @@ var AddingEdit = (function () {
                     url: "http://localhost:8080/api/v1/users/updateStudent",
                     type: "PUT",
                     data: JSON.stringify({
+                        "id" : student.id,
                         "name" : name,
                         "username": account,
                         "password": password,
@@ -118,6 +119,7 @@ var AddingEdit = (function () {
                     url: "http://localhost:8080/api/v1/users/updateLecturer",
                     type: "PUT",
                     data: JSON.stringify({
+                        "id" : lecturer.id,
                         "name" : name,
                         "username": account,
                         "password": password,
