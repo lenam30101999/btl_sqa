@@ -1,34 +1,26 @@
 var EditSubjects = (function () {
-    var lecturer = null;
-    var subject = null;
-    var obj = JSON.parse(localStorage.EditSubject);
     const urlParams = new URLSearchParams(window.location.search);
     var initial =function () {
         rederHtml();
         bindEvent();
     };
 
-
-
-
     var bindEvent = function () {
 
 
         $(document).on('click','#confirm', function () {
             var id=urlParams.get('id');
-            var subjectname = $('input[name=subjectName]').val();
             var btl = $('input[name=BTL]').val();
             var cc = $('input[name=CC]').val();
             var kt = $('input[name=KT]').val();
             var cuoiki = $('input[name=CuoiKy]').val();
             var th = $('input[name=TH]').val();
-            console.log(obj.id);
+            if (parseInt(btl)+parseInt(cc)+parseInt(kt)+parseInt(cuoiki)+parseInt(th)===100) {
                 $.ajax({
                     url: "http://localhost:8080/api/v1/points/configPoint",
                     type: "PUT",
                     data: JSON.stringify({
                         "id": id,
-                        "name":name,
                         "percentCC": cc,
                         "percentTH": th,
                         "percentBTL": btl,
@@ -37,18 +29,19 @@ var EditSubjects = (function () {
                     }),
                     contentType: 'application/json',
                     dataType: "json",
-                    success: function(result) {
+                    success: function (result) {
                         alert("Sửa thành công");
-                        // window.location.replace="http://www.w3schools.com";
                         window.location.href = '../html/CauHinhDiem.html';
                         console.log(result);
                     },
-                    error: function(error) {
+                    error: function (error) {
                         alert(error);
                         console.log(error);
                     }
                 });
-
+            }else{
+                alert("Tổng các đầu điểm khác 100");
+            }
 
 
 
@@ -58,14 +51,12 @@ var EditSubjects = (function () {
 
 
     var rederHtml = function () {
-                var html = '<span style="font-size: large">Cấu hình điểm</span>';
-                $('#title').html(html);
-
 
         $.ajax({
             url: "http://localhost:8080/api/v1/subjects?id="+urlParams.get('id'),
             type: "GET",
             success: function(result) {
+
                 if(result.length > 0) {
                     sessionStorage.setItem("Subject",JSON.stringify(result));
                 } else {
