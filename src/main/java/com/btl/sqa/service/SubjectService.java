@@ -35,11 +35,11 @@ public class SubjectService extends BaseService{
   }
 
   private void editPercent(SubjectDTO subjectDTO){
-    subjectDTO.setPercentCC(subjectDTO.getPercentCC() * 100);
-    subjectDTO.setPercentBTL(subjectDTO.getPercentBTL() * 100);
-    subjectDTO.setPercentCuoiKy(subjectDTO.getPercentCuoiKy() * 100);
-    subjectDTO.setPercentKT(subjectDTO.getPercentKT() * 100);
-    subjectDTO.setPercentTH(subjectDTO.getPercentTH() * 100);
+    subjectDTO.setPercentCC(ServiceUtil.checkDecimal(subjectDTO.getPercentCC() * 100));
+    subjectDTO.setPercentBTL(ServiceUtil.checkDecimal(subjectDTO.getPercentBTL() * 100));
+    subjectDTO.setPercentCuoiKy(ServiceUtil.checkDecimal(subjectDTO.getPercentCuoiKy() * 100.0f));
+    subjectDTO.setPercentKT(ServiceUtil.checkDecimal(subjectDTO.getPercentKT() * 100.0f));
+    subjectDTO.setPercentTH(ServiceUtil.checkDecimal(subjectDTO.getPercentTH() * 100.0f));
   }
 
   public SubjectDTO updatePercent(SubjectDTO subjectDTO){
