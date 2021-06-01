@@ -15,6 +15,7 @@ var EditSubjects = (function () {
             var kt = $('input[name=KT]').val();
             var cuoiki = $('input[name=CuoiKy]').val();
             var th = $('input[name=TH]').val();
+            console.log(parseInt(btl));
             if (parseInt(btl)+parseInt(cc)+parseInt(kt)+parseInt(cuoiki)+parseInt(th)===100) {
                 $.ajax({
                     url: "http://localhost:8080/api/v1/points/configPoint",
@@ -40,7 +41,7 @@ var EditSubjects = (function () {
                     }
                 });
             }else{
-                alert("Tổng các đầu điểm khác 100");
+                alert("Tổng các đầu điểm khác 100 hoặc bị bỏ trống");
             }
 
 
