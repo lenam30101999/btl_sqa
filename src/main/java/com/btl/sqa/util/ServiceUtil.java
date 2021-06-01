@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 @Component
 public class ServiceUtil {
   public static Date formatDate(String date) throws ParseException {
-    if (date != null){
+    if (date != null && !date.equals("")){
       return new SimpleDateFormat("dd/MM/yyyy").parse(date);
     }else return null;
   }
