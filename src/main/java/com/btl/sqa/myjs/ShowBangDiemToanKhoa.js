@@ -5,7 +5,6 @@ var ShowBangDiem = (function () {
     var sub = null;
     var initial =function () {
         getAllPoit();
-        drawTable();
         getAllSub();
         bindEvent();
     };
@@ -66,6 +65,7 @@ var ShowBangDiem = (function () {
             success: function(result) {
                 if(result.length > 0) {
                     sessionStorage.setItem("AllPoint",JSON.stringify(result));
+                    drawTable(result);
                 } else {
                     alert("không có điểm");
                 }
@@ -84,7 +84,7 @@ var ShowBangDiem = (function () {
                 type: "GET",
                 success: function(result) {
                     if(result.length > 0) {
-                        drawTable(result)
+                        drawTable()
                     } else {
                         alert("không có điểm");
                     }

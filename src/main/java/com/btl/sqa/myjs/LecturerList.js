@@ -12,6 +12,21 @@ var ShowLecturerList = (function () {
             success: function(result) {
                 if(result.length > 0) {
                     sessionStorage.setItem("Lecturer",JSON.stringify(result));
+                    var list = JSON.parse(sessionStorage.Lecturer);
+                    var html = "";
+                    for (var i = 0; i < list.length; i++) {
+                        var STT = i + 1;
+                        html += '<tr>';
+                        html += '<td style="text-align: center">'+ STT +'</td>';
+                        html += '<td style="text-align: center">'+ list[i].id +'</td>';
+                        html += '<td>'+ list[i].name +'</td>';
+                        html += '<td style="text-align: center">'+ list[i].phoneNo +'</td>';
+                        html += '<td style="text-align: center">'+ list[i].email +'</td>';
+                        html += '<td>'+ list[i].facultyName +'</td>';
+                        html += '<td style="text-align: center"><button id="editL">Sửa</button><button id="deleteL">Xóa</button></td>';
+                        html += '</tr>';
+                    }
+                    $('#bodyList').html(html);
                 } else {
                     alert("không có giảng viên");
                 }

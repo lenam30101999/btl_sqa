@@ -7,7 +7,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="../myjs/StudentList.js"></script>
     <title>Danh sách sinh viên</title>
     <style>
         .bottom-toolbar{
@@ -138,24 +137,6 @@
                 </thead>
                 <tbody id="bodyList">
                 </tbody>
-                <script>
-                    var list = JSON.parse(sessionStorage.Student);
-                    var html = "";
-                    for (var i = 0; i < list.length; i++) {
-                        var stt = i + 1;
-                        html += '<tr>';
-                        html += '<td style="text-align: center">'+ stt +'</td>';
-                        html += '<td style="text-align: center">'+ list[i].username +'</td>';
-                        html += '<td>'+ list[i].name +'</td>';
-                        html += '<td style="text-align: center">'+ list[i].className +'</td>';
-                        html += '<td style="text-align: center">'+ list[i].phoneNo +'</td>';
-                        html += '<td style="text-align: center">'+ list[i].email +'</td>';
-                        html += '<td>'+ list[i].facultyName +'</td>';
-                        html += '<td style="text-align: center"><button id="editS">Sửa</button><button id="deleteS">Xóa</button></td>';
-                        html += '</tr>';
-                    }
-                    $('#bodyList').html(html);
-                </script>
 
             </table>
             <button style="float: right; width: 60px; margin-right: 20px" id="addS">Thêm</button>
@@ -168,6 +149,7 @@
     </div>
 
 </div>
+<script src="../myjs/StudentList.js"></script>
 <script>
     window.onscroll = function () {
         myFunction()
