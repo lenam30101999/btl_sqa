@@ -37,12 +37,10 @@ public class TestReport extends TestDriver{
     public void guiListStudentReport2() {
         chromeDriver.get("http://localhost:63342/sqa/com/btl/sqa/html/DanhSachSinhVien.html");
         chromeDriver.findElement(By.id("stu_pass")).click();
-        String innerText = chromeDriver.findElement(By.xpath("//table/thead/tr/th[1]"))
-                .getText();
-        System.out.println(innerText);
-        String expected = "A";
+        String title = chromeDriver.getTitle();
+        String expected = "Sinh viên đạt học bổng";
         chromeDriver.close();
-        assertEquals(expected, innerText, "Failed");
+        assertEquals(expected, title, "Failed");
     }
 //    @Test
 //    public void guiListStudentReport1() {
