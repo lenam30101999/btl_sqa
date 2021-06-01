@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +17,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestUserList extends TestDriver {
 
     ChromeDriver chromeDriver = getDriver();
+
+    @Test
+    public void resizeStu() {
+        chromeDriver.get("http://localhost:63342/sqa/com/btl/sqa/html/DanhSachSinhVien.html");
+        System.out.println("Test started");
+        Dimension dimension = new Dimension(480, 320);
+        System.out.println("Got dimensions");
+        chromeDriver.manage().window().setSize(dimension);
+        System.out.println("resizing");
+    }
 
     @Test
     public void guiListStudent() {
@@ -44,6 +55,16 @@ public class TestUserList extends TestDriver {
         String expected = "Thêm người dùng";
         chromeDriver.close();
         assertEquals(expected, title, "Failed");
+    }
+
+    @Test
+    public void resizeWindowLec() {
+        chromeDriver.get("http://localhost:63342/sqa/com/btl/sqa/html/DanhSachGiangVien.html");
+        System.out.println("Test started");
+        Dimension dimension = new Dimension(480, 320);
+        System.out.println("Got dimensions");
+        chromeDriver.manage().window().setSize(dimension);
+        System.out.println("resizing");
     }
 
 
