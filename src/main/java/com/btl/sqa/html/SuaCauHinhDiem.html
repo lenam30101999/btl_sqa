@@ -120,34 +120,34 @@
             <div class="field-all">
                 <div>
                     <span >Tên môn học: </span>
-                    <input name="">
+                    <input readonly name="subjectName">
                 </div>
                 <div>
                     <span >Phần trăm chuyên cần: </span>
-                    <input name="">
+                    <input required="true" name="CC">
                 </div>
                 <div>
                     <span >Phần trăm thực hành: </span>
-                    <input name="">
+                    <input required="true" name="TH">
                 </div>
                 <div>
                     <span >Phần trăm BTL: </span>
-                    <input name="">
+                    <input required="true" name="BTL">
                 </div>
                 <div>
                     <span >Phần trăm kiểm tra: </span>
-                    <input name="dOB">
+                    <input required="true" name="KT">
                 </div>
                 <div>
                     <span >Phần trăm cuối kỳ: </span>
-                    <input name="">
+                    <input required="true" name="CuoiKy">
                 </div>
             </div>
             <hr>
             <hr>
             <hr>
             <div style="text-align: center">
-                <button type="button" class="btn btn-primary" id="">Xác nhận</button>
+                <button type="button" id="confirm" class="btn btn-primary">Xác nhận</button>
             </div>
         </div>
         <footer style="bottom: 0px; height: 6%; width: 100%" class="bottom-toolbar">
@@ -156,7 +156,7 @@
         </footer>
     </div>
 </div>
-<script src="../myjs/AddingEdit.js"></script>
+<script src="../myjs/EditSubject.js"></script>
 <script>
     window.onscroll = function () {
         myFunction()

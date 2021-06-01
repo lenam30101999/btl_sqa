@@ -13,6 +13,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
@@ -33,5 +34,19 @@ public class SubjectRepositoryTest {
     int classModelId = 1;
     List<Subject> subjects = subjectRepository.findSubjectsByClassModelId(classModelId);
     assertThat(subjects).size().isGreaterThan(0);
+  }
+
+  @Test
+  public void findSubjectByNameContaining() {
+    String name="Java";
+    List<Subject> subjects = subjectRepository.findSubjectByNameContaining(name);
+    assertThat(subjects).size().isGreaterThan(0);
+  }
+
+  @Test
+  public void findSubjectById() {
+    int id=1;
+    Optional<Subject> subjects = subjectRepository.findById(id);
+    assertThat(subjects).isNotNull();
   }
 }

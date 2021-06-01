@@ -35,7 +35,7 @@ public class SubjectControllerTest {
   @Test
   public void getSubjectsByStudent() throws Exception {
     MvcResult result = mockMvc.perform(get("/api/v1/subjects")
-        .param("studentId", "9"))
+        .param("studentId", "2"))
         .andDo(print())
         .andExpect(status().is2xxSuccessful())
         .andReturn();
@@ -49,6 +49,56 @@ public class SubjectControllerTest {
         .andDo(print())
         .andExpect(status().is4xxClientError())
         .andReturn();
+    Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+  }
+
+  @Test
+  public void getSubjectsByName() throws Exception {
+    MvcResult result = mockMvc.perform(get("/api/v1/subjects/")
+            .param("search", "Java"))
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful())
+            .andReturn();
+    Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+  }
+
+  @Test
+  public void getSubjectsByNameHaveNone() throws Exception {
+    MvcResult result = mockMvc.perform(get("/api/v1/subjects/")
+            .param("search", "X"))
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful())
+            .andReturn();
+    Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+  }
+
+  @Test
+  public void getSubjectsByNameHaveSpecialCharacter() throws Exception {
+    MvcResult result = mockMvc.perform(get("/api/v1/subjects/")
+            .param("search", "C++"))
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful())
+            .andReturn();
+    Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+  }
+
+  @Test
+  public void getSubjectsById() throws Exception {
+    MvcResult result = mockMvc.perform(get("/api/v1/subjects/")
+            .param("id", "1"))
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful())
+            .andReturn();
+    Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+  }
+
+  @Test
+  public void getSubjectsByIdHaveNone() throws Exception {
+    MvcResult result = mockMvc.perform(get("/api/v1/subjects/")
+            .param("id", "90"))
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful())
+            .andReturn();
     Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
   }
 }
