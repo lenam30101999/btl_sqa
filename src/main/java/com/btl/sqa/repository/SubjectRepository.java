@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface SubjectRepository extends JpaRepository<Subject, Integer> {
   List<Subject> findSubjectsByClassModelId(int classModelId);
   List<Subject> findSubjectByNameContaining(String name);
-  Optional<Subject> findById(int id);
+  List<Subject> findSubjectById(int id);
 }
