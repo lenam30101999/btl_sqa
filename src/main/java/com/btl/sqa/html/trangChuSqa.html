@@ -67,7 +67,12 @@
             <div style="font-size: x-large">Cổng đăng ký học tín chỉ</div>
         </div>
         <div style="display: inline-block; float: right; margin: 20px" class="btn-group btn-group-toggle" data-toggle="buttons">
-            <button type="button" class="btn btn-primary">Đăng xuất</button>
+            <button type="button" class="btn btn-primary" id="logout">Đăng xuất</button>
+            <script>
+                $(document).on('click','#logout', function () {
+                    window.location.href = '../html/Login.html';
+                })
+            </script>
         </div>
     </div>
     <div style="float: left; background-color: gray; display: inline-block" class="nav-bar" id="nav-bar">

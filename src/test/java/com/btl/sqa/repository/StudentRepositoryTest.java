@@ -84,11 +84,13 @@ public class StudentRepositoryTest {
     List<Student> students = studentRepository.findAllByUserNameIsContaining(name);
     assertThat(students).size().isGreaterThan(0);
   }
+
   @Test
   public void getAllStudentReport(){
     List<Student> students = studentRepository.findAll();
     assertThat(students).size().isGreaterThan(0);
   }
+
   @Test
   public void getALlStudentReportByClass(){
     List<Student> students = studentRepository.findAll();
@@ -96,16 +98,20 @@ public class StudentRepositoryTest {
     assertThat(studentsByClass).size().isGreaterThan(0);
     assertThat(studentsByClass).size().isEqualTo(students.size());
   }
+
   @Test
-  public void getALlStudentReportBySchoolarship(Double gpa){
+  public void getALlStudentReportBySchoolarship(){
+    Double gpa = 3.5;
     List<Student> students = studentRepository.findAll();
     List<Student> studentsByClass = studentRepository.findByGpaGreaterThan(gpa);
     assertThat(studentsByClass).size().isGreaterThan(0);
     assertThat(studentsByClass).size().isLessThan(students.size());
     assertThat(studentsByClass.stream().findAny().get().getGpa()).isGreaterThan(gpa);
   }
+
   @Test
-  public void getALlStudentReportByFailure(Double gpa){
+  public void getALlStudentReportByFailure(){
+    Double gpa = 2.0;
     List<Student> students = studentRepository.findAll();
     List<Student> studentsByClass = studentRepository.findByGpaLessThan(gpa);
     assertThat(studentsByClass).size().isGreaterThan(0);

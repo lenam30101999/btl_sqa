@@ -35,4 +35,19 @@ public class SubjectController {
     List<SubjectDTO> subjectDTOS = subjectService.getAllSubject();
     return new ResponseEntity<>(subjectDTOS, HttpStatus.OK);
   }
+
+  @CrossOrigin(origins = "*")
+  @GetMapping( params = "search", produces = "application/json;charset=UTF-8")
+  public ResponseEntity<?> findAllSubjectByName(@RequestParam("search") String search){
+    List<SubjectDTO> subjectDTOS = subjectService.findAllSubjectByName(search);
+    return new ResponseEntity<>(subjectDTOS, HttpStatus.OK);
+  }
+
+  @CrossOrigin(origins = "*")
+  @GetMapping( params = "id", produces = "application/json;charset=UTF-8")
+  public ResponseEntity<?> findSubjectById(@RequestParam("id") int id){
+    List<SubjectDTO> s=subjectService.findSubjectById(id);
+    return new ResponseEntity<>(s, HttpStatus.OK);
+  }
+
 }

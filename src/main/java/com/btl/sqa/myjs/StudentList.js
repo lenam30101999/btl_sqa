@@ -12,6 +12,22 @@ var ShowStudentList = (function () {
             success: function(result) {
                 if(result.length > 0) {
                     sessionStorage.setItem("Student",JSON.stringify(result));
+                    var list = JSON.parse(sessionStorage.Student);
+                    var html = "";
+                    for (var i = 0; i < list.length; i++) {
+                        var stt = i + 1;
+                        html += '<tr>';
+                        html += '<td style="text-align: center">'+ stt +'</td>';
+                        html += '<td style="text-align: center">'+ list[i].username +'</td>';
+                        html += '<td>'+ list[i].name +'</td>';
+                        html += '<td style="text-align: center">'+ list[i].className +'</td>';
+                        html += '<td style="text-align: center">'+ list[i].phoneNo +'</td>';
+                        html += '<td style="text-align: center">'+ list[i].email +'</td>';
+                        html += '<td>'+ list[i].facultyName +'</td>';
+                        html += '<td style="text-align: center"><button id="editS">Sửa</button><button id="deleteS">Xóa</button></td>';
+                        html += '</tr>';
+                    }
+                    $('#bodyList').html(html);
                 } else {
                     alert("không có danh sách");
                 }
