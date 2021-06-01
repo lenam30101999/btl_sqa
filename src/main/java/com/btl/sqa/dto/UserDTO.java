@@ -22,10 +22,8 @@ public class UserDTO {
 
   protected String dob;
 
-  @NotNull
   protected String phoneNo;
 
-  @NotNull
   protected String role;
 
   protected String gender;
