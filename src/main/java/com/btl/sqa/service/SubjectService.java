@@ -31,11 +31,13 @@ public class SubjectService extends BaseService{
   public List<SubjectDTO> findSubjectById(int id){
     List<Subject> subjects=new ArrayList<>();
     Subject subject =
-            subjectRepository.findById(id).get();
-    subjects.add(subject);
-    List<SubjectDTO> subjectDTOs = subjects.stream().map(modelMapper::convertSubjectDTO).collect(Collectors.toList());
-    subjectDTOs.forEach(this::editPercent);
-    return subjectDTOs;
+            subjectRepository.findById(id).orElse(null);
+    if (Objects.nonNull(subject)){
+      subjects.add(subject);
+      List<SubjectDTO> subjectDTOs = subjects.stream().map(modelMapper::convertSubjectDTO).collect(Collectors.toList());
+      subjectDTOs.forEach(this::editPercent);
+      return subjectDTOs;
+    }else return null;
   }
 
   public List<SubjectDTO> findAllSubjectByName(String search){

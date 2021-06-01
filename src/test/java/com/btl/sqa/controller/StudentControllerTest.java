@@ -34,11 +34,42 @@ public class StudentControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void getAllClassroom() throws Exception {
-        MvcResult result = mockMvc.perform(get("/api/v1/student"))
+    public void getAllStudentReport() throws Exception {
+        MvcResult result = mockMvc.perform(get("/api/v1/student/getAllStudentReport"))
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful())
                 .andReturn();
-        Assert.assertEquals("application/json", result.getResponse().getContentType());
+        Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+    }
+
+    @Test
+    public void getAllStudentReportByClass() throws Exception {
+        MvcResult result = mockMvc.perform(get("/api/v1/student/getAllStudentReportByClass"))
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful())
+            .andReturn();
+        Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+    }
+
+    @Test
+    public void getAllStudentReportBySchoolarship() throws Exception {
+        Double gpa = 3.5;
+        MvcResult result = mockMvc.perform(get("/api/v1/student/getAllStudentReportBySchoolarship")
+            .param("gpa", String.valueOf(gpa)))
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful())
+            .andReturn();
+        Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+    }
+
+    @Test
+    public void getAllStudentReportByFailure() throws Exception {
+        Double gpa = 2.0;
+        MvcResult result = mockMvc.perform(get("/api/v1/student/getAllStudentReportByFailure")
+            .param("gpa", String.valueOf(gpa)))
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful())
+            .andReturn();
+        Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
     }
 }

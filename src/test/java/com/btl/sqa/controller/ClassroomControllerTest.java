@@ -1,8 +1,5 @@
 package com.btl.sqa.controller;
 
-import com.btl.sqa.dto.ClassDTO;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,9 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import java.util.List;
-
-import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -45,6 +39,6 @@ public class ClassroomControllerTest {
         .andDo(print())
         .andExpect(status().is2xxSuccessful())
         .andReturn();
-    Assert.assertEquals("application/json", result.getResponse().getContentType());
+    Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
   }
 }

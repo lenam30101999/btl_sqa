@@ -97,7 +97,7 @@ public class SubjectControllerTest {
     MvcResult result = mockMvc.perform(get("/api/v1/subjects/")
             .param("id", "90"))
             .andDo(print())
-            .andExpect(status().is2xxSuccessful())
+            .andExpect(status().is4xxClientError())
             .andReturn();
     Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
   }
