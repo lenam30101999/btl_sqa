@@ -80,7 +80,7 @@ var ShowLecturerList = (function () {
                     window.location.href = 'DanhSachGiangVien.html';
                 },
                 error: function(error) {
-                    console.log(error);
+                    alert('Xóa thất bại');
                 }
             });
         })

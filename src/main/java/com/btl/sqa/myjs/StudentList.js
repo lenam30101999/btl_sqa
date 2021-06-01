@@ -90,7 +90,7 @@ var ShowStudentList = (function () {
                     window.location.href = 'DanhSachSinhVien.html';
                 },
                 error: function(error) {
-                    console.log(error);
+                    alert('Xóa thất bại');
                 }
             });
 
