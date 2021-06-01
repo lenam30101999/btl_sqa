@@ -7,6 +7,7 @@ import com.btl.sqa.util.ModelMapper;
 import com.btl.sqa.util.ServiceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.text.ParseException;
 import java.util.Objects;
 
 public class BaseService {
@@ -22,8 +23,11 @@ public class BaseService {
   @Autowired protected ModelMapper modelMapper;
   @Autowired protected ServiceUtil serviceUtil;
 
-  protected User saveUser(UserDTO userDTO) {
+  protected User saveUser(UserDTO userDTO) throws ParseException {
     User user = modelMapper.convertStudentToUser(userDTO);
+    if (Objects.nonNull(userDTO.getDob()) && !userDTO.getDob().equals("")){
+      user.setDob(ServiceUtil.formatDate(userDTO.getDob()));
+    }
     return user;
   }
 

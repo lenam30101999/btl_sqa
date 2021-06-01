@@ -164,16 +164,9 @@ public interface ModelMapper {
   }
 
   @Mappings({
-      @Mapping(target = "dob", source = "dob", qualifiedByName = "mapDate")
+      @Mapping(target = "dob", ignore = true)
   })
   User convertStudentToUser(UserDTO userDTO);
-
-  @Named("mapDate")
-  default Date userStateToString(String date) throws ParseException {
-    if (Objects.nonNull(date)){
-      return ServiceUtil.formatDate(date);
-    }else return null;
-  }
 
   static double calculatePoint10(Point point){
     float abs = point.getDiemCC() * point.getSubject().getPercentCC() +
