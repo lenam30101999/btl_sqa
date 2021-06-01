@@ -14,25 +14,25 @@ public class StudentController {
     @Autowired
      private StudentService studentService;
 
-    @GetMapping("/getAllStudentReport")
+    @GetMapping(value = "/getAllStudentReport", produces = "application/json;charset=UTF-8")
     @CrossOrigin(origins = "*")
     public ResponseEntity<List<StudentDTO>> getAllStudentReport(){
         return ResponseEntity.ok(studentService.getALlStudentReport());
     }
 
-    @GetMapping("/getAllStudentReportByClass")
+    @GetMapping(value = "/getAllStudentReportByClass", produces = "application/json;charset=UTF-8")
     @CrossOrigin(origins = "*")
     public ResponseEntity<List<StudentDTO>> getALlStudentReportByClass(){
         return ResponseEntity.ok(studentService.getALlStudentReportByClass());
     }
 
-    @GetMapping("/getAllStudentReportBySchoolarship")
+    @GetMapping(value = "/getAllStudentReportBySchoolarship", produces = "application/json;charset=UTF-8")
     @CrossOrigin(origins = "*")
     public ResponseEntity<List<StudentDTO>> getALlStudentReportBySchoolarship(@RequestParam Double gpa){
         return ResponseEntity.ok(studentService.getALlStudentReportBySchoolarship(gpa));
     }
 
-    @GetMapping("/getAllStudentReportByFailure")
+    @GetMapping(value = "/getAllStudentReportByFailure", produces = "application/json;charset=UTF-8")
     @CrossOrigin(origins = "*")
     public ResponseEntity<List<StudentDTO>> getALlStudentReportByFailure(@RequestParam Double gpa){
         return ResponseEntity.ok(studentService.getALlStudentReportByFailure(gpa));
