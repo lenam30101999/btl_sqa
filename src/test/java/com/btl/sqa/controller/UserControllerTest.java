@@ -295,7 +295,7 @@ public class UserControllerTest {
   @Test
   @Transactional
   public void deleteLecturer() throws Exception {
-    MvcResult result = mockMvc.perform(delete("/api/v1/users/deleteLecturer/{id}", "35")
+    MvcResult result = mockMvc.perform(delete("/api/v1/users/deleteLecturer/{id}", "43")
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().is2xxSuccessful())

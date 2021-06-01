@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Log4j2
 @RestController
@@ -46,8 +47,10 @@ public class SubjectController {
   @CrossOrigin(origins = "*")
   @GetMapping( params = "id", produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> findSubjectById(@RequestParam("id") int id){
-    List<SubjectDTO> s=subjectService.findSubjectById(id);
-    return new ResponseEntity<>(s, HttpStatus.OK);
+    List<SubjectDTO> subjectDTOS = subjectService.findSubjectById(id);
+    if (Objects.nonNull(subjectDTOS)){
+      return new ResponseEntity<>(subjectDTOS, HttpStatus.OK);
+    }else return new ResponseEntity<>(new MessageDTO(Util.NOT_FOUND), HttpStatus.BAD_REQUEST);
   }
 
 }

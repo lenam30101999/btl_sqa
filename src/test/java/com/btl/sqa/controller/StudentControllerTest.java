@@ -35,10 +35,10 @@ public class StudentControllerTest {
 
     @Test
     public void getAllClassroom() throws Exception {
-        MvcResult result = mockMvc.perform(get("/api/v1/student"))
+        MvcResult result = mockMvc.perform(get("/api/v1/classrooms"))
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful())
                 .andReturn();
-        Assert.assertEquals("application/json", result.getResponse().getContentType());
+        Assert.assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
     }
 }
