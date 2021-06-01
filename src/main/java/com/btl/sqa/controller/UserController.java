@@ -75,8 +75,10 @@ public class UserController {
   @CrossOrigin(origins = "*")
   @PutMapping(path = "/updateLecturer", produces = "application/json;charset=UTF-8")
   public ResponseEntity<?> updateLecturer(@Valid @RequestBody LecturerDTO lecturerDTO) {
-    lecturerService.updateLecturerInfo(lecturerDTO);
-    return new ResponseEntity<>(new MessageDTO(Util.UPDATED_SUCCESS), HttpStatus.OK);
+    LecturerDTO updated = lecturerService.updateLecturerInfo(lecturerDTO);
+    if (Objects.nonNull(updated)){
+      return new ResponseEntity<>(new MessageDTO(Util.UPDATED_SUCCESS), HttpStatus.OK);
+    }else return new ResponseEntity<>(new MessageDTO(Util.UPDATED_NOT_SUCCESS), HttpStatus.BAD_REQUEST);
   }
 
   @CrossOrigin(origins = "*")

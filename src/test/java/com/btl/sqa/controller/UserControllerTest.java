@@ -237,7 +237,10 @@ public class UserControllerTest {
   public void updateLecturer() throws Exception {
     LecturerDTO lecturerDTO = LecturerDTO.builder()
         .dob("10/10/1995")
-        .id(11)
+        .id(43)
+        .name("tran van abc")
+        .username("tranvanabc")
+        .password("12345678")
         .email("tranvanabcda@gmail.com")
         .build();
     MvcResult result = mockMvc.perform(put("/api/v1/users/updateLecturer")

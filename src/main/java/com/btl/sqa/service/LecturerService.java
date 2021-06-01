@@ -30,7 +30,7 @@ public class LecturerService extends BaseService{
     }
   }
 
-  public void updateLecturerInfo(LecturerDTO lecturerDTO){
+  public LecturerDTO updateLecturerInfo(LecturerDTO lecturerDTO){
     try {
       Lecturer updated = getLecturer(lecturerDTO.getId());
       User user = findUserById(lecturerDTO.getId());
@@ -46,10 +46,12 @@ public class LecturerService extends BaseService{
 
         updated.setFaculty(lecturerDTO.getFacultyName());
         lecturerRepository.saveAndFlush(updated);
+        return modelMapper.convertToLecturerDTO(updated);
       }
     }catch (Exception e){
       e.printStackTrace();
     }
+    return null;
   }
 
   public boolean deleteLecturer(int lecturerId) {
