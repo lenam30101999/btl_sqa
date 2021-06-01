@@ -50,5 +50,4 @@ public class SubjectController {
     return new ResponseEntity<>(s, HttpStatus.OK);
   }
 
-
 }
