@@ -34,20 +34,27 @@ public class StudentService extends BaseService{
           return dto;
         }
         studentDTO = ServiceUtil.checkUsername(studentDTO);
-        if (Objects.nonNull(studentDTO) && ServiceUtil.formatIdentifyCard(studentDTO.getIdentifyCard())){
-          studentDTO.setRole("STUDENT");
-          User user = saveUser(studentDTO);
-          Student student = Student.builder()
-            .identifyCard(studentDTO.getIdentifyCard())
-            .facultyName(studentDTO.getFacultyName())
-            .room(getClass(studentDTO.getClassId()))
-            .user(user)
-            .gpa(0)
-            .points(null)
-            .build();
+        if (Objects.nonNull(studentDTO)){
+          if (ServiceUtil.formatIdentifyCard(studentDTO.getIdentifyCard())){
+            studentDTO.setRole("STUDENT");
+            User user = saveUser(studentDTO);
+            Student student = Student.builder()
+                .identifyCard(studentDTO.getIdentifyCard())
+                .facultyName(studentDTO.getFacultyName())
+                .room(getClass(studentDTO.getClassId()))
+                .user(user)
+                .gpa(0)
+                .points(null)
+                .build();
 
-          studentRepository.save(student);
-          return modelMapper.convertStudentDTO(student);
+            studentRepository.save(student);
+            return modelMapper.convertStudentDTO(student);
+          }else {
+            StudentDTO dto = new StudentDTO();
+            dto.setUsername(Util.IDENTIFY_CARD_WRONG_FORMAT);
+            dto.setName(null);
+            return dto;
+          }
       }else {
           StudentDTO dto = new StudentDTO();
           dto.setUsername(Util.CHECK_AGAIN);
