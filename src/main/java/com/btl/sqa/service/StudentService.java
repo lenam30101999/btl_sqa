@@ -30,7 +30,7 @@ public class StudentService extends BaseService{
         if (existing != null){
           StudentDTO dto = new StudentDTO();
           dto.setUsername(Util.ACCOUNT_EXISTS);
-          dto.setName(null);
+          dto.setName("");
           return dto;
         }
         studentDTO = ServiceUtil.checkUsername(studentDTO);
@@ -52,13 +52,13 @@ public class StudentService extends BaseService{
           }else {
             StudentDTO dto = new StudentDTO();
             dto.setUsername(Util.IDENTIFY_CARD_WRONG_FORMAT);
-            dto.setName(null);
+            dto.setName("");
             return dto;
           }
       }else {
           StudentDTO dto = new StudentDTO();
           dto.setUsername(Util.CHECK_AGAIN);
-          dto.setName(null);
+          dto.setName("");
           return dto;
         }
     } catch (Exception e) {
@@ -93,6 +93,7 @@ public class StudentService extends BaseService{
       }else {
         StudentDTO dto = new StudentDTO();
         dto.setUsername(Util.CHECK_AGAIN);
+        dto.setName("");
         return dto;
       }
     }catch (Exception e) {

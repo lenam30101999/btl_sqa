@@ -23,7 +23,7 @@ public class LecturerService extends BaseService{
       if (existing != null){
         LecturerDTO dto = new LecturerDTO();
         dto.setUsername(Util.ACCOUNT_EXISTS);
-        dto.setName(null);
+        dto.setName("");
         return dto;
       }
       userDTO = ServiceUtil.checkUsername(userDTO);
@@ -39,7 +39,7 @@ public class LecturerService extends BaseService{
       }else {
         LecturerDTO dto = new LecturerDTO();
         dto.setUsername(Util.CHECK_AGAIN);
-        dto.setName(null);
+        dto.setName("");
         return dto;
       }
     }catch (Throwable e){
@@ -71,7 +71,7 @@ public class LecturerService extends BaseService{
       }else {
         LecturerDTO dto = new LecturerDTO();
         dto.setUsername(Util.CHECK_AGAIN);
-        dto.setName(null);
+        dto.setName("");
         return dto;
       }
     }catch (Exception e){

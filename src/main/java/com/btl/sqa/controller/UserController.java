@@ -46,14 +46,14 @@ public class UserController {
   public ResponseEntity<?> createUser(@Valid @RequestBody UserDTO userDTO) {
     if (userDTO.getIdentifyCard() != null){
       StudentDTO dto = studentService.addStudent(userDTO);
-      if (dto.getName() != null){
+      if (!dto.getName().equals("")){
         return new ResponseEntity<>(new MessageDTO(Util.ADD_SUCCESS), HttpStatus.OK);
       }else {
         return new ResponseEntity<>(new MessageDTO(dto.getUsername()), HttpStatus.BAD_REQUEST);
       }
     }else {
       LecturerDTO dto = lecturerService.addLecturer(userDTO);
-      if (dto.getName() != null){
+      if (!dto.getName().equals("")){
         return new ResponseEntity<>(new MessageDTO(Util.ADD_SUCCESS), HttpStatus.OK);
       }else {
         return new ResponseEntity<>(new MessageDTO(dto.getUsername()), HttpStatus.BAD_REQUEST);
@@ -66,7 +66,7 @@ public class UserController {
   public ResponseEntity<?> updateStudent(@Valid @RequestBody StudentDTO studentDTO) {
     StudentDTO updated = studentService.updateStudent(studentDTO);
     if (Objects.nonNull(updated)){
-      if (Objects.nonNull(updated.getName())) {
+      if (!updated.getName().equals("")) {
         return new ResponseEntity<>(new MessageDTO(Util.UPDATED_SUCCESS), HttpStatus.OK);
       }else if (Objects.nonNull(updated.getUsername())) {
         return new ResponseEntity<>(new MessageDTO(updated.getUsername()), HttpStatus.BAD_REQUEST);
@@ -80,7 +80,7 @@ public class UserController {
   public ResponseEntity<?> updateLecturer(@Valid @RequestBody LecturerDTO lecturerDTO) {
     LecturerDTO updated = lecturerService.updateLecturerInfo(lecturerDTO);
     if (Objects.nonNull(updated)){
-      if (Objects.nonNull(updated.getName())) {
+      if (!updated.getName().equals("")) {
         return new ResponseEntity<>(new MessageDTO(Util.UPDATED_SUCCESS), HttpStatus.OK);
       }else if (Objects.nonNull(updated.getUsername())) {
         return new ResponseEntity<>(new MessageDTO(updated.getUsername()), HttpStatus.BAD_REQUEST);
