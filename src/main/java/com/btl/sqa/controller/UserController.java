@@ -80,8 +80,13 @@ public class UserController {
   public ResponseEntity<?> updateLecturer(@Valid @RequestBody LecturerDTO lecturerDTO) {
     LecturerDTO updated = lecturerService.updateLecturerInfo(lecturerDTO);
     if (Objects.nonNull(updated)){
-      return new ResponseEntity<>(new MessageDTO(Util.UPDATED_SUCCESS), HttpStatus.OK);
-    }else return new ResponseEntity<>(new MessageDTO(Util.UPDATED_NOT_SUCCESS), HttpStatus.BAD_REQUEST);
+      if (Objects.nonNull(updated.getName())) {
+        return new ResponseEntity<>(new MessageDTO(Util.UPDATED_SUCCESS), HttpStatus.OK);
+      }else if (Objects.nonNull(updated.getUsername())) {
+        return new ResponseEntity<>(new MessageDTO(updated.getUsername()), HttpStatus.BAD_REQUEST);
+      }
+    }
+    return new ResponseEntity<>(new MessageDTO(Util.UPDATED_NOT_SUCCESS), HttpStatus.BAD_REQUEST);
   }
 
   @CrossOrigin(origins = "*")
