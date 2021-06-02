@@ -21,128 +21,138 @@ var AddingEdit = (function () {
             var studentId = $('input[name=idS]').val();
             var falcuty = $('input[name=faculty]').val();
             var classs = $('#lop').val();
-            if (obj.isAdd && obj.stuLec==='stu') {
-                $.ajax({
-                    url: "http://localhost:8080/api/v1/users/create",
-                    type: "post",
-                    data: JSON.stringify({
-                        "name" : name,
-                        "username": account,
-                        "password": password,
-                        "dob": dob,
-                        "phoneNo": phonenum,
-                        "gender": checkbox,
-                        "address": address,
-                        "email": email,
-                        "identifyCard": studentId,
-                        "classId": classs,
-                        "facultyName": falcuty
-                    }),
-                    contentType: 'application/json',
-                    dataType: "json",
-                    // body : data,
-                    success: function(result) {
-                        console.log(result);
-                        alert("Tạo thành công");
-                        window.location.href = '../html/DanhSachSinhVien.html';
-                    },
-                    error: function(error) {
-                        console.log(error);
-                        alert("Tạo thất bại");
+            if (obj.stuLec==='stu') {
+                if (name && account && password && studentId && classs && falcuty) {
+                    if (obj.isAdd && obj.stuLec==='stu') {
+                        $.ajax({
+                            url: "http://localhost:8080/api/v1/users/create",
+                            type: "post",
+                            data: JSON.stringify({
+                                "name" : name,
+                                "username": account,
+                                "password": password,
+                                "dob": dob,
+                                "phoneNo": phonenum,
+                                "gender": checkbox,
+                                "address": address,
+                                "email": email,
+                                "identifyCard": studentId,
+                                "classId": classs,
+                                "facultyName": falcuty
+                            }),
+                            contentType: 'application/json',
+                            dataType: "json",
+                            // body : data,
+                            success: function(result) {
+                                console.log(result);
+                                alert("Tạo thành công");
+                                window.location.href = '../html/DanhSachSinhVien.html';
+                            },
+                            error: function(error) {
+                                console.log(error);
+                                alert("Tạo thất bại");
+                            }
+                        });
+                    } else if (obj.isEdit && obj.stuLec==='stu') {
+                        $.ajax({
+                            url: "http://localhost:8080/api/v1/users/updateStudent",
+                            type: "PUT",
+                            data: JSON.stringify({
+                                "id" : student.id,
+                                "name" : name,
+                                "username": account,
+                                "password": password,
+                                "dob": dob,
+                                "phoneNo": phonenum,
+                                "gender": checkbox,
+                                "address": address,
+                                "email": email,
+                                "identifyCard": studentId,
+                                "classId": classs,
+                                "facultyName": falcuty
+                            }),
+                            contentType: 'application/json',
+                            dataType: "json",
+                            // body : data,
+                            success: function(result) {
+                                alert("Sửa thành công");
+                                window.location.href = '../html/DanhSachSinhVien.html';
+                                console.log(result);
+                            },
+                            error: function(error) {
+                                alert("Sửa thất bại");
+                                console.log(error);
+                            }
+                        });
                     }
-                });
-            } else if (obj.isEdit && obj.stuLec==='stu') {
-                $.ajax({
-                    url: "http://localhost:8080/api/v1/users/updateStudent",
-                    type: "PUT",
-                    data: JSON.stringify({
-                        "id" : student.id,
-                        "name" : name,
-                        "username": account,
-                        "password": password,
-                        "dob": dob,
-                        "phoneNo": phonenum,
-                        "gender": checkbox,
-                        "address": address,
-                        "email": email,
-                        "identifyCard": studentId,
-                        "classId": classs,
-                        "facultyName": falcuty
-                    }),
-                    contentType: 'application/json',
-                    dataType: "json",
-                    // body : data,
-                    success: function(result) {
-                        alert("Sửa thành công");
-                        window.location.href = '../html/DanhSachSinhVien.html';
-                        console.log(result);
-                    },
-                    error: function(error) {
-                        alert("Sửa thất bại");
-                        console.log(error);
-                    }
-                });
-            }
+                } else {
+                    alert("Phải nhập đủ trường");
+                }
+            } else if (obj.stuLec==='lec'){
+                if (name && account && password && falcutyWork) {
+                if (obj.isAdd && obj.stuLec==='lec') {
+                        $.ajax({
+                            url: "http://localhost:8080/api/v1/users/create",
+                            type: "post",
+                            data: JSON.stringify({
+                                "name" : name,
+                                "username": account,
+                                "password": password,
+                                "dob": dob,
+                                "phoneNo": phonenum,
+                                "gender": checkbox,
+                                "address": address,
+                                "email": email,
+                                "facultyName": falcutyWork,
+                            }),
+                            contentType: 'application/json',
+                            dataType: "json",
+                            // body : data,
+                            success: function(result) {
+                                alert("Tạo thành công");
+                                window.location.href = '../html/DanhSachGiangVien.html';
 
-            else if (obj.isAdd && obj.stuLec==='lec') {
-                $.ajax({
-                    url: "http://localhost:8080/api/v1/users/create",
-                    type: "post",
-                    data: JSON.stringify({
-                        "name" : name,
-                        "username": account,
-                        "password": password,
-                        "dob": dob,
-                        "phoneNo": phonenum,
-                        "gender": checkbox,
-                        "address": address,
-                        "email": email,
-                        "facultyName": falcutyWork,
-                    }),
-                    contentType: 'application/json',
-                    dataType: "json",
-                    // body : data,
-                    success: function(result) {
-                        alert("Tạo thành công");
-                        window.location.href = '../html/DanhSachGiangVien.html';
+                            },
+                            error: function(error) {
+                                console.log(error);
+                                alert("Tạo thất bại");
 
-                    },
-                    error: function(error) {
-                        console.log(error);
-                        alert("Tạo thất bại");
-
+                            }
+                        });
                     }
-                });
-            }
-            else if (obj.isEdit && obj.stuLec==='lec') {
-                $.ajax({
-                    url: "http://localhost:8080/api/v1/users/updateLecturer",
-                    type: "PUT",
-                    data: JSON.stringify({
-                        "id" : lecturer.id,
-                        "name" : name,
-                        "username": account,
-                        "password": password,
-                        "dob": dob,
-                        "phoneNo": phonenum,
-                        "gender": checkbox,
-                        "address": address,
-                        "email": email,
-                        "facultyName": falcutyWork,
-                    }),
-                    contentType: 'application/json',
-                    dataType: "json",
-                    // body : data,
-                    success: function(result) {
-                        alert("Sửa thành công");
-                        window.location.href = '../html/DanhSachGiangVien.html';
-                        console.log(result);
-                    },
-                    error: function(error) {
-                        alert("Sửa thất bại");
-                        console.log(error);
+                    else if (obj.isEdit && obj.stuLec==='lec') {
+                        $.ajax({
+                            url: "http://localhost:8080/api/v1/users/updateLecturer",
+                            type: "PUT",
+                            data: JSON.stringify({
+                                "id" : lecturer.id,
+                                "name" : name,
+                                "username": account,
+                                "password": password,
+                                "dob": dob,
+                                "phoneNo": phonenum,
+                                "gender": checkbox,
+                                "address": address,
+                                "email": email,
+                                "facultyName": falcutyWork,
+                            }),
+                            contentType: 'application/json',
+                            dataType: "json",
+                            // body : data,
+                            success: function(result) {
+                                alert("Sửa thành công");
+                                window.location.href = '../html/DanhSachGiangVien.html';
+                                console.log(result);
+                            },
+                            error: function(error) {
+                                alert("Sửa thất bại");
+                                console.log(error);
+                            }
+                        });
                     }
-                });
+                } else {
+                    alert("Phải nhập đủ trường");
+                }
             }
         });
     };
@@ -168,7 +178,7 @@ var AddingEdit = (function () {
                 $('input[name=address]').val(student.address);
                 $('input[name=number]').val(student.phoneNo);
                 $('#'+student.gender).prop("checked", true);
-                $('input[name=idS]').val(student.id);
+                $('input[name=idS]').val(student.identifyCard);
                 $('input[name=faculty]').val(student.facultyName);
                 var classid = JSON.parse(sessionStorage.classroom);
                 var id = 1;
