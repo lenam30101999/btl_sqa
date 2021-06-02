@@ -50,7 +50,7 @@ var AddingEdit = (function () {
                             },
                             error: function(error) {
                                 console.log(error);
-                                alert("Tạo thất bại");
+                                alert(error.responseJSON.message);
                             }
                         });
                     } else if (obj.isEdit && obj.stuLec==='stu') {
@@ -80,7 +80,7 @@ var AddingEdit = (function () {
                                 console.log(result);
                             },
                             error: function(error) {
-                                alert("Sửa thất bại");
+                                alert(error.responseJSON.message);
                                 console.log(error);
                             }
                         });
@@ -115,7 +115,7 @@ var AddingEdit = (function () {
                             },
                             error: function(error) {
                                 console.log(error);
-                                alert("Tạo thất bại");
+                                alert(error.responseJSON.message);
 
                             }
                         });
@@ -145,7 +145,7 @@ var AddingEdit = (function () {
                                 console.log(result);
                             },
                             error: function(error) {
-                                alert("Sửa thất bại");
+                                alert(error.responseJSON.message);
                                 console.log(error);
                             }
                         });

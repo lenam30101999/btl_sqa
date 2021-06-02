@@ -20,17 +20,15 @@ public class TestUserList extends TestDriver {
 
     @Test
     public void resizeStu() {
-        chromeDriver.get("http://localhost:63342/sqa/com/btl/sqa/html/DanhSachSinhVien.html");
-        System.out.println("Test started");
+        chromeDriver.get("http://localhost:63343/sqa/com/btl/sqa/html/DanhSachSinhVien.html");
         Dimension dimension = new Dimension(480, 320);
-        System.out.println("Got dimensions");
         chromeDriver.manage().window().setSize(dimension);
         System.out.println("resizing");
     }
 
     @Test
     public void guiListStudent() {
-        chromeDriver.get("http://localhost:63342/sqa/com/btl/sqa/html/DanhSachSinhVien.html");
+        chromeDriver.get("http://localhost:63343/sqa/com/btl/sqa/html/DanhSachSinhVien.html");
         String title = chromeDriver.getTitle();
         String expected = "Danh sách sinh viên";
         chromeDriver.close();
@@ -39,7 +37,7 @@ public class TestUserList extends TestDriver {
 
     @Test
     public void guiListTableStudent() {
-        chromeDriver.get("http://localhost:63342/sqa/com/btl/sqa/html/DanhSachSinhVien.html");
+        chromeDriver.get("http://localhost:63343/sqa/com/btl/sqa/html/DanhSachSinhVien.html");
             String innerText = chromeDriver.findElement(By.xpath("//table/thead/tr/th[1]"))
             .getText();
     System.out.println(innerText);
@@ -49,7 +47,7 @@ public class TestUserList extends TestDriver {
 
     @Test
     public void guiAddStudent() {
-        chromeDriver.get("http://localhost:63342/sqa/com/btl/sqa/html/DanhSachSinhVien.html");
+        chromeDriver.get("http://localhost:63343/sqa/com/btl/sqa/html/DanhSachSinhVien.html");
         chromeDriver.findElement(By.id("addS")).click();
         String title = chromeDriver.getTitle();
         String expected = "Thêm người dùng";
@@ -59,10 +57,8 @@ public class TestUserList extends TestDriver {
 
     @Test
     public void resizeWindowLec() {
-        chromeDriver.get("http://localhost:63342/sqa/com/btl/sqa/html/DanhSachGiangVien.html");
-        System.out.println("Test started");
+        chromeDriver.get("http://localhost:63343/sqa/com/btl/sqa/html/DanhSachGiangVien.html");
         Dimension dimension = new Dimension(480, 320);
-        System.out.println("Got dimensions");
         chromeDriver.manage().window().setSize(dimension);
         System.out.println("resizing");
     }
@@ -71,7 +67,7 @@ public class TestUserList extends TestDriver {
 
     @Test
     public void guiLecList() {
-        chromeDriver.get("http://localhost:63342/sqa/com/btl/sqa/html/DanhSachGiangVien.html");
+        chromeDriver.get("http://localhost:63343/sqa/com/btl/sqa/html/DanhSachGiangVien.html");
         String title = chromeDriver.getTitle();
         String expected = "Danh sách giảng viên";
         chromeDriver.close();
@@ -80,7 +76,7 @@ public class TestUserList extends TestDriver {
 
     @Test
     public void guiTableLecList() {
-        chromeDriver.get("http://localhost:63342/sqa/com/btl/sqa/html/DanhSachGiangVien.html");
+        chromeDriver.get("http://localhost:63343/sqa/com/btl/sqa/html/DanhSachGiangVien.html");
         String innerText = chromeDriver.findElement(By.xpath("//table/thead/tr/th[1]"))
                 .getText();
         System.out.println(innerText);
@@ -90,7 +86,7 @@ public class TestUserList extends TestDriver {
 
     @Test
     public void guiAddLec() {
-        chromeDriver.get("http://localhost:63342/sqa/com/btl/sqa/html/DanhSachGiangVien.html");
+        chromeDriver.get("http://localhost:63343/sqa/com/btl/sqa/html/DanhSachGiangVien.html");
         chromeDriver.findElement(By.id("addL")).click();
         String title = chromeDriver.getTitle();
         String expected = "Thêm người dùng";

@@ -30,7 +30,7 @@ public class User implements Serializable {
   @Column(name = "Dob")
   private Date dob;
 
-  @Column(name = "phoneNo", unique = true)
+  @Column(name = "phoneNo")
   private String phoneNo;
 
   @Column(name = "role", nullable = false)
