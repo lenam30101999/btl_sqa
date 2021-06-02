@@ -26,7 +26,15 @@ public class StudentService extends BaseService{
    */
   public StudentDTO addStudent(UserDTO studentDTO) {
       try {
-        if (ServiceUtil.formatIdentifyCard(studentDTO.getIdentifyCard())){
+        User existing = checkExisting(studentDTO.getUsername());
+        if (existing != null){
+          StudentDTO dto = new StudentDTO();
+          dto.setUsername(Util.ACCOUNT_EXISTS);
+          dto.setName(null);
+          return dto;
+        }
+        studentDTO = ServiceUtil.checkUsername(studentDTO);
+        if (Objects.nonNull(studentDTO) && ServiceUtil.formatIdentifyCard(studentDTO.getIdentifyCard())){
           studentDTO.setRole("STUDENT");
           User user = saveUser(studentDTO);
           Student student = Student.builder()
@@ -40,7 +48,12 @@ public class StudentService extends BaseService{
 
           studentRepository.save(student);
           return modelMapper.convertStudentDTO(student);
-      };
+      }else {
+          StudentDTO dto = new StudentDTO();
+          dto.setUsername(Util.CHECK_AGAIN);
+          dto.setName(null);
+          return dto;
+        }
     } catch (Exception e) {
       log.debug(e);
     }
@@ -49,7 +62,8 @@ public class StudentService extends BaseService{
 
   public StudentDTO updateStudent(StudentDTO studentDTO){
     try {
-      if (ServiceUtil.formatIdentifyCard(studentDTO.getIdentifyCard())){
+      studentDTO = ServiceUtil.checkUsernameStudent(studentDTO);
+      if (Objects.nonNull(studentDTO) && ServiceUtil.formatIdentifyCard(studentDTO.getIdentifyCard())){
         Student updated = getStudent(studentDTO.getId());
         User user = findUserById(studentDTO.getId());
         if (Objects.nonNull(user) && Objects.nonNull(updated)){
@@ -66,14 +80,12 @@ public class StudentService extends BaseService{
             updated.setFacultyName(studentDTO.getFacultyName());
             updated.setRoom(getClass(studentDTO.getClassId()));
 
-          userRepository.saveAndFlush(user);
-          studentRepository.saveAndFlush(updated);
-          updated = studentRepository.findStudentById(studentDTO.getId());
+          updated = studentRepository.saveAndFlush(updated);
           return modelMapper.convertStudentDTO(updated);
         }
       }else {
         StudentDTO dto = new StudentDTO();
-        dto.setUsername(Util.IDENTIFY_CARD_WRONG_FORMAT);
+        dto.setUsername(Util.CHECK_AGAIN);
         return dto;
       }
     }catch (Exception e) {
@@ -112,6 +124,10 @@ public class StudentService extends BaseService{
 
   private List<StudentDTO> convertToStudentDTOs(List<Student> students){
     return students.stream().map(modelMapper::convertStudentDTO).collect(Collectors.toList());
+  }
+
+  private User checkExisting(String username){
+    return userRepository.findUserByUsernameIgnoreCase(username);
   }
 
   @Transactional

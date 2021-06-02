@@ -46,15 +46,18 @@ public class UserController {
   public ResponseEntity<?> createUser(@Valid @RequestBody UserDTO userDTO) {
     if (userDTO.getIdentifyCard() != null){
       StudentDTO dto = studentService.addStudent(userDTO);
-      if (dto != null){
+      if (dto.getName() != null){
         return new ResponseEntity<>(new MessageDTO(Util.ADD_SUCCESS), HttpStatus.OK);
-    }else {
-        String messageError = Util.IDENTIFY_CARD_WRONG_FORMAT;
-        return new ResponseEntity<>(new MessageDTO(messageError), HttpStatus.BAD_REQUEST);
+      }else {
+        return new ResponseEntity<>(new MessageDTO(dto.getUsername()), HttpStatus.BAD_REQUEST);
       }
     }else {
-      lecturerService.addLecturer(userDTO);
-      return new ResponseEntity<>(new MessageDTO(Util.ADD_SUCCESS), HttpStatus.OK);
+      LecturerDTO dto = lecturerService.addLecturer(userDTO);
+      if (dto.getName() != null){
+        return new ResponseEntity<>(new MessageDTO(Util.ADD_SUCCESS), HttpStatus.OK);
+      }else {
+        return new ResponseEntity<>(new MessageDTO(dto.getUsername()), HttpStatus.BAD_REQUEST);
+      }
     }
   }
 

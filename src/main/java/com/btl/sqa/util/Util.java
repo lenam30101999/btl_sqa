@@ -6,6 +6,8 @@ public class Util {
   public static String FILL_PASSWORD = "Vui lòng điền mật khẩu";
   public static String WRONG_USERNAME_OR_PASSWORD = "Tên hoặc mật khẩu không đúng";
   public static String ACCOUNT_NOT_EXISTS = "Tài khoản không tồn tại";
+  public static String ACCOUNT_EXISTS = "Tài khoản đã tồn tại";
+  public static String CHECK_AGAIN = "Kiểm tra lại thông tin";
   public static String PASSWORD_WRONG = "Sai mật khẩu";
   public static String IDENTIFY_CARD_WRONG_FORMAT = "Định dạng thẻ sinh viên sai";
   public static String UPDATED_SUCCESS = "Thay đổi thành công";
